@@ -27,4 +27,8 @@ class Link extends Model {
             ->where('long_url_hash', $crc32_hash)
             ->where('long_url', $long_url);
     }
+
+    public function fullUrl() {
+        return "http://ink.vu/{$this->creator}/{$this->short_url}";
+    }
 }

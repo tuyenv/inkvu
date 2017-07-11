@@ -52,6 +52,97 @@ class UserController extends Controller {
         }
     }
 
+    public function saveUser(Request $request) {
+        $username = session('username');
+
+        $user = user::where('active', 1)
+             ->where('username', $username)
+             ->first();
+
+        $user->first_name = $request->input("first_name");
+        $user->last_name = $request->input("last_name");
+        $user->email = $request->input("email");
+        $user->keep_notified = $request->input("keep_notified") ? 1 : 0;
+        $user->save();
+
+        return redirect("/{$username}?show=welcome");
+    }
+
+    public function instagram(Request $request) {
+	$client_id = "ffeb6832ce224be08dd1383db13f0bf5";
+	$client_secret = "901a2c3c63d747a88d4a3cdce4e8b146";
+	$redirect_url = "http://ink.vu/instagram";
+
+	if(isset($_GET['error'])) {
+		echo htmlentities($_GET['error_description']);
+		exit;
+	}
+
+	if(isset($_GET['code'])) {
+		$post = array();
+
+		$post["client_id"] = $client_id;
+		$post["client_secret"] = $client_secret;
+		$post["grant_type"] = "authorization_code";
+		$post["redirect_uri"] = $redirect_url;
+		$post["code"] = $_GET['code'];
+
+		$ch = curl_init("https://api.instagram.com/oauth/access_token");
+
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		$response = curl_exec($ch);
+		curl_close($ch);
+
+		$json = json_decode($response);
+
+                $username = $json->user->username;
+
+                $users = User::where('active', 1)
+                    ->where('username', $username);
+
+                if($users->count() == 0) {
+                    $email = "";
+                    $password = CryptoHelper::generateRandomHex(50);
+                    $active = 1;
+                    $api_active = false;
+                    $api_key = null;
+                    if (env('SETTING_AUTO_API')) {
+                        // if automatic API key assignment is on
+                        $api_active = 1;
+                        $api_key = CryptoHelper::generateRandomHex(env('_API_KEY_LENGTH'));
+                    }
+                    $ip = $request->ip();
+
+                    $user = UserFactory::createUser($username, $email, $password, $active, $ip, $api_key, $api_active);
+
+                } else {
+                    $user = $users->first();
+                    $user->instagram_access_token = $json->access_token;
+
+                    $user->bio = $json->user->bio;
+                    $user->website = $json->user->website;
+                    $user->profile_picture_url = $json->user->profile_picture;
+                }
+
+                $user->save();
+
+                $user = user::where('active', 1)
+                    ->where('username', $username)
+                    ->first();
+
+                $role = $user->role;
+                $request->session()->put('username', $username);
+
+		return redirect("/");
+	} else {
+		return redirect("https://api.instagram.com/oauth/authorize/?client_id={$client_id}&redirect_uri=".urlencode($redirect_url)."&response_type=code");
+	}
+    }
+
     public function performSignup(Request $request) {
         if (env('POLR_ALLOW_ACCT_CREATION') == false) {
             return redirect(route('index'))->with('error', 'Sorry, but registration is disabled.');
@@ -187,7 +278,20 @@ class UserController extends Controller {
         else {
             return redirect(route('index'))->with('error', 'Username or reset key incorrect.');
         }
+    }
 
+    public function performProfileLinksUpdate(Request $request) {
+        self::ensureLoggedIn();
+        $username = session('username');
+        $user = UserHelper::getUserByUsername($username);
+
+        $user->facebook_url = $request->input("facebook_url");
+        $user->twitter_url = $request->input("twitter_url");
+        $user->instagram_url = $request->input("instagram_url");
+
+        $user->save();
+
+       return redirect("/{$username}");
     }
 
 }

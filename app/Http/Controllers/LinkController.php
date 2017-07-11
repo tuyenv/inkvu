@@ -20,6 +20,57 @@ class LinkController extends Controller {
         return redirect(route('index'))->with('error', $message);
     }
 
+    public function getLinkInfo(Request $request) {
+
+	$long_url = $request->input("url");
+
+        // get the open graph data {
+        $title = "";
+        $description = "";
+        $image = "";
+
+        libxml_use_internal_errors(true);
+        $c = file_get_contents($long_url);
+        $d = new \DOMDocument();
+        $d->loadHTML($c);
+        $xp = new \DOMXPath($d);
+        // basic fallback
+        foreach ($xp->query("//title") as $el) {
+            $title = $el->textContent;
+        }
+        // fancy preferred, if available
+        foreach ($xp->query("//meta[@property='og:title']") as $el) {
+            $title = $el->getAttribute("content");
+        }
+        foreach ($xp->query("//meta[@property='og:description']") as $el) {
+            $description = $el->getAttribute("content");
+        }
+        foreach ($xp->query("//meta[@property='og:image']") as $el) {
+            $image = $el->getAttribute("content");
+        }
+        // }
+
+	$shell_url = escapeshellarg($long_url);
+
+        $id = md5($long_url);
+        // make the screenshot if there is no other image
+	if(strlen($image) == 0) {
+		if(!file_exists("/var/www/polr/public/screenshots/l$id.png")) {
+			system("/opt/wkhtmltox/bin/wkhtmltoimage --crop-h 853 $shell_url /var/www/polr/public/screenshots/l$id.png");
+			system("convert -resize 300x250 /var/www/polr/public/screenshots/l$id.png /var/www/polr/public/screenshots/$id.png");
+			system("rm /var/www/polr/public/screenshots/l$id.png");
+		}
+
+		$image = "/screenshots/$id.png";
+	}
+
+	return array(
+		"title" => $title,
+		"description" => $description,
+		"image" => $image
+	);
+    }
+
     public function performShorten(Request $request) {
         if (env('SETTING_SHORTEN_PERMISSION') && !self::isLoggedIn()) {
             return redirect(route('index'))->with('error', 'You must be logged in to shorten links.');
@@ -33,18 +84,57 @@ class LinkController extends Controller {
 
         $long_url = $request->input('link-url');
         $custom_ending = $request->input('custom-ending');
+        $offer_code = $request->input('offer_code');
         $is_secret = ($request->input('options') == "s" ? true : false);
         $creator = session('username');
         $link_ip = $request->ip();
 
         try {
-            $short_url = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip, $creator);
+            $link_object = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip, $creator, true);
+	    $short_url = LinkFactory::formatLink($creator, $link_object->short_url, $link_object->secret_key);
         }
         catch (\Exception $e) {
             return self::renderError($e->getMessage());
         }
 
-        return view('shorten_result', ['short_url' => $short_url]);
+        $title = $request->input("title");
+        $description = $request->input("description");
+        $image = $request->input("image");
+
+	$link_object->title = $title;
+	$link_object->description = $description;
+	$link_object->offer_code = $offer_code;
+	$link_object->image = $image;
+	$link_object->save();
+
+	return redirect($short_url);
+
+        return view('shorten_result', [
+            'short_url' => $short_url,
+            'screenshot' => "/screenshots/$id.png",
+            'title' => $title,
+            'description' => $description,
+            'offer_code' => $offer_code,
+            'image' => $image,
+        ]);
+    }
+
+    public function performDeletion(Request $request) {
+        $short_url = $request->input('short_url');
+        $link = Link::where('short_url', $short_url)
+            ->first();
+
+        if ($link == null) {
+        	return abort(404);
+        }
+
+	if ($link->creator != session('username')) {
+		return abort(403);
+	}
+
+	$link->destroy($link->id);
+
+	return redirect("/" . session('username'));
     }
 
     public function performRedirect(Request $request, $short_url, $secret_key=false) {
@@ -99,7 +189,14 @@ class LinkController extends Controller {
             ClickHelper::recordClick($link, $request);
         }
         // Redirect to final destination
-        return redirect()->to($long_url, 301);
+
+	if($request->input("go"))
+	        return redirect()->to($long_url, 301);
+	else {
+		$ctrl = new IndexController();
+		return $ctrl->userProfile($request, $link->creator, $link->short_url);
+
+	}
     }
 
 }

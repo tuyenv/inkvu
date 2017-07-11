@@ -52,8 +52,10 @@ polr.controller('AdminCtrl', function($scope, $compile) {
                     {data: 'creator', name: 'creator'},
 
                     {data: 'disable', name: 'disable', orderable: false, searchable: false},
-                    {data: 'delete', name: 'delete', orderable: false, searchable: false}
-
+                    {data: 'delete', name: 'delete', orderable: false, searchable: false},
+                    {data: 'title', name: 'title'},
+                    {data: 'description', name: 'description'},
+                    {data: 'image', name: 'image'}
                 ]
             }, datatables_config));
         }
@@ -65,7 +67,10 @@ polr.controller('AdminCtrl', function($scope, $compile) {
                 {className: 'wrap-text', data: 'short_url', name: 'short_url'},
                 {className: 'wrap-text', data: 'long_url', name: 'long_url'},
                 {data: 'clicks', name: 'clicks'},
-                {data: 'created_at', name: 'created_at'}
+                {data: 'created_at', name: 'created_at'},
+                {data: 'title', name: 'title'},
+                {data: 'description', name: 'description'},
+                {data: 'image', name: 'image'},
             ]
         }, datatables_config));
     };

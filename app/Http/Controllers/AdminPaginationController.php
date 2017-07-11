@@ -90,7 +90,7 @@ class AdminPaginationController extends Controller {
     public function paginateAdminLinks(Request $request) {
         self::ensureAdmin();
 
-        $admin_links = Link::select(['short_url', 'long_url', 'clicks', 'created_at', 'creator', 'is_disabled']);
+        $admin_links = Link::select(['short_url', 'long_url', 'clicks', 'created_at', 'creator', 'is_disabled', 'title', 'description', 'image']);
         return Datatables::of($admin_links)
             ->addColumn('disable', function ($link) {
                 // Add "Disable/Enable" action buttons
@@ -133,7 +133,7 @@ class AdminPaginationController extends Controller {
 
         $username = session('username');
         $user_links = Link::where('creator', $username)
-            ->select(['short_url', 'long_url', 'clicks', 'created_at']);
+            ->select(['short_url', 'long_url', 'clicks', 'created_at', 'title', 'description', 'image']);
 
         return Datatables::of($user_links)
             ->editColumn('clicks', function ($link) {
@@ -147,6 +147,7 @@ class AdminPaginationController extends Controller {
                 }
             })
             ->editColumn('long_url', '<a target="_blank" title="{{ $long_url }}" href="{{ $long_url }}">{{ str_limit($long_url, 50) }}</a>')
+            ->editColumn('image', '<img src="{{ $image }}" />')
             ->escapeColumns(['short_url'])
             ->make(true);
     }

@@ -10,6 +10,8 @@
 if (env('POLR_ALLOW_ACCT_CREATION')) {
     $app->get('/signup', ['as' => 'signup', 'uses' => 'UserController@displaySignupPage']);
     $app->post('/signup', ['as' => 'psignup', 'uses' => 'UserController@performSignup']);
+
+    $app->get('/instagram', ['as' => 'instagram', 'uses' => 'UserController@instagram']);
 }
 
 /* GET endpoints */
@@ -27,10 +29,13 @@ $app->get('/admin', ['as' => 'admin', 'uses' => 'AdminController@displayAdminPag
 
 $app->get('/setup', ['as' => 'setup', 'uses' => 'SetupController@displaySetupPage']);
 $app->post('/setup', ['as' => 'psetup', 'uses' => 'SetupController@performSetup']);
+$app->post('/save-user', ['uses' => 'UserController@saveUser']);
 $app->get('/setup/finish', ['as' => 'setup_finish', 'uses' => 'SetupController@finishSetup']);
 
-$app->get('/{short_url}', ['uses' => 'LinkController@performRedirect']);
-$app->get('/{short_url}/{secret_key}', ['uses' => 'LinkController@performRedirect']);
+$app->get('/{username}', ['uses' => 'IndexController@userProfile']);
+$app->post('/{username}/update', ['uses' => 'UserController@performProfileLinksUpdate']);
+$app->get('/{username}/{short_url}', ['uses' => 'LinkController@performRedirect']);
+$app->get('/{username}/{short_url}/{secret_key}', ['uses' => 'LinkController@performRedirect']);
 
 $app->get('/admin/stats/{short_url}', ['uses' => 'StatsController@displayStats']);
 
@@ -38,6 +43,8 @@ $app->get('/admin/stats/{short_url}', ['uses' => 'StatsController@displayStats']
 
 $app->post('/login', ['as' => 'plogin', 'uses' => 'UserController@performLogin']);
 $app->post('/shorten', ['as' => 'pshorten', 'uses' => 'LinkController@performShorten']);
+$app->post('/describe', ['as' => 'pdescribe', 'uses' => 'LinkController@getLinkInfo']);
+$app->post('/delete', ['as' => 'pdelete', 'uses' => 'LinkController@performDeletion']);
 $app->post('/lost_password', ['as' => 'plost_password', 'uses' => 'UserController@performSendPasswordResetCode']);
 $app->post('/reset_password/{username}/{recovery_key}', ['as' => 'preset_password', 'uses' => 'UserController@performPasswordReset']);
 

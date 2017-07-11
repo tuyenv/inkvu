@@ -2,6 +2,9 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Helpers\CryptoHelper;
+use App\Models\User;
+use App\Models\Link;
+use App\Helpers\UserHelper;
 
 class IndexController extends Controller {
     /**
@@ -23,6 +26,26 @@ class IndexController extends Controller {
             }
         }
 
-        return view('index', ['large' => true]);
+        $user = UserHelper::getUserByUsername(session('username'));
+
+        if($user && $user->email != '')
+            return $this->userProfile($request, $user->username);
+
+        return view('index', ['username' => session('username'), 'user' => $user]);
+    }
+
+    public function userProfile(Request $request, $username, $shortlink = null) {
+        $user = UserHelper::getUserByUsername($username);
+
+        if (!$user) {
+            return redirect(route('index'))->with('error', 'Invalid or disabled account: '.$username.'.');
+        }
+
+	return view('user_profile', [
+		'isOwner' => session('username') == $username,
+		'user' => $user,
+		'showlink' => $shortlink,
+		'links' => Link::where('creator', $username)->select(['creator', 'short_url', 'long_url', 'clicks', 'created_at', 'title', 'description', 'image', 'offer_code'])->get()
+	]);
     }
 }

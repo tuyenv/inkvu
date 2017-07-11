@@ -9,11 +9,11 @@
 
         <!-- Output sign in/sign out buttons appropriately -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="{{ route('index') }}">{{env('APP_NAME')}}</a>
+            <a class="navbar-brand" href="{{ route('index') }}"><img width="120" src="http://beta.ink.vu/wp-content/uploads/2017/04/inkvu-03.png" alt="Ink.vu" /></a>
         </div>
 
         <ul id="navbar" class="nav navbar-collapse collapse navbar-nav" id="nbc">
-		    <li><a href="{{ route('about') }}">About</a></li>
+		{{-- <li><a href="{{ route('about') }}">About</a></li> --}}
 
             @if (empty(session('username')))
                 <li class="visible-xs"><a href="{{ route('login') }}">Sign In</a></li>
@@ -39,6 +39,11 @@
                     <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
                     <div class="dropdown-menu pull-right login-dropdown-menu" id="dropdown">
                         <h2>Login</h2>
+			<div style="text-align: center; font-size: 120%;">
+				<br />
+				<a href="{{route('instagram')}}">Login with Instagram</a>
+			</div>
+			<div style="text-align: center;">-- OR --</div>
                         <form action="login" method="POST" accept-charset="UTF-8">
                             <input type="text" name="username" placeholder='Username' size="30" class="form-control login-form-field" />
                             <input type="password" name="password" placeholder='Password' size="30" class="form-control login-form-field" />

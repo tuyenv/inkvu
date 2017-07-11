@@ -33,6 +33,11 @@ class AdminController extends Controller {
             'role' => $role,
             'admin_role' => UserHelper::$USER_ROLES['admin'],
             'user_roles' => UserHelper::$USER_ROLES,
+
+            'profile_picture_url' => $user->profile_picture_url,
+            'bio' => $user->bio,
+            'website' => $user->website,
+
             'api_key' => $user->api_key,
             'api_active' => $user->api_active,
             'api_quota' => $user->api_quota,

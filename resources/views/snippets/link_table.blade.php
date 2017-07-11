@@ -11,6 +11,9 @@
             <th>Disable</th>
             <th>Delete</th>
             @endif
+	    <th>Title</th>
+	    <th>Description</th>
+	    <th>Image</th>
         </tr>
     </thead>
 </table>

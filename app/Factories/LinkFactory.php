@@ -9,7 +9,7 @@ use App\Helpers\LinkHelper;
 class LinkFactory {
     const MAXIMUM_LINK_LENGTH = 65535;
 
-    private static function formatLink($link_ending, $secret_ending=false) {
+    public static function formatLink($username, $link_ending, $secret_ending=false) {
         /**
         * Given a link ending and a boolean indicating whether a secret ending is needed,
         * return a link formatted with app protocol, app address, and link ending.
@@ -17,7 +17,7 @@ class LinkFactory {
         * @param boolean $secret_ending
         * @return string
         */
-        $short_url = env('APP_PROTOCOL') . env('APP_ADDRESS') . '/' . $link_ending;
+        $short_url = env('APP_PROTOCOL') . env('APP_ADDRESS') . '/' . $username . '/' . $link_ending;
 
         if ($secret_ending) {
             $short_url .= '/' . $secret_ending;
@@ -59,7 +59,7 @@ class LinkFactory {
             // if link is not specified as secret, is non-custom, and
             // already exists in Polr, lookup the value and return
             $existing_link = LinkHelper::longLinkExists($long_url, $creator);
-            return self::formatLink($existing_link);
+            return self::formatLink($creator, $existing_link);
         }
 
         if (isset($custom_ending) && $custom_ending !== '') {
@@ -112,7 +112,7 @@ class LinkFactory {
 
         $link->save();
 
-        $formatted_link = self::formatLink($link_ending, $secret_key);
+        $formatted_link = self::formatLink($creator, $link_ending, $secret_key);
 
         if ($return_object) {
             return $link;

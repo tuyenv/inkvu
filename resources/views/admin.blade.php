@@ -36,6 +36,12 @@
             </div>
 
             <div role="tabpanel" class="tab-pane" id="settings">
+                <h3>User Profile</h3>
+                    <img style="float: left; margin-right: 1em; margin-bottom: 1em;" src="{{$profile_picture_url}}" alt="" />
+                    Website: <a href="{{$website}}">{{$website}}</a>
+                    <div>{{$bio}}</div>
+                    <br clear="both" />
+
                 <h3>Change Password</h3>
                 <form action='/admin/action/change_password' method='POST'>
                     Old Password: <input class="form-control password-box" type='password' name='current_password' />

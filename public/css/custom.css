@@ -1,0 +1,680 @@
+.form-field ~ .tip {
+	font-size: 80%;
+	margin-top: -20px;
+}
+
+.login-dropdown-menu {
+	min-width: 300px
+}
+
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    width:100%;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.title {
+    padding-top:0px;
+}
+
+#mainprofile {
+    padding-left:50px;
+    padding-right:50px;
+    padding-top:75px;
+    padding-bottom:25px;
+    background-color:#FAFAFA;
+}
+
+.offercode {
+    font-size:18px;
+    padding-bottom: 20px;
+}
+
+h4 {
+    line-height:1.3;
+}
+
+#linkcards {
+    padding-left:50px;
+    padding-right:50px;
+    padding-bottom:50px;
+    background-color:#FAFAFA;
+}
+
+.mb-3 {
+    margin-top:25px;
+    margin-bottom:25px;
+}
+
+.navbar-default {
+    background-color: white;
+    border-color: #3e3f3a;
+}
+
+.wrapper {
+	background-color: white;
+    position: relative;
+	color: white;
+    display:inline-block;
+    margin-top:25px;
+    rgba(0, 0, 0, 0.0588235)
+    margin-bottom:25px;
+	min-height: 100%;
+	width: 100%;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 9px 0px;
+}
+
+
+.icon {
+    display: inline-block;
+    width: 300px; 
+    text-align: center;
+    height: 250px;
+    overflow:hidden;
+}
+
+.modalicon {
+    display: inline-block;
+    width: 250px; 
+    text-align: center;
+    height: 250px;
+    overflow:hidden;
+}
+
+div.icon:hover {
+    cursor: hand;
+    cursor: pointer;
+    opacity: .9;
+}
+
+.linktitle:hover {
+    cursor: hand;
+    cursor: pointer;
+    opacity: .9;
+}
+
+.content {
+	background-color: white;
+    float:right;
+	color: black;
+    display: inline-block;
+	flex: 12 1 auto;
+	padding: 30px;
+    width: 500px;
+    width:calc(100% - 300px);
+}
+
+.pic {
+    object-fit: cover;
+   width: 100%;
+   height:300px;
+}
+
+ul.share-buttons{
+  list-style: none;
+  padding: 0;
+}
+
+ul.share-buttons li{
+  display: inline;
+}
+
+ul.share-buttons .sr-only {
+  position: absolute;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0;
+  border: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+
+#mainprofile > button {
+    display:inline-block;
+    margin-top:20px;
+    float:right;
+}
+
+.card-footer {
+    position: absolute;
+    bottom: 10px;
+    display: inline-block;
+}
+
+.clipboard {
+    display: inline-block;
+    position:absolute;
+    bottom: 0px;
+    right:15px;
+    text-decoration: none;
+}
+
+.offer-code-holder {
+	border: none;
+	background: transparent;
+	width: 6ch;
+}
+
+.linktitle a {
+	color: inherit;
+}
+
+.link-url-holder {
+	position: absolute;
+	bottom: 2em;
+	right: 15px;
+	border: none;
+	background: transparent;
+	width: 28ch;
+	text-align: right;
+}
+
+.clicks {
+    display: inline-block;
+    position:absolute;
+    bottom: 0px;
+    color:darkgray;
+    right:90px;
+}
+
+.stats {
+    float:right;
+    color:black;
+}
+
+.labelmenu {
+    font-size:22px;
+    font-weight: 300;
+    padding-left:50px;
+    padding-right:50px;
+    color:#3e3f3a;
+    display:inline-block;
+}
+
+#settings > h3 {
+    font-size:32px;
+    font-weight:300;
+    color: #222;
+}
+
+.endbuttons {
+    background-color: #FAFAFA;
+}
+
+.editprofile {
+    font-size:22px;
+    padding-left:50px;
+    padding-right:50px;
+    color:black;
+    display:inline-block;
+    float:right;
+}
+
+.jumbotron {
+    margin-bottom:0px;
+    margin-top: 20px;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 9px 0px;
+    background: white;
+    border: 1px solid lightgray;
+    padding:20px;
+    display:block;
+} 
+
+.navbar-default {
+    background-color: white;
+    border-color: gainsboro;
+}
+
+.navbar-default .navbar-brand {
+    color: white;
+}
+
+a  {
+    color:#e95950;
+}
+
+a:hover  {
+    color:#e95950;
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+    color: #75b8eb;
+    background-color: transparent;
+}
+
+.btn-social-icon {
+    font-size:18px;
+}
+
+.btn-twitter {
+    padding:5px;
+}
+
+.btn-facebook {
+    padding:5px;
+}
+
+.btn-instagram {
+    padding:5px;
+}
+
+.btn-social-icon:hover {
+    font-size:18px;
+    color: #e95950;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: black;
+}
+
+.btn-primary {
+    background-color:#e95950;
+    border: 1px solid #e95950;
+}
+
+.btn-primary:hover {
+    background-color:#e95950;
+}
+
+.btn-primary:focus, .btn-primary.focus {
+    background-color:#e95950;
+}
+
+.btn-primary:active:focus {
+    background-color:#e95950;
+}
+
+.btn-secondary {
+    background-color:white;
+    border: 1px solid #3e3f3a;
+}
+
+.btn-secondary:hover {
+    color:#3e3f3a;
+    background-color:white;
+    border: 1px solid #3e3f3a;
+}
+
+@media only screen and (max-width: 1000px) {
+    .wrapper {
+	background-color: white;
+	color: white;
+    margin-top:25px;
+    margin-bottom:25px;
+	min-height: 100%;
+	width: 100%;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 9px 0px;
+}
+    
+.icon {
+    display: inline-block;
+    color: #e95950;
+    float:left;
+    width:100%;
+    padding: 0px;
+    overflow: hidden;
+}
+    
+    .modalicon {
+    display: inline-block;
+    color: #e95950;
+    float:left;
+    width:100%;
+    padding: 0px;
+    overflow: hidden;
+}
+    
+.pic {
+    width:100%;
+}
+    
+.content {
+	background-color: white;
+	color: black;
+    float:right;
+	flex: 12 1 auto;
+	padding: 30px;
+    width:100%;
+}
+    
+.profileinfo {
+    display: block;
+    clear:both;
+    word-wrap:break-word;
+}  
+}
+
+
+body {
+        font-family: "Lato", "Helvetica Neue", sans-serif;
+        color: rgb(41, 42, 42);
+    font-weight: 300;
+}
+
+#myFooter{
+    padding-top:32px;
+}
+
+#myFooter .container{
+    text-align: center;
+}
+
+#myFooter .footer-copyright{
+    margin-bottom: 35px;
+    text-align: center;
+    color: #777;
+}
+
+#myFooter ul{
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 18px;
+}
+
+#myFooter a{
+    color: #282b2d;
+    font-size: 18px;
+}
+
+#myFooter li{
+    display: inline-block;
+    margin: 0px 15px;
+    line-height: 2;
+}
+
+#myFooter .footer-social{
+    text-align: center;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    background-color: #eee;
+}
+
+#myFooter .fa{
+    font-size: 36px;
+    margin-right: 15px;
+    margin-left: 20px;
+    background-color: white;
+    color: #d0d0d0;
+    border-radius: 51%;
+    padding: 10px;
+    height: 60px;
+    width: 60px;
+    text-align: center;
+    line-height: 43px;
+    text-decoration: none;
+    transition:color 0.2s;
+}
+
+#myFooter .fa-facebook:hover{
+   color: #2b55ff;
+}
+
+#myFooter .fa-facebook:focus{
+    color: #2b55ff; 
+}
+
+#myFooter .fa-google-plus:hover{
+    color:red;
+}
+
+#myFooter .fa-google-plus:focus{
+    color:red;
+}
+
+#myFooter .fa-twitter:hover{
+    color: #00aced;
+
+}
+
+#myFooter .fa-twitter:focus{
+    color:#00aced;
+}
+
+
+
+/* CSS used for positioning the footers at the bottom of the page. */
+/* You can remove this. */
+
+html{
+    height: 100%;
+}
+
+body{
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    height: 100%;
+}
+
+.content{
+   flex: 1 0 auto;
+   -webkit-flex: 1 0 auto;
+   min-height: 200px;
+}
+
+#myFooter{
+   flex: 0 0 auto;
+   -webkit-flex: 0 0 auto;
+}
+
+a.divLink {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    text-decoration: none;
+    /* Makes sure the link doesn't get underlined */
+    z-index: 10;
+    /* raises anchor tag above everything else in div */
+    background-color: white;
+    /*workaround to make clickable in IE */
+    opacity: 0;
+    /*workaround to make clickable in IE */
+    filter: alpha(opacity=0);
+    /*workaround to make clickable in IE */
+}
+
+
+.subscribebutton {
+    color:red;
+    display:none;
+    background: none;
+    font-size:10px;
+    border: 1px solid red;
+    padding-left:20px;
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-right:20px;
+    margin-top:-10px;
+}
+
+.copybutton {
+    color:white;
+    background: lightgray;
+    font-size:10px;
+    padding-left:20px;
+    margin-left:5px;
+    padding-right:20px;
+    vertical-align:top;
+}
+
+.copybutton:hover {
+    color:white;
+    background: lightgray;
+    font-size:10px;
+    margin-left:5px;
+    padding-left:20px;
+    padding-right: 20px;
+    vertical-align:top;
+}
+
+.editprofilebutton {
+    color:white;
+    background: #e95950;
+    font-size:10px;
+    border: 1px solid red;
+    padding-left:20px;
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-right:20px;
+    margin-top:-10px;
+}
+
+.subscribebuttonmobile {
+    display:none;
+}
+
+.profileinfo {
+    padding-top:15px;
+    display: block;
+    word-wrap:break-word;
+}
+
+.profilepic {
+    float: left; 
+    display: block;
+    margin-right: 1em; 
+    margin-bottom: 1em;
+    border-radius:50%;
+}
+
+.newlink {
+    padding:10px;
+}
+
+.check-btn {
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+@media only screen and (max-width: 480px) {
+    
+#settings > div > img {
+    margin-top:20px;
+    margin-right: 1em; 
+    margin-bottom: 1em;
+    border-radius:50%;
+}
+    
+    body.modal-open {
+    overflow: hidden;
+    position: fixed;
+}
+    
+.subscribebuttonmobile {
+    display:none;
+    color:red;
+    background: none;
+    font-size:10px;
+    border: 1px solid red;
+    padding-left:20px;
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-right:20px;
+    margin-top: 15px;
+}
+    
+.subscribebutton {
+    display:none;
+}
+    
+#mainprofile {
+    padding-left:25px;
+    padding-right:25px;
+    padding-top:75px;
+    padding-bottom:25px;
+    background-color:#FAFAFA;
+}
+    
+#linkcards {
+    padding-left:25px;
+    padding-right:25px;
+    padding-bottom:50px;
+    background-color:#FAFAFA;
+}
+    
+.labelmenu {
+    font-size:22px;
+    font-weight: 300;
+    padding-left:25px;
+    padding-right:25px;
+    color:#3e3f3a;
+    display:inline-block;
+}
+    
+.editprofile {
+    font-size:22px;
+    padding-left:25px;
+    padding-right:25px;
+    color:black;
+    display:inline-block;
+    float:right;
+}
+}
+
+.or {
+    padding:5px;
+}
+
+i {
+  margin-right: 5px;
+}
+
+.btn-default {
+    border: 1px solid lightgray;
+    background:none;
+    color:dimgray;
+}
+
+.btn-default:hover {
+    border: 1px solid lightgray;
+    background:none;
+    color:dimgray;
+}
+
+.btn-default:active {
+    border: 1px solid lightgray;
+    background:none;
+    color:dimgray;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+      select,
+      textarea,
+      input {
+        font-size: 16px !important;
+      }
+    }
+
+.share-buttons a,
+.share-buttons button,
+.share-buttons div,
+.share-buttons iframe {
+	vertical-align: top !important;
+}
+
+.content-div-padding {
+    padding: 0px;
+}
+
+.btn-delete {
+    background-color:white;
+    border: none;
+}
+
+.btn-delete:hover {
+    background-color:white;
+}
+
+.btn-delete:focus, .btn-delete.focus {
+    background-color:white;
+}

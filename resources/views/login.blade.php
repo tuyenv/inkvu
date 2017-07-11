@@ -7,8 +7,13 @@
 @section('content')
 <div class="center-text">
     <h1>Login</h1><br/><br/>
-    <div class="col-md-3"></div>
-    <div class="col-md-6">
+    <div class="col-md-1"></div>
+    <div class="col-md-4">
+    	<br />
+	<a style="font-size: 200%;" href="{{route('instagram')}}">Login with Instagram</a>
+    </div>
+    <div class="col-md-2"><br /><br />OR</div>
+    <div class="col-md-4">
         <form action="login" method="POST">
             <input type="text" placeholder="username" name="username" class="form-control login-field" />
             <input type="password" placeholder="password" name="password" class="form-control login-field" />
@@ -26,6 +31,6 @@
             </p>
         </form>
     </div>
-    <div class="col-md-3"></div>
+    <div class="col-md-1"></div>
 </div
 @endsection
