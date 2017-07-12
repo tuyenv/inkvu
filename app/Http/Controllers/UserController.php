@@ -69,8 +69,8 @@ class UserController extends Controller {
     }
 
     public function instagram(Request $request) {
-	$client_id = "ffeb6832ce224be08dd1383db13f0bf5";
-	$client_secret = "901a2c3c63d747a88d4a3cdce4e8b146";
+	$client_id = env("INSTAGRAM_ID");
+	$client_secret = env("INSTAGRAM_SECRET");
 	$redirect_url = "http://ink.vu/instagram";
 
 	if(isset($_GET['error'])) {
