@@ -34,3 +34,12 @@ var clipboard = new Clipboard('.btn-copy', {
         return trigger.getAttribute('data-full-url');
     }
 });
+
+// Prevent shorten submit
+$('#form-shorten').on('keyup keypress', function(e) {
+    var keyCode = e.keyCode || e.which;
+    if (keyCode === 13) {
+        e.preventDefault();
+        return false;
+    }
+});

@@ -15,7 +15,7 @@
       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">What would you like to share?</h4>
       </div>
-        <form method='POST' action='/shorten' role='form'>
+        <form method='POST' action='/shorten' role='form' id='form-shorten'>
       <div class="modal-body">
           <input name="link-url" onchange="refreshLinkInfo(this.value);" type='url' autocomplete='off' class='form-control long-link-input' placeholder='http://example.com' name='link-url' />
           <div ng-cloak>
