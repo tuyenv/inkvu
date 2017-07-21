@@ -27,3 +27,10 @@ console.log('%cDocs: https://docs.polr.me', 'color:blue');
 
 // Set up Angular module
 var polr = angular.module('polr',[]);
+
+// Set up clipboard
+var clipboard = new Clipboard('.btn-copy', {
+    text: function(trigger) {
+        return trigger.getAttribute('data-full-url');
+    }
+});

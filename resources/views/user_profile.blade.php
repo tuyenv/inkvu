@@ -243,18 +243,8 @@
 			<g:plus action="share" href="{{$link->fullUrl()}}"></g:plus>
 		</div>
 	</div>
-	<input class="link-url-holder" type="url" value="{{$link->fullUrl()}}" readonly />
-        <a href="{{$link->fullUrl()}}" onclick="
-		try {
-			this.previousElementSibling.select();
-			if(!document.execCommand('copy'))
-				console.log('copy failed');
-		} catch(e) {
-			console.log(e);
-		}
-		return false;
-	"><p class="clipboard">Copy Link</p></a>
-        <p class="clicks">{{$link->clicks}} Clicks</p>
+    <a data-clipboard-target="#target-url-{{$link->id}}" id="target-url-{{$link->id}}" data-full-url="{{$link->fullUrl()}}" class="btn-copy" href="javascript:void(0);"><p class="clipboard">Copy Link</p></a>
+    <p class="clicks">{{$link->clicks}} Clicks</p>
         
 	</div>
         </div>
@@ -323,7 +313,15 @@
 			var e = document.getElementById("link-" + shortlink);
 			var w = document.querySelector("#modalRegister .wrapper");
 			w.innerHTML = e.innerHTML;
-			$("#modalRegister").modal('show');
+            $("#modalRegister").modal('show');
+
+            new Clipboard('.btn-copy', {
+                container: document.getElementById('modalRegister'),
+                text: function(trigger) {
+                    return trigger.getAttribute('data-full-url');
+                }
+            });
+
 			return false;
 		}
 
