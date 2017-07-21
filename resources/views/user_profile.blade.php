@@ -244,7 +244,7 @@
 		</div>
 	</div>
     <a data-clipboard-target="#target-url-{{$link->id}}" id="target-url-{{$link->id}}" data-full-url="{{$link->fullUrl()}}" class="btn-copy" href="javascript:void(0);"><p class="clipboard">Copy Link</p></a>
-    <p class="clicks">{{$link->clicks}} Clicks</p>
+    @if ($isOwner)<p class="clicks">{{$link->clicks}} Clicks</p>@endif
         
 	</div>
         </div>
