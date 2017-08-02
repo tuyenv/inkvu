@@ -107,6 +107,7 @@ class LinkController extends Controller {
 	$link_object->image = $image;
 	$link_object->save();
 
+        $short_url .= '?n=1';
 	return redirect($short_url);
 
         return view('shorten_result', [

@@ -49,3 +49,5 @@ $('#form-shorten').on('keyup keypress', function(e) {
         return false;
     }
 });
+
+setTimeout(function(){ $(".alert").alert('close'); }, 5000);

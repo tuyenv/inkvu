@@ -45,6 +45,7 @@ class IndexController extends Controller {
 		'isOwner' => session('username') == $username,
 		'user' => $user,
 		'showlink' => $shortlink,
+        'isNewPost' => $request->input('n', 0),
 		'links' => Link::where('creator', $username)->select(['id', 'creator', 'short_url', 'long_url', 'clicks', 'created_at', 'title', 'description', 'image', 'offer_code'])->orderBy('id', 'DESC')->get()
 	]);
     }
