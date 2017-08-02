@@ -243,8 +243,9 @@
 			<g:plus action="share" href="{{$link->fullUrl()}}"></g:plus>
 		</div>
 	</div>
-    <a data-clipboard-target="#target-url-{{$link->id}}" id="target-url-{{$link->id}}" data-full-url="{{$link->fullUrl()}}" class="btn-copy" href="javascript:void(0);"><p class="clipboard">Copy Link</p></a>
+    <a data-link-id="{{$link->id}}" data-clipboard-target="#target-url-{{$link->id}}" id="target-url-{{$link->id}}" data-full-url="{{$link->fullUrl()}}" class="btn-copy" href="javascript:void(0);"><p class="clipboard">Copy Link</p></a>
     @if ($isOwner)<p class="clicks">{{$link->clicks}} Clicks</p>@endif
+    <p class="copied copytext-{{$link->id}}" style="display: none">copied</p>
         
 	</div>
         </div>
@@ -315,11 +316,17 @@
 			w.innerHTML = e.innerHTML;
             $("#modalRegister").modal('show');
 
-            new Clipboard('.btn-copy', {
+            pop_clipboard = new Clipboard('.btn-copy', {
                 container: document.getElementById('modalRegister'),
                 text: function(trigger) {
                     return trigger.getAttribute('data-full-url');
                 }
+            });
+
+            pop_clipboard.on('success', function(e) {
+                var linkId = e.trigger.getAttribute('data-link-id');
+                $(".copied").hide();
+                $(".copytext-"+linkId).show();
             });
 
 			return false;

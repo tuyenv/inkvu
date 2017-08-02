@@ -678,3 +678,11 @@ i {
 .btn-delete:focus, .btn-delete.focus {
     background-color:white;
 }
+
+.copied {
+    display: inline-block;
+    position: absolute;
+    bottom: 20px;
+    color: darkgray;
+    right: 15px;
+}

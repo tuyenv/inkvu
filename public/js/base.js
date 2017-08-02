@@ -35,6 +35,12 @@ var clipboard = new Clipboard('.btn-copy', {
     }
 });
 
+clipboard.on('success', function(e) {
+    var linkId = e.trigger.getAttribute('data-link-id');
+    $(".copied").hide();
+    $(".copytext-"+linkId).show();
+});
+
 // Prevent shorten submit
 $('#form-shorten').on('keyup keypress', function(e) {
     var keyCode = e.keyCode || e.which;
