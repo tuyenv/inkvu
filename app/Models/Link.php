@@ -29,6 +29,6 @@ class Link extends Model {
     }
 
     public function fullUrl() {
-        return "http://ink.vu/{$this->creator}/{$this->short_url}";
+        return env('APP_PROTOCOL').env('APP_ADDRESS')."/{$this->creator}/{$this->short_url}";
     }
 }
