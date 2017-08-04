@@ -46,6 +46,7 @@ class IndexController extends Controller {
 		'user' => $user,
 		'showlink' => $shortlink,
         'isNewPost' => $request->input('n', 0),
+        'no_div_padding' => true,
 		'links' => Link::where('creator', $username)->select(['id', 'creator', 'short_url', 'long_url', 'clicks', 'created_at', 'title', 'description', 'image', 'offer_code'])->orderBy('id', 'DESC')->get()
 	]);
     }

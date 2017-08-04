@@ -552,10 +552,6 @@ a.divLink {
     margin-top: 20px;
 }
 
-.modal-header {
-    border-bottom: none;
-}
-
 @media only screen and (max-width: 480px) {
     
 #settings > div > img {
@@ -685,4 +681,946 @@ i {
     bottom: 20px;
     color: darkgray;
     right: 15px;
+}
+
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    width:100%;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.title {
+    padding-top:0px;
+}
+
+#mainprofile {
+    padding-left:50px;
+    padding-right:50px;
+    padding-top:75px;
+    padding-bottom:25px;
+    background-color: #fafafa;
+    border-bottom:1px solid #edeeee;
+}
+
+.offercode {
+    font-size:18px;
+    padding-bottom: 20px;
+}
+
+h4 {
+    line-height:1.3;
+}
+
+#linkcards {
+    padding-left:50px;
+    padding-right:50px;
+    padding-bottom:50px;
+    background-color: #fafafa;
+}
+
+.mb-3 {
+    margin-top:25px;
+    margin-bottom:25px;
+}
+
+.navbar-default {
+    background-color: white;
+    border-color: #3e3f3a;
+}
+
+.wrapper {
+    background-color: white;
+    position: relative;
+    border-color:#e5e6e9 #dfe0e4 #d0d1d5;
+    border-radius:3px;
+    color: white;
+    display:inline-block;
+    margin-top:25px;
+rgba(0, 0, 0, 0.0588235)
+margin-bottom:25px;
+    min-height: 100%;
+    width: 100%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+
+.icon {
+    display: inline-block;
+    width: 300px;
+    text-align: center;
+    height: 250px;
+    overflow:hidden;
+}
+
+.modalicon {
+    display: inline-block;
+    width: 250px;
+    text-align: center;
+    height: 250px;
+    overflow:hidden;
+}
+
+div.icon:hover {
+    cursor: hand;
+    cursor: pointer;
+    opacity: .9;
+}
+
+.linktitle:hover {
+    cursor: hand;
+    cursor: pointer;
+    opacity: .9;
+}
+
+.content {
+    background-color: white;
+    float:right;
+    color: black;
+    display: inline-block;
+    flex: 12 1 auto;
+    padding: 30px;
+    width:66%;
+}
+
+.pic {
+    object-fit: cover;
+    width: 100%;
+    height:300px;
+}
+
+ul.share-buttons{
+    list-style: none;
+    padding: 0;
+}
+
+ul.share-buttons li{
+    display: inline;
+}
+
+ul.share-buttons .sr-only {
+    position: absolute;
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+#mainprofile > button {
+    display:inline-block;
+    margin-top:20px;
+    float:right;
+}
+
+.card-footer {
+    position: absolute;
+    bottom: 10px;
+    display: inline-block;
+}
+
+.clipboard {
+    display: inline-block;
+    position:absolute;
+    bottom: 0px;
+    right:15px;
+    text-decoration: none;
+}
+
+.clicks {
+    display: inline-block;
+    position:absolute;
+    bottom: 0px;
+    color:darkgray;
+    right:90px;
+}
+
+.stats {
+    float:right;
+    color:black;
+}
+
+.labelmenu {
+    font-size:22px;
+    font-weight: 300;
+    padding-left:50px;
+    padding-right:50px;
+    color:#3e3f3a;
+    display:inline-block;
+}
+
+#settings > h3 {
+    font-size:32px;
+    font-weight:300;
+    color: #222;
+}
+
+.endbuttons {
+    background-color: #fafafa;
+    padding-top:30px;
+}
+
+.editprofile {
+    font-size:22px;
+    padding-left:50px;
+    padding-right:50px;
+    color:black;
+    display:inline-block;
+    float:right;
+}
+
+.jumbotron {
+    margin-bottom:0px;
+    margin-top: 20px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 9px 0px;
+    background: white;
+    border: 1px solid lightgray;
+    padding:20px;
+    display:block;
+}
+
+.navbar-default {
+    background-color: white;
+    border-bottom:1px solid #edeeee;
+}
+
+.navbar-default .navbar-brand {
+    color: white;
+}
+
+a  {
+    color:#e95950;
+}
+
+a:hover  {
+    color:#e95950;
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+    color: #75b8eb;
+    background-color: transparent;
+}
+
+.btn-social-icon {
+    font-size:18px;
+}
+
+.btn-twitter {
+    padding:5px;
+}
+
+.btn-facebook {
+    padding:5px;
+}
+
+.btn-instagram {
+    padding:5px;
+}
+
+.btn-social-icon:hover {
+    font-size:18px;
+    color: #e95950;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: black;
+    text-transform:none;
+    font-weight:300;
+    font-size:14px;
+}
+
+.btn-primary {
+    background-color:#e95950;
+    border: 1px solid #e95950;
+    font-size:13px;
+    border-radius: 2px;
+    font-weight:500;
+    text-transform:none;
+}
+
+button:focus { outline:0 !important; }
+a:focus { outline:0 !important; }
+
+.btn-onboard {
+    background-color:#75b8eb;
+    border: 1px solid #75b8eb;
+    border-radius:2px;
+    color:white;
+    line-height:15px;
+    white-space: normal !important;
+    word-wrap: break-word;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 300;
+    text-transform: none;
+
+
+}
+
+.btn-analyze {
+    border: 1px solid lightgray;
+    background:#393a35;
+    color:white;
+    line-height:12px;
+    border-radius:2px;
+}
+
+.btn-upload {
+    border: 1px solid lightgray;
+    background:none;
+    color:#393a35;
+    line-height:12px;
+    border-radius:2px;
+}
+
+.btn-upload:hover {
+    border: 1px solid lightgray;
+    background:none;
+    color:#393a35;
+    line-height:12px;
+    border-radius:2px;
+}
+
+.btn-upload:focus {
+    border: 1px solid lightgray;
+    background:none;
+    color:#393a35;
+    line-height:12px;
+    border-radius:2px;
+}
+
+.btn-onboard:hover {
+    background-color:#75b8eb;
+    border: 1px solid #75b8eb;
+    border-radius:2px;
+    color:white;
+    white-space: normal !important;
+    word-wrap: break-word;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 300;
+    text-transform: none;
+
+}
+
+.btn-onboard:focus {
+    background-color:#75b8eb;
+    border: 1px solid #75b8eb;
+    color:white;
+    white-space: normal !important;
+    border-radius:2px;
+    word-wrap: break-word;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 300;
+    text-transform: none;
+}
+
+.btn-primary:hover {
+    background-color:#e95950;
+}
+
+.btn-primary:focus, .btn-primary.focus {
+    background-color:#e95950;
+}
+
+.btn-primary:active:focus {
+    background-color:#e95950;
+}
+
+.btn-secondary {
+    background-color:white;
+    color:#757575;
+    border: 1px solid #757575;
+    border-radius:2px;
+}
+
+.btn-secondary:hover {
+    color:#757575;
+    background-color:white;
+    border: 1px solid #757575;
+}
+
+.btn-secondary:focus {
+    color:#757575;
+    background-color:white;
+    border: 1px solid #757575;
+}
+
+@media only screen and (max-width: 1000px) {
+    .wrapper {
+        background-color: white;
+        color: white;
+        margin-top:25px;
+        margin-bottom:25px;
+        min-height: 100%;
+        width: 100%;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 9px 0px;
+    }
+
+    .icon {
+        display: inline-block;
+        color: #e95950;
+        float:left;
+        width:100%;
+        padding: 0px;
+        overflow: hidden;
+    }
+
+    .modalicon {
+        display: inline-block;
+        color: #e95950;
+        float:left;
+        width:100%;
+        padding: 0px;
+        overflow: hidden;
+    }
+
+    .pic {
+        width:100%;
+    }
+
+    .content {
+        background-color: white;
+        color: black;
+        float:right;
+        flex: 12 1 auto;
+        padding: 30px;
+        width:100%;
+    }
+
+    .profileinfo {
+        display: block;
+        clear:both;
+        word-wrap:break-word;
+    }
+}
+
+
+body {
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: rgb(41, 42, 42);
+    font-weight: 300;
+}
+
+#myFooter{
+    padding-top:32px;
+    background-color: #fafafa
+}
+
+#myFooter .container{
+    text-align: center;
+}
+
+#myFooter .footer-copyright{
+    margin-bottom: 35px;
+    text-align: center;
+    color: #777;
+}
+
+#myFooter ul{
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 18px;
+}
+
+#myFooter a{
+    color: #282b2d;
+    font-size: 18px;
+}
+
+#myFooter li{
+    display: inline-block;
+    margin: 0px 15px;
+    line-height: 2;
+}
+
+#myFooter .footer-social{
+    text-align: center;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    background-color: #fafafa;
+}
+
+#myFooter .fa{
+    font-size: 36px;
+    margin-right: 15px;
+    margin-left: 20px;
+    background-color: white;
+    color: #d0d0d0;
+    border-radius: 51%;
+    padding: 10px;
+    height: 60px;
+    width: 60px;
+    text-align: center;
+    line-height: 43px;
+    text-decoration: none;
+    transition:color 0.2s;
+}
+
+#myFooter .fa-facebook:hover{
+    color: #2b55ff;
+}
+
+#myFooter .fa-facebook:focus{
+    color: #2b55ff;
+}
+
+#myFooter .fa-google-plus:hover{
+    color:red;
+}
+
+#myFooter .fa-google-plus:focus{
+    color:red;
+}
+
+#myFooter .fa-twitter:hover{
+    color: #00aced;
+
+}
+
+#myFooter .fa-twitter:focus{
+    color:#00aced;
+}
+
+
+
+/* CSS used for positioning the footers at the bottom of the page. */
+/* You can remove this. */
+
+html{
+    height: 100%;
+}
+
+body{
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    height: 100%;
+}
+
+.content{
+    flex: 1 0 auto;
+    -webkit-flex: 1 0 auto;
+    min-height: 200px;
+}
+
+#myFooter{
+    flex: 0 0 auto;
+    -webkit-flex: 0 0 auto;
+}
+
+a.divLink {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    text-decoration: none;
+    /* Makes sure the link doesn't get underlined */
+    z-index: 10;
+    /* raises anchor tag above everything else in div */
+    background-color: white;
+    /*workaround to make clickable in IE */
+    opacity: 0;
+    /*workaround to make clickable in IE */
+    filter: alpha(opacity=0);
+    /*workaround to make clickable in IE */
+}
+
+
+.subscribebutton {
+    color:white;
+    background: #0c7cd5;
+    font-size:13px;
+    border: 1px solid #0c7cd5;
+    font-weight:500;
+    padding-left:25px;
+    border-radius:2px;
+    padding-top:8px;
+    padding-bottom:8px;
+    padding-right:25px;
+    margin-top:-10px;
+}
+
+.subscribebutton:hover {
+    color:white;
+    background: #0c7cd5;
+    font-size:13px;
+    border: 1px solid #0c7cd5;
+    font-weight:500;
+    padding-left:25px;
+    border-radius:2px;
+    padding-top:8px;
+    padding-bottom:8px;
+    padding-right:25px;
+    margin-top:-10px;
+}
+
+.subscribeoptions {
+    padding:20px;
+}
+
+.editprofilebutton {
+    color:white;
+    background: #e95950;
+    font-size:10px;
+    border: 1px solid #e95950;
+    padding-left:20px;
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-right:20px;
+    margin-top:-10px;
+}
+
+.subscribebuttonmobile {
+    display:none;
+}
+
+.profileinfo {
+    padding-top:15px;
+    display: block;
+    word-wrap:break-word;
+}
+
+.profilepic {
+    float: left;
+    display: block;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    border-radius:50%;
+}
+
+.newlink {
+    color:white;
+    background: lightslategray;
+    font-size:13px;
+    border-radius:50px;
+    border: 1px solid lightslategray;
+    padding-left:25px;
+    padding-top:8px;
+    padding-bottom:8px;
+    padding-right:25px;
+    margin-top:-10px;
+    width: 70px;
+    height: 70px;
+    text-align: center;
+    padding: 6px 0;
+    line-height: 1.42;
+    border-radius: 35px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+}
+
+.check-btn {
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+@media only screen and (max-width: 480px) {
+
+    #settings > div > img {
+        margin-top:20px;
+        margin-right: 1em;
+        margin-bottom: 1em;
+        border-radius:50%;
+    }
+
+    body.modal-open {
+        overflow: hidden;
+        position: fixed;
+    }
+
+    .subscribebuttonmobile {
+        display:none;
+        color:red;
+        background: none;
+        font-size:10px;
+        border: 1px solid red;
+        padding-left:20px;
+        padding-top:5px;
+        padding-bottom:5px;
+        padding-right:20px;
+        margin-top: 15px;
+    }
+
+    .subscribebutton {
+        display:none;
+    }
+
+    #mainprofile {
+        padding-left:25px;
+        padding-right:25px;
+        padding-top:75px;
+        padding-bottom:25px;
+        background-color:#fafafa;
+        border-bottom:1px solid #edeeee;
+    }
+
+    #linkcards {
+        padding-left:25px;
+        padding-right:25px;
+        padding-bottom:50px;
+        background-color: white;
+    }
+
+    .labelmenu {
+        font-size:22px;
+        font-weight: 300;
+        padding-left:25px;
+        padding-right:25px;
+        color:#3e3f3a;
+        display:inline-block;
+    }
+
+    .editprofile {
+        font-size:35px;
+        padding-left:25px;
+        padding-right:25px;
+        color:black;
+        display:inline-block;
+        float:right;
+    }
+}
+
+.or {
+    padding:5px;
+}
+
+i {
+    margin-right: 0px;
+}
+
+.btn-default {
+    border: 1px solid lightgray;
+    background:none;
+    color:dimgray;
+    border-radius:2px;
+}
+
+.btn-default:hover {
+    border: 1px solid lightgray;
+    background:none;
+    color:dimgray;
+}
+
+.btn-default:active {
+    border: 1px solid lightgray;
+    background:none;
+    color:dimgray;
+}
+
+.btn .btn-default:focus {
+    border: 1px solid lightgray;
+    background:none;
+    color:dimgray;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    select,
+    textarea,
+    input {
+        font-size: 16px !important;
+    }
+}
+
+
+.form-control {
+    height:48px;
+}
+
+.tooltipLink {
+    color:black;
+}
+
+.tooltipLink:hover {
+    color:black;
+}
+
+.optionslabel {
+    line-height: 50px;
+    display: inline-block;
+    vertical-align: bottom;
+    margin-left: 10px;
+    font-size:18px;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #e95950;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.label-success {
+    background:#e95950;
+}
+
+.well {
+    background-color:white;
+    margin-bottom:0px;
+}
+
+.modal-backdrop
+{
+    opacity:0.8 !important;
+}
+
+.js-title-step {
+    text-align:center;
+}
+
+.modal-content {
+    padding:25px;
+    border-radius:2px;
+}
+
+.tutorial-text {
+    padding-top:60px;
+}
+
+.label-success {
+    background: #e95950;
+    display: none;
+}
+
+.panel {
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border: 1px solid lightgray;
+    padding: 40px;
+    margin: 5px;
+    margin-bottom:30px;
+    border-radius: 0px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+}
+
+.col-sm-6 {
+    width:48%;
+}
+
+.panel:hover {
+    margin-bottom: 20px;
+    color:white;
+    background-color: #e95950;
+    border: 1px solid transparent;
+    padding: 40px;
+    margin: 5px;
+    border-radius: 0px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+}
+
+.panel-body {
+    text-align:center;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.media-object {
+    display: block;
+    width: 175px;
+    padding-top:35px;
+}
+
+.videowrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    padding-top: 0px;
+    height: 0;
+}
+
+.videowrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 0px;
+    font-size:12px;
+    font-weight: bold;
+}
+
+.permalink {
+    font-size:14px;
+    color:lightgray;
+}
+
+.form-control {
+    height:38px;
+    font-size: 14px !important;
+}
+
+.media-body {
+    padding:15px;
+}
+
+.divider {
+    height: 1px;
+    width:100%;
+    display:block; /* for use on default inline elements like span */
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
 }

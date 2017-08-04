@@ -5,67 +5,63 @@
 <div id="mainprofile">
 
 	@if ($isOwner)
-	<button class="btn btn-primary newlink" type="button" data-toggle="modal" data-target="#newlinkmodal">+ New Post
-  </button>
+    <button class="btn newlink" type="button" data-toggle="modal" data-target="#newlinkmodal"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></button>
 	@endif
 <!-- New Post Modal -->
-<div class="modal fade" id="newlinkmodal" tabindex="-1" role="dialog" aria-labelledby="newlinkmodal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">What would you like to share?</h4>
-      </div>
-        <form method='POST' action='/shorten' role='form' id='form-shorten'>
-      <div class="modal-body">
-          <input name="link-url" onchange="refreshLinkInfo(this.value);" type='url' autocomplete='off' class='form-control long-link-input' placeholder='http://example.com' name='link-url' />
-          <div ng-cloak>
-            <p>Customize link</p>
-            <div>
-              <div class='custom-link-text'>
-                <h4 class='site-url-field'>ink.vu/{{session('username')}}/</h4>
-                <input name="custom-ending" type='text' autocomplete="off" class='form-control custom-url-field' name='custom-ending' />
-              </div>
-              <a onclick="checkAvailability(this.value); return false;" href='#' class='btn btn-success btn-xs check-btn' id='check-link-availability'>Check Availability</a>
+        <div class="modal fade" id="newlinkmodal" tabindex="-1" role="dialog" aria-labelledby="newlinkmodal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Post link</h4>
+                    </div>
+                    <form method='POST' action='/shorten' role='form' id='form-shorten'>
+                        <div class="modal-body">
+                            <div class="input-group">
+                                <input name="link-url" onchange="refreshLinkInfo(this.value);" type='url' autocomplete='off' class="form-control" placeholder='http://example.com' name='link-url'>
+                               <span class="input-group-btn">
+                                    <button class="btn btn-analyze" type="button">Analyze</button>
+                               </span>
+                            </div>
+                            <div class="well">
+                                <div class="mediadiv">
+                                    <div class="media">
+                                        <div class="media-left text-center">
+                                            <a href="#">
+                                                <img alt="postimage" class="media-object" id="link_image_img" src="http://ericatoelle.com/wp-content/uploads/2012/02/150x150.gif">
+                                            </a>
+                                            <input type="hidden" id="link_image" name="image">
+                                            <br>
+                                            <button class="btn btn-upload" type="button"><i class="fa fa-upload" aria-hidden="true"></i>Upload Image</button>
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="form-group">
+                                                <label for="link_title">Title</label>
+                                                <input name="title" type="text" class="form-control" id="link_title" placeholder="Name your link...">
+                                            </div>
+                                            <div class="permalink"><p>http://ink.vu/username/customURL</p></div>
+                                            <div class="form-group">
+                                                <label for="offer_code">Offer Code (Optional)</label>
+                                                <input id="offer_code" name="offer_code" type="text" class="form-control" placeholder="Create a unique code">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="link_description">Description:</label>
+                                                <textarea name="description" class="form-control" rows="2" id="link_description"></textarea>
+                                            </div>
+                                            <input type="hidden" name='_token' value='{{csrf_token()}}' />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Publish</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <p>Image Preview</p>
-            <div class="button-box col-lg-12">
-              <img id="link_image_img" style="width: 150px; height: 150px;" src="http://ericatoelle.com/wp-content/uploads/2012/02/150x150.gif" alt="..." class="img-thumbnail">
-              <!--
-              <span class="or">Or</span>
-              <a href="#" class="btn btn-default">
-              <span class="" style="font-size:13px;">Quick Grab</span><br>
-              <i class="fa fa-facebook" aria-hidden="true"></i>
-              <i class="fa fa-instagram" aria-hidden="true"></i>
-              <i class="fa fa-google" aria-hidden="true"></i>
-              <i class="fa fa-upload" aria-hidden="true"></i>
-              </a>       
-              -->
-            </div>
-            <input type="hidden" id="link_image" name="image">
-            <br>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Link Title</label>
-              <input name="title" type="text" class="form-control" id="link_title" placeholder="Name your link...">
-            </div>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Offer Code (Optional)</label>
-              <input name="offer_code" type="text" class="form-control" placeholder="Create a unique code">
-            </div>
-            <div class="form-group">
-              <label for="comment">Description:</label>
-              <textarea name="description" class="form-control" rows="2" id="link_description"></textarea>
-            </div>
-            <input type="hidden" name='_token' value='{{csrf_token()}}' />
-	  </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Publish</button>
-      </div>
-        </form>
-    </div>
-  </div>
-</div>
+        </div>
             <!-- End New Post Modal -->
 
 	<div role="tabpanel" class="tab-pane" id="settings">
@@ -159,7 +155,7 @@
 		<div class="editprofile">
 
 			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary editprofilebutton" data-toggle="modal" data-target="#myModal">
+			<button type="button" class="btn btn-default editprofilebutton" data-toggle="modal" data-target="#myModal">
   Edit Profile
 </button>
 
@@ -212,69 +208,108 @@
         </div>
         @endif
         @foreach($links as $link)
-                <div class="wrapper" id="link-{{$link->short_url}}">   
-	<div class="icon">
-		<a href="{{$link->long_url}}" onclick="return showModalPostViaLink({{json_encode($link->short_url)}});"><img class="pic" src="{{$link->image}}" /></a>
-	</div>
-	<div class="content">
-	@if ($isOwner)
-	<div class="dropdown" style="float:right;">
-		<button class="btn-delete dropdown-toggle" style="background:none;" type="button" data-toggle="dropdown">
-		<span class="caret"></span></button>
-		<ul class="dropdown-menu pull-right">
-			<li><a href="#" data-href="#" data-toggle="modal" data-target="#confirm-delete" onclick="
-				document.getElementById('delete-id-element').value = {{json_encode($link->short_url)}};
-			">Delete</a></li>
-		</ul>
-	</div>
-	@endif
-        <h6>{{$link->created_at}}</h6>
-		<h4 class="linktitle"><a href="{{$link->long_url}}" onclick="return showModalPostViaLink({{json_encode($link->short_url)}});">{{$link->title}}</a></h4>
-		<p>{{$link->description}}</p>
-	@if ($link->offer_code)
-        <p class="offercode"><strong>Offer Code:</strong> <input readonly type="text" class="offer-code-holder" value="{{$link->offer_code}}" /> <button class="btn copybutton btn-xs" type="button" onclick="
-		try {
-			this.previousElementSibling.select();
-			if(!document.execCommand('copy'))
-				console.log('copy failed');
-		} catch(e) {
-			console.log(e);
-		}
-		return false;
 
-	">COPY</button></p>
-	@endif
-        <div class="card-footer">
-		<div class="share-buttons">
-			<div class="fb-share-button" data-href="http://ink.vu/{{$link->creator}}/{{$link->short_url}}" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
-			<a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{urlencode($link->fullUrl())}}">Tweet</a>
-			<g:plus action="share" href="{{$link->fullUrl()}}"></g:plus>
-		</div>
-	</div>
-    <a data-link-id="{{$link->id}}" data-clipboard-target="#target-url-{{$link->id}}" id="target-url-{{$link->id}}" data-full-url="{{$link->fullUrl()}}" class="btn-copy" href="javascript:void(0);"><p class="clipboard">Copy Link</p></a>
-    @if ($isOwner)<p class="clicks">{{$link->clicks}} Clicks</p>@endif
-    <p class="copied copytext-{{$link->id}}" style="display: none">copied</p>
-        
-	</div>
-        </div>
+                <div class="wrapper" id="link-{{$link->short_url}}">
+
+                    <div style="display: none" id="linkmodal-{{$link->short_url}}">
+                        <div class="modalicon">
+                            <img class="pic" src="{{$link->image}}" />
+                        </div>
+                        <div class="content">
+                            <h6>{{$link->created_at}}</h6>
+                            <h4 class="linktitle">{{$link->title}}</h4>
+                            <p>{{$link->description}}</p>
+                            @if ($link->offer_code)
+                                <p class="offercode"><strong>Offer Code:</strong> <input readonly type="text" class="offer-code-holder" value="{{$link->offer_code}}" /> <button class="btn copybutton btn-xs" type="button" onclick="
+                                try {
+                                    this.previousElementSibling.select();
+                                    if(!document.execCommand('copy'))
+                                        console.log('copy failed');
+                                } catch(e) {
+                                    console.log(e);
+                                }
+                                return false;
+
+                            ">COPY</button></p>
+                            @endif
+                            <div class="card-footer">
+                                <div class="text-center center-block">
+                                    <a href="http://ink.vu/{{$link->creator}}/{{$link->short_url}}"><i id="social-fb" class="fa fa-facebook-square fa-2x social"></i></a>
+                                    <a href="http://ink.vu/{{$link->creator}}/{{$link->short_url}}"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
+                                    <a href="http://ink.vu/{{$link->creator}}/{{$link->short_url}}"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
+                                    <a href="mailto:bootsnipp@gmail.com"><i id="social-em" class="fa fa-envelope-square fa-2x social"></i></a>
+                                </div>
+                            </div>
+                            <a data-link-id="{{$link->id}}" data-clipboard-target="#target-url-{{$link->id}}" id="target-url-{{$link->id}}" data-full-url="{{$link->fullUrl()}}" class="btn-copy" href="javascript:void(0);"><p class="clipboard">Copy Link</p></a>
+                            @if ($isOwner)<p class="clicks"><i class="fa fa-bar-chart" aria-hidden="true"></i>5 Clicks</p>@endif
+                            <p class="copied copytext-{{$link->id}}" style="display: none">copied</p>
+                        </div>
+                    </div>
+
+                    <div class="icon" onclick="return showModalPostViaLink({{json_encode($link->short_url)}});">
+                        <img class="pic" src="{{$link->image}}" />
+                    </div>
+                    <div class="content">
+                        @if ($isOwner)
+                            <div class="dropdown" style="float:right;">
+                                <button class="btn-delete dropdown-toggle" style="background:none;" type="button" data-toggle="dropdown">
+                                    <span class="caret"></span></button>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="#" data-href="#" data-toggle="modal" data-target="#confirm-delete" onclick="
+                                                document.getElementById('delete-id-element').value = {{json_encode($link->short_url)}};
+                                                ">Delete</a></li>
+                                </ul>
+                            </div>
+                        @endif
+
+                        <h6>{{$link->created_at}}</h6>
+                        <h4 class="linktitle" onclick="return showModalPostViaLink({{json_encode($link->short_url)}});">{{$link->title}}</h4>
+                        <p>{{$link->description}}</p>
+                        @if ($link->offer_code)
+                            <p class="offercode"><strong>Offer Code:</strong> <input readonly type="text" class="offer-code-holder" value="{{$link->offer_code}}" /> <button class="btn copybutton btn-xs" type="button" onclick="
+                                try {
+                                    this.previousElementSibling.select();
+                                    if(!document.execCommand('copy'))
+                                        console.log('copy failed');
+                                } catch(e) {
+                                    console.log(e);
+                                }
+                                return false;
+
+                            ">COPY</button></p>
+                        @endif
+                        <div class="card-footer">
+                            <div class="text-center center-block">
+                                <a href="http://ink.vu/{{$link->creator}}/{{$link->short_url}}"><i id="social-fb" class="fa fa-facebook-square fa-2x social"></i></a>
+                                <a href="http://ink.vu/{{$link->creator}}/{{$link->short_url}}"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
+                                <a href="http://ink.vu/{{$link->creator}}/{{$link->short_url}}"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
+                                <a href="mailto:bootsnipp@gmail.com"><i id="social-em" class="fa fa-envelope-square fa-2x social"></i></a>
+                            </div>
+                        </div>
+                        <a data-link-id="{{$link->id}}" data-clipboard-target="#target-url-{{$link->id}}" id="target-url-{{$link->id}}" data-full-url="{{$link->fullUrl()}}" class="btn-copy" href="javascript:void(0);"><p class="clipboard">Copy Link</p></a>
+                        @if ($isOwner)<p class="clicks"><i class="fa fa-bar-chart" aria-hidden="true"></i>5 Clicks</p>@endif
+                        <p class="copied copytext-{{$link->id}}" style="display: none">copied</p>
+                    </div>
+                </div>
+
         @endforeach
             </div>
 
 <!-- Start Card 1 Modal -->
 <div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="modalRegister">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="singlemodal" style="display:none;">Post</h4>
-      </div>
-      <div class="modal-body">
-        <div class="wrapper">   
-		STUFF
-	</div>
-      </div>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="singlemodal" style="display:none;">Post</h4>
+            </div>
+            <div class="modal-body">
+                <div class="wrapper">
+
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <!-- End Card 1 Modal -->
 
@@ -319,7 +354,7 @@
 			}
 		}
 		function showModalPost(shortlink) {
-			var e = document.getElementById("link-" + shortlink);
+			var e = document.getElementById("linkmodal-" + shortlink);
 			var w = document.querySelector("#modalRegister .wrapper");
 			w.innerHTML = e.innerHTML;
             $("#modalRegister").modal('show');
@@ -365,5 +400,4 @@
 
 @section('css')
 	<link rel='stylesheet' href='css/index.css' />
-<link rel='stylesheet' href='css/custom.css' />
 @endsection
