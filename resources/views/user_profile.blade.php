@@ -88,6 +88,9 @@
                     <br clear="both" />
             </div>
             </div>
+        @if (count($links) == 0)
+        <div style="font-size: 20px; color: gray;">Your profile doesn’t have any links yet. Post something!</div>
+        @endif
             </div>
     
     <!-- Start push Modal -->
@@ -233,11 +236,10 @@
                             ">COPY</button></p>
                             @endif
                             <div class="card-footer">
-                                <div class="text-center center-block">
-                                    <a href="http://ink.vu/{{$link->creator}}/{{$link->short_url}}"><i id="social-fb" class="fa fa-facebook-square fa-2x social"></i></a>
-                                    <a href="http://ink.vu/{{$link->creator}}/{{$link->short_url}}"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
-                                    <a href="http://ink.vu/{{$link->creator}}/{{$link->short_url}}"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
-                                    <a href="mailto:bootsnipp@gmail.com"><i id="social-em" class="fa fa-envelope-square fa-2x social"></i></a>
+                                <div class="share-buttons">
+                                    <div class="fb-share-button" data-href="http://ink.vu/{{$link->creator}}/{{$link->short_url}}" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
+                                    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{urlencode($link->fullUrl())}}">Tweet</a>
+                                    <g:plus action="share" href="{{$link->fullUrl()}}"></g:plus>
                                 </div>
                             </div>
                             <a data-link-id="{{$link->id}}" data-clipboard-target="#target-url-{{$link->id}}" id="target-url-{{$link->id}}" data-full-url="{{$link->fullUrl()}}" class="btn-copy" href="javascript:void(0);"><p class="clipboard">Copy Link</p></a>
@@ -280,10 +282,11 @@
                         @endif
                         <div class="card-footer">
                             <div class="text-center center-block">
-                                <a href="http://ink.vu/{{$link->creator}}/{{$link->short_url}}"><i id="social-fb" class="fa fa-facebook-square fa-2x social"></i></a>
-                                <a href="http://ink.vu/{{$link->creator}}/{{$link->short_url}}"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
-                                <a href="http://ink.vu/{{$link->creator}}/{{$link->short_url}}"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
-                                <a href="mailto:bootsnipp@gmail.com"><i id="social-em" class="fa fa-envelope-square fa-2x social"></i></a>
+                                <div class="share-buttons">
+                                    <div class="fb-share-button" data-href="http://ink.vu/{{$link->creator}}/{{$link->short_url}}" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
+                                    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{urlencode($link->fullUrl())}}">Tweet</a>
+                                    <g:plus action="share" href="{{$link->fullUrl()}}"></g:plus>
+                                </div>
                             </div>
                         </div>
                         <a data-link-id="{{$link->id}}" data-clipboard-target="#target-url-{{$link->id}}" id="target-url-{{$link->id}}" data-full-url="{{$link->fullUrl()}}" class="btn-copy" href="javascript:void(0);"><p class="clipboard">Copy Link</p></a>
@@ -327,7 +330,7 @@
 					<input type="hidden" name='_token' value='{{csrf_token()}}' />
 					<input type="hidden" name="short_url" id="delete-id-element" value="" />
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					<button type="submit" class="btn btn-danger btn-ok">Delete</a>
+					<button type="submit" class="btn btn-danger btn-ok">Delete</button>
 				</form>
 			</div>
 		</div>
