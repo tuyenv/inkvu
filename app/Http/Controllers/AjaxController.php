@@ -225,4 +225,23 @@ class AjaxController extends Controller {
 
         return ($new_status ? "Enable" : "Disable");
     }
+
+    public function editLink(Request $request) {
+
+        $link_ending = $request->input('link_ending');
+        $link = LinkHelper::linkExists($link_ending, session('username'));
+
+        $jsonData = array('code' => 0);
+        if (!$link) {
+            $jsonData['message'] = 'Link not found.';
+        }
+
+        $link->title = $request->input('title');
+        $link->description = $request->input('description');
+        $link->save();
+
+        $jsonData['code'] = 1;
+        $jsonData['message'] = 'OK.';
+        echo json_encode($jsonData);
+    }
 }

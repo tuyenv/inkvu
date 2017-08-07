@@ -1,6 +1,7 @@
 @extends('layouts.base')
 
 @section('content')
+<div class="loading">Loading&#8230;</div>
 <div class="container">
 <div id="mainprofile">
 
@@ -221,7 +222,7 @@
                         <div class="content">
                             <h6>{{$link->created_at}}</h6>
                             <h4 class="linktitle">{{$link->title}}</h4>
-                            <p>{{$link->description}}</p>
+                            <p class="short-desc">{{$link->description}}</p>
                             @if ($link->offer_code)
                                 <p class="offercode"><strong>Offer Code:</strong> <input readonly type="text" class="offer-code-holder" value="{{$link->offer_code}}" /> <button class="btn copybutton btn-xs" type="button" onclick="
                                 try {
@@ -242,16 +243,20 @@
                                     <g:plus action="share" href="{{$link->fullUrl()}}"></g:plus>
                                 </div>
                             </div>
-                            <a data-link-id="{{$link->id}}" data-clipboard-target="#target-url-{{$link->id}}" id="target-url-{{$link->id}}" data-full-url="{{$link->fullUrl()}}" class="btn-copy" href="javascript:void(0);"><p class="clipboard">Copy Link</p></a>
-                            @if ($isOwner)<p class="clicks"><i class="fa fa-bar-chart" aria-hidden="true"></i>5 Clicks</p>@endif
+                            <a data-link-id="{{$link->id}}" data-clipboard-target="#target-url-{{$link->id}}" id="target-url-{{$link->id}}" data-full-url="{{$link->fullUrl()}}" class="btn-copy" href="javascript:void(0);"><p class="@if ($isOwner)clipboard_owner @endif clipboard">Copy Link</p></a>
+                            @if ($isOwner)<p class="clicks"><i class="fa fa-bar-chart" aria-hidden="true"></i>{{$link->clicks}} Clicks</p>@endif
                             <p class="copied copytext-{{$link->id}}" style="display: none">copied</p>
+                            @if ($isOwner)
+                                <button data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary btn-inline edit-inline"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                                <button data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary btn-inline save-inline"><span class="glyphicon glyphicon-save"></span> Save</button>
+                            @endif
                         </div>
                     </div>
 
                     <div class="icon" onclick="return showModalPostViaLink({{json_encode($link->short_url)}});">
                         <img class="pic" src="{{$link->image}}" />
                     </div>
-                    <div class="content">
+                    <div class="content" id="linkcontent-{{$link->short_url}}">
                         @if ($isOwner)
                             <div class="dropdown" style="float:right;">
                                 <button class="btn-delete dropdown-toggle" style="background:none;" type="button" data-toggle="dropdown">
@@ -266,7 +271,8 @@
 
                         <h6>{{$link->created_at}}</h6>
                         <h4 class="linktitle" onclick="return showModalPostViaLink({{json_encode($link->short_url)}});">{{$link->title}}</h4>
-                        <p>{{$link->description}}</p>
+                        <h4 style="display: none" class="linktitle_text">{{$link->title}}</h4>
+                        <p class="short-desc">{{$link->description}}</p>
                         @if ($link->offer_code)
                             <p class="offercode"><strong>Offer Code:</strong> <input readonly type="text" class="offer-code-holder" value="{{$link->offer_code}}" /> <button class="btn copybutton btn-xs" type="button" onclick="
                                 try {
@@ -289,9 +295,13 @@
                                 </div>
                             </div>
                         </div>
-                        <a data-link-id="{{$link->id}}" data-clipboard-target="#target-url-{{$link->id}}" id="target-url-{{$link->id}}" data-full-url="{{$link->fullUrl()}}" class="btn-copy" href="javascript:void(0);"><p class="clipboard">Copy Link</p></a>
-                        @if ($isOwner)<p class="clicks"><i class="fa fa-bar-chart" aria-hidden="true"></i>5 Clicks</p>@endif
+                        <a data-link-id="{{$link->id}}" data-clipboard-target="#target-url-{{$link->id}}" id="target-url-{{$link->id}}" data-full-url="{{$link->fullUrl()}}" class="btn-copy" href="javascript:void(0);"><p class="@if ($isOwner)clipboard_owner @endif clipboard">Copy Link</p></a>
+                        @if ($isOwner)<p class="clicks"><i class="fa fa-bar-chart" aria-hidden="true"></i>{{$link->clicks}} Clicks</p>@endif
                         <p class="copied copytext-{{$link->id}}" style="display: none">copied</p>
+                        @if ($isOwner)
+                            <button data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary btn-inline edit-inline"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                            <button data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary btn-inline save-inline"><span class="glyphicon glyphicon-save"></span> Save</button>
+                        @endif
                     </div>
                 </div>
 

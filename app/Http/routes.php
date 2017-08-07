@@ -49,6 +49,7 @@ $app->post('/lost_password', ['as' => 'plost_password', 'uses' => 'UserControlle
 $app->post('/reset_password/{username}/{recovery_key}', ['as' => 'preset_password', 'uses' => 'UserController@performPasswordReset']);
 
 $app->post('/admin/action/change_password', ['as' => 'change_password', 'uses' => 'AdminController@changePassword']);
+$app->post('/edit_link', ['as' => 'elink', 'uses' => 'AjaxController@editLink']);
 
 $app->group(['prefix' => '/api/v2', 'namespace' => 'App\Http\Controllers'], function ($app) {
     /* API internal endpoints */

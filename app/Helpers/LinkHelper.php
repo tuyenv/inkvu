@@ -33,15 +33,21 @@ class LinkHelper {
         return false;
     }
 
-    static public function linkExists($link_ending) {
+    static public function linkExists($link_ending, $username = false) {
         /**
          * Provided a link ending (string),
          * return the link object, or false.
          * @return Link model instance
          */
 
-        $link = Link::where('short_url', $link_ending)
-            ->first();
+        if ($username) {
+            $link = Link::where('short_url', $link_ending)
+                ->where('creator', $username)
+                ->first();
+        } else {
+            $link = Link::where('short_url', $link_ending)
+                ->first();
+        }
 
         if ($link != null) {
             return $link;

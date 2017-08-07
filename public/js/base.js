@@ -51,3 +51,52 @@ $('#form-shorten').on('keyup keypress', function(e) {
 });
 
 setTimeout(function(){ $(".alert").alert('close'); }, 5000);
+
+$('.content-div').on('click', '.edit-inline', function () {
+    $("#modalRegister .close").click();
+    $(this).hide();
+    var linkId = $(this).data('link-id');
+    var title = $("#linkcontent-"+linkId+" .linktitle_text").html();
+    var desc = $("#linkcontent-"+linkId+" .short-desc").html();
+    $("#linkcontent-"+linkId+" .linktitle_text").html('<input style="width: 400px" onclick="return false;" id="inp-linktitle-'+linkId+'" value="'+title+'" />');
+    $("#linkcontent-"+linkId+" .short-desc").html('<textarea style="width: 400px; height: 75px">' + desc + '</textarea>');
+
+    $("#linkcontent-"+linkId+" .linktitle").hide();
+    $("#linkcontent-"+linkId+" .linktitle_text").show();
+    $('.save-inline').show();
+});
+
+$('.content-div').on('click', '.save-inline', function () {
+    $('.save-inline').hide();
+    var linkId = $(this).data('link-id');
+    var title = $("#linkcontent-"+linkId+" .linktitle_text input").val();
+    var desc = $("#linkcontent-"+linkId+" .short-desc textarea").val();
+    var data = {
+        link_ending: linkId,
+        title: title,
+        description: desc
+    };
+
+    $(".loading").show();
+    $.ajax({
+        url: '/edit_link',
+        data: data,
+        dataType: 'json',
+        type: 'POST',
+        success: function(jsonData) {
+            if (parseInt(jsonData.code) == 1) {
+                $("#link-"+linkId+" .linktitle_text").html(title);
+                $("#link-"+linkId+" .linktitle").html(title);
+                $("#link-"+linkId+" .short-desc").html(desc);
+
+                $("#linkcontent-"+linkId+" .linktitle").show();
+                $("#linkcontent-"+linkId+" .linktitle_text").hide();
+                $('.edit-inline').show();
+            } else {
+                var errors = jsonData.errors;
+
+            }
+            $(".loading").hide();
+        }
+    });
+});
