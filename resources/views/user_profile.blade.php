@@ -503,11 +503,7 @@
         });
 	</script>
 
-    <script type="text/javascript">
-
-    </script>
-
-	@if ($showlink)
+	@if ($showlink && $isNewPost == 0)
 	<script>
 		showModalPost({!! json_encode($showlink) !!}, true);
 	</script>
