@@ -19,9 +19,9 @@
                     <form method='POST' action='/shorten' role='form' id='form-shorten'>
                         <div class="modal-body">
                             <div class="input-group">
-                                <input name="link-url" onchange="refreshLinkInfo(this.value);" type='url' autocomplete='off' class="form-control" placeholder='http://example.com' name='link-url'>
+                                <input id="link-url-input" name="link-url" onchange="refreshLinkInfo(this.value);" type='url' autocomplete='off' class="form-control" placeholder='http://example.com' name='link-url'>
                                <span class="input-group-btn">
-                                    <button class="btn btn-analyze" type="button">Analyze</button>
+                                    <button class="btn btn-analyze" onclick="clickAnalyze();" type="button">Analyze</button>
                                </span>
                             </div>
                             <div class="well">
@@ -33,7 +33,7 @@
                                             </a>
                                             <input type="hidden" id="link_image" name="image">
                                             <br>
-                                            <button class="btn btn-upload" type="button"><i class="fa fa-upload" aria-hidden="true"></i>Upload Image</button>
+                                            <button class="btn btn-upload upload-thumb" type="button"><i class="fa fa-upload" aria-hidden="true"></i>Upload Image</button>
                                         </div>
                                         <div class="media-body">
                                             <div class="form-group">
@@ -248,7 +248,7 @@
                             <p class="copied copytext-{{$link->id}}" style="display: none">copied</p>
                             @if ($isOwner)
                                 <button data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary btn-inline edit-inline"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-                                <button data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary btn-inline save-inline"><span class="glyphicon glyphicon-save"></span> Save</button>
+                                <button style="display: none" data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary btn-inline save-inline"><span class="glyphicon glyphicon-save"></span> Save</button>
                             @endif
                         </div>
                     </div>
@@ -300,7 +300,7 @@
                         <p class="copied copytext-{{$link->id}}" style="display: none">copied</p>
                         @if ($isOwner)
                             <button data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary btn-inline edit-inline"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-                            <button data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary btn-inline save-inline"><span class="glyphicon glyphicon-save"></span> Save</button>
+                            <button style="display: none" data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary btn-inline save-inline"><span class="glyphicon glyphicon-save"></span> Save</button>
                         @endif
                     </div>
                 </div>
@@ -388,6 +388,11 @@
 			return false;
 		}
 
+        function clickAnalyze() {
+            var url = $("#link-url-input").val();
+            refreshLinkInfo(url);
+        }
+
 		function refreshLinkInfo(url) {
 			$.post("/describe", {url : url}, function(data) {
 				document.getElementById("link_title").value = data.title;
@@ -401,7 +406,106 @@
 		function checkAvailability(ext) {
 
 		}
+
+        // Set up clipboard
+        var clipboard = new Clipboard('.btn-copy', {
+            text: function(trigger) {
+                return trigger.getAttribute('data-full-url');
+            }
+        });
+
+        clipboard.on('success', function(e) {
+            var linkId = e.trigger.getAttribute('data-link-id');
+            $(".copied").hide();
+            $(".copytext-"+linkId).show();
+        });
+
+        // Prevent shorten submit
+        $('#form-shorten').on('keyup keypress', function(e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        setTimeout(function(){ $(".alert").alert('close'); }, 5000);
+
+        $('.content-div').on('click', '.edit-inline', function () {
+            $("#modalRegister .close").click();
+            $(this).hide();
+            var linkId = $(this).data('link-id');
+
+            if ($("#linkcontent-"+linkId+" .linktitle_text input").length) {
+                var title = $("#linkcontent-"+linkId+" .linktitle_text input").val();
+            } else {
+                var title = $("#linkcontent-"+linkId+" .linktitle_text").html();
+            }
+
+            if ($("#linkcontent-"+linkId+" .short-desc textarea").length) {
+                var desc = $("#linkcontent-"+linkId+" .short-desc textarea").val();
+            } else {
+                var desc = $("#linkcontent-"+linkId+" .short-desc").html();
+            }
+
+            $("#linkcontent-"+linkId+" .linktitle_text").html('<input class="form-control" style="width: 400px" onclick="return false;" id="inp-linktitle-'+linkId+'" value="'+title+'" />');
+            $("#linkcontent-"+linkId+" .short-desc").html('<textarea class="form-control" style="width: 400px; height: 75px">' + desc + '</textarea>');
+
+            $("#linkcontent-"+linkId+" .linktitle").hide();
+            $("#linkcontent-"+linkId+" .linktitle_text").show();
+            $("#linkcontent-"+linkId+" .save-inline").show();
+        });
+
+        $('.content-div').on('click', '.save-inline', function () {
+            var linkId = $(this).data('link-id');
+            var title = $("#linkcontent-"+linkId+" .linktitle_text input").val();
+            var desc = $("#linkcontent-"+linkId+" .short-desc textarea").val();
+            var data = {
+                link_ending: linkId,
+                title: title,
+                description: desc
+            };
+
+            $("#linkcontent-"+linkId+" .save-inline").hide();
+            $(".loading").show();
+            $.ajax({
+                url: '/edit_link',
+                data: data,
+                dataType: 'json',
+                type: 'POST',
+                success: function(jsonData) {
+                    if (parseInt(jsonData.code) == 1) {
+                        $("#link-"+linkId+" .linktitle_text").html(title);
+                        $("#link-"+linkId+" .linktitle").html(title);
+                        $("#link-"+linkId+" .short-desc").html(desc);
+
+                        $("#linkcontent-"+linkId+" .linktitle").show();
+                        $("#linkcontent-"+linkId+" .linktitle_text").hide();
+                        $("#linkcontent-"+linkId+" .edit-inline").show();
+                    } else {
+                        var errors = jsonData.errors;
+                    }
+                    $(".loading").hide();
+                }
+            });
+        });
+
+        var client = filestack.init(fileStackKey, { policy: 'policy', signature: 'signature' });
+        $('#form-shorten').on('click', '.upload-thumb', function () {
+            var pickerOptions = {
+                accept: ['image/*'],
+                maxFiles: 1,
+                storeTo: { path: '/custom_thumb/' }
+            };
+            client.pick(pickerOptions).then(function(result) {
+                console.log(JSON.stringify(result.filesUploaded))
+            })
+        });
 	</script>
+
+    <script type="text/javascript">
+
+    </script>
 
 	@if ($showlink)
 	<script>
