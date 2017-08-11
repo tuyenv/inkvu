@@ -8,6 +8,7 @@ use App\Factories\LinkFactory;
 use App\Helpers\CryptoHelper;
 use App\Helpers\LinkHelper;
 use App\Helpers\ClickHelper;
+use Sunra\PhpSimple\HtmlDomParser;
 
 class LinkController extends Controller {
     /**
@@ -22,53 +23,81 @@ class LinkController extends Controller {
 
     public function getLinkInfo(Request $request) {
 
-	$long_url = $request->input("url");
+	    $long_url = $request->input("url");
 
-        // get the open graph data {
+        // get the open graph data
         $title = "";
         $description = "";
         $image = "";
 
-        libxml_use_internal_errors(true);
-        $c = file_get_contents($long_url);
-        $d = new \DOMDocument();
-        $d->loadHTML($c);
-        $xp = new \DOMXPath($d);
-        // basic fallback
-        foreach ($xp->query("//title") as $el) {
-            $title = $el->textContent;
-        }
-        // fancy preferred, if available
-        foreach ($xp->query("//meta[@property='og:title']") as $el) {
-            $title = $el->getAttribute("content");
-        }
-        foreach ($xp->query("//meta[@property='og:description']") as $el) {
-            $description = $el->getAttribute("content");
-        }
-        foreach ($xp->query("//meta[@property='og:image']") as $el) {
-            $image = $el->getAttribute("content");
-        }
-        // }
+        $domParser = HtmlDomParser::file_get_html($long_url);
+        if (!empty($domParser)) {
 
-	$shell_url = escapeshellarg($long_url);
+            // title
+            $arrFindTitleElement = array('title', 'meta[property=og:title]', 'meta[name=twitter:title]');
+            foreach ($arrFindTitleElement as $find) {
+                $titleElement = $domParser->find($find, 0);
+                if (!empty($titleElement)) {
+                    $title = $titleElement->getAttribute('content');
+                    if (empty($image)) {
+                        $title = html_entity_decode($titleElement->plaintext);
+                    }
+                    break;
+                }
+            }
+
+            // description
+            $arrFindDescElement = array('meta[name=description]', 'meta[property=og:description]', );
+            foreach ($arrFindDescElement as $find) {
+                $descElement = $domParser->find($find, 0);
+                if (!empty($descElement)) {
+                    $description = html_entity_decode($descElement->getAttribute('content'));
+                    break;
+                }
+            }
+
+            // image
+            $arrFindImageElement = array('meta[property=og:image]', 'link[rel=apple-touch-icon]', 'link[rel=icon]');
+            foreach ($arrFindImageElement as $find) {
+                $imageElement = $domParser->find($find, -1);
+                if (!empty($imageElement)) {
+                    $image = $imageElement->getAttribute('href');
+                    if (empty($image)) {
+                        $image = $imageElement->getAttribute('content');
+                    }
+                }
+            }
+
+            if (empty($image)) {
+                $imageElement = $domParser->find('img', 0);
+                if (!empty($imageElement)) {
+                    $image = $imageElement->src;
+                }
+            }
+        }
+
+        $domParser->clear();
+        unset($domParser);
+
+	    $shell_url = escapeshellarg($long_url);
 
         $id = md5($long_url);
         // make the screenshot if there is no other image
-	if(strlen($image) == 0) {
-		if(!file_exists("/var/www/polr/public/screenshots/l$id.png")) {
-			system("/opt/wkhtmltox/bin/wkhtmltoimage --crop-h 853 $shell_url /var/www/polr/public/screenshots/l$id.png");
-			system("convert -resize 300x250 /var/www/polr/public/screenshots/l$id.png /var/www/polr/public/screenshots/$id.png");
-			system("rm /var/www/polr/public/screenshots/l$id.png");
-		}
+        if(strlen($image) == 0) {
+            if(!file_exists("/var/www/polr/public/screenshots/l$id.png")) {
+                system("/opt/wkhtmltox/bin/wkhtmltoimage --crop-h 853 $shell_url /var/www/polr/public/screenshots/l$id.png");
+                system("convert -resize 300x250 /var/www/polr/public/screenshots/l$id.png /var/www/polr/public/screenshots/$id.png");
+                system("rm /var/www/polr/public/screenshots/l$id.png");
+            }
 
-		$image = "/screenshots/$id.png";
-	}
+            $image = "/screenshots/$id.png";
+        }
 
-	return array(
-		"title" => $title,
-		"description" => $description,
-		"image" => $image
-	);
+        return array(
+            "title" => $title,
+            "description" => $description,
+            "image" => $image
+        );
     }
 
     public function performShorten(Request $request) {
