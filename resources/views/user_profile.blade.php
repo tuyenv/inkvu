@@ -30,6 +30,7 @@
                                         <div class="media-left text-center">
                                             <a href="#">
                                                 <img alt="postimage" class="media-object" id="link_image_img" src="http://ericatoelle.com/wp-content/uploads/2012/02/150x150.gif">
+                                                <p id="no-preview" style="display: none; margin-top: 30px; height: 150px; padding-top: 60px;">No image preview available please upload</p>
                                             </a>
                                             <input type="hidden" id="link_image" name="image">
                                             <br>
@@ -398,7 +399,14 @@
 				document.getElementById("link_title").value = data.title;
 				document.getElementById("link_description").value = data.description;
 				document.getElementById("link_image").value = data.image;
-				document.getElementById("link_image_img").src = data.image;
+                if (data.image) {
+                    $("#no-preview").hide();
+                    $("#link_image_img").show();
+                    document.getElementById("link_image_img").src = data.image;
+                } else {
+                    $("#link_image_img").hide();
+                    $("#no-preview").show();
+                }
 			});
 
 		}

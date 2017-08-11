@@ -69,10 +69,17 @@ class LinkController extends Controller {
             }
 
             if (empty($image)) {
-                $imageElement = $domParser->find('img', 0);
-                if (!empty($imageElement)) {
-                    $image = $imageElement->src;
+                $arrValidExtension = array('png', 'jpg', 'jpeg');
+                foreach ($domParser->find('img') as $imageElement) {
+                    $ext = pathinfo($imageElement->src, PATHINFO_EXTENSION);
+                    if (in_array($ext, $arrValidExtension, 1)) {
+                        $image = $imageElement->src;
+                    }
                 }
+            }
+
+            if (!empty($image) && strpos($image, $long_url) === FALSE && strpos($image, 'http') === FALSE) {
+                $image = rtrim($long_url, "/") . '/' . ltrim($image, "/");
             }
         }
 
@@ -91,6 +98,9 @@ class LinkController extends Controller {
             }
 
             $image = "/screenshots/$id.png";
+            if (!file_exists(public_path() . "/screenshots/$id.png")) {
+                $image = '';
+            }
         }
 
         return array(
