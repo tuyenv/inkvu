@@ -15,6 +15,9 @@
         <ul id="navbar" class="nav navbar-collapse collapse navbar-nav" id="nbc">
 		{{-- <li><a href="{{ route('about') }}">About</a></li> --}}
 
+            <li class='visible-xs help'>
+                <a href="#" data-toggle="modal" data-target="#onboardModal">Help</a>
+            </li>
             @if (empty(session('username')))
                 <li class="visible-xs"><a href="{{ route('login') }}">Sign In</a></li>
                 @if (env('POLR_ALLOW_ACCT_CREATION'))
@@ -30,6 +33,9 @@
         <ul id="navbar" class="nav pull-right navbar-nav hidden-xs">
             <li class="divider-vertical"></li>
 
+            <li class='help'>
+                <a href="#" data-toggle="modal" data-target="#onboardModal">Help</a>
+            </li>
             @if (empty(session('username')))
                 @if (env('POLR_ALLOW_ACCT_CREATION'))
                     <li><a href="{{route('signup')}}">Sign Up</a></li>

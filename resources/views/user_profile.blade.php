@@ -349,6 +349,102 @@
 </div>
 <!-- End Delete Modal -->
 
+<!-- Onboarding Modal -->
+<div class="modal fade" id="onboardModal" tabindex="-1" role="dialog" aria-labelledby="onboardModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="js-title-step"></h4>
+            </div>
+            <div class="modal-hide">
+                <div class="row hide" data-step="1" data-title="Welcome to Ink.vu, Joe!">
+                    <div class="well">
+                        <center><img src="{{$user->profile_picture_url}}" alt="yourprofile" style="width:30%;"></center>
+                        <div class="tutorial-text">
+                            <p style="font-size:18px;text-align:center;">Ink is a useful tool for promoting your links on social media!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row hide" data-step="2" data-title="No more 'Link in Bio' posts, period.">
+                    <div class="well">
+                        <center><img src="{{$user->profile_picture_url}}" alt="yourprofile" style="width:90%;"></center>
+                        <div class="tutorial-text">
+                            <center><p style="font-size:18px;">Instagram makes link sharing a pain. Stop sharing content that people can't find on Instagram and start tracking clicks with Ink.vu!</p></center>
+                        </div>
+                    </div>
+                </div>
+                <div class="row hide" data-step="3" data-title="How it Works">
+                    <div class="well">
+                        <div class="videowrapper">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/pwSpMdvImNw?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="row hide" data-step="4" data-title="Now, let's Ink your first link">
+                    <p style="font-size:18px;text-align:center;">What would you like to do?</p>
+                    <div class="well">
+                        <div class="pickone">
+                            <div class="panel panel-default col-sm-6">
+                                <div class="panel-body"><i class="fa fa-instagram" aria-hidden="true"></i><br>
+                                    I want to Ink a link for an Instagram post
+                                </div>
+                            </div>
+                            <div class="panel panel-default col-sm-6 col-sm-6-offset-2">
+                                <div class="step4-6 panel-body"><i class="fa fa-link" aria-hidden="true"></i><br>
+                                    I want to Ink a link from any website</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row hide" data-step="5" data-title="Select a piece of content from your profile">
+                    <center><p style="font-size:18px;">You'll add details on the next page.</p></center>
+                    <div class="well">
+                        <center><img src="/Images/Screen%20Shot%202017-07-24%20at%206.03.49%20PM.png" alt="yourprofile" style="width:100%;"></center>
+                    </div>
+                </div>
+                <div class="row hide" data-step="6" data-title="Say a little bit about your link:">
+                    <div class="well">
+                        <div class="mediadiv">
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img alt="postimage" class="media-object" id="link_image_img" src="http://ericatoelle.com/wp-content/uploads/2012/02/150x150.gif">
+                                        <p id="no-preview" style="display: none; margin-top: 30px; height: 150px; padding-top: 60px;">No image preview available please upload</p>
+                                    </a>
+                                    <input type="hidden" id="link_image" name="image">
+                                    <br>
+                                    <button class="btn btn-upload upload-thumb" type="button"><i class="fa fa-upload" aria-hidden="true"></i>Upload Image</button>
+                                </div>
+                                <div class="media-body">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Title</label>
+                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name your link...">
+                                    </div>
+                                    <div class="permalink"><p>http://ink.vu/username/customURL</p></div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Offer Code (Optional)</label>
+                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Create a unique code">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="comment">Description:</label>
+                                        <textarea class="form-control" rows="2" id="comment"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default js-btn-step pull-left" data-orientation="skip" data-dismiss="modal">Skip</button>
+                <button type="button" class="btn btn-secondary js-btn-step" data-orientation="previous">Back</button>
+                <button type="button" class="btn btn-primary js-btn-step js-btn-step-next" data-orientation="next">Next</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Onboarding Modal -->
+
 </div>
 </div>
 
@@ -499,7 +595,7 @@
         });
 
         var client = filestack.init(fileStackKey, { policy: 'policy', signature: 'signature' });
-        $('#form-shorten').on('click', '.upload-thumb, #link_image_img', function () {
+        $('.content-div').on('click', '.upload-thumb, #link_image_img', function () {
             var pickerOptions = {
                 accept: ['image/*'],
                 maxFiles: 1,
@@ -511,6 +607,13 @@
                 document.getElementById("link_image_img").src = jsonData.url;
             })
         });
+
+        $('.content-div').on('click', '.step4-6', function () {
+            $(".js-btn-step-next").trigger("click");
+            $(".js-btn-step-next").trigger("click");
+        });
+
+        $('#onboardModal').modalSteps();
 	</script>
 
 	@if ($showlink && $isNewPost == 0)
