@@ -499,14 +499,16 @@
         });
 
         var client = filestack.init(fileStackKey, { policy: 'policy', signature: 'signature' });
-        $('#form-shorten').on('click', '.upload-thumb', function () {
+        $('#form-shorten').on('click', '.upload-thumb, #link_image_img', function () {
             var pickerOptions = {
                 accept: ['image/*'],
                 maxFiles: 1,
                 storeTo: { path: '/custom_thumb/' }
             };
             client.pick(pickerOptions).then(function(result) {
-                console.log(JSON.stringify(result.filesUploaded))
+                var jsonData = result.filesUploaded[0];
+                $("#link_image").val(jsonData.url);
+                document.getElementById("link_image_img").src = jsonData.url;
             })
         });
 	</script>
