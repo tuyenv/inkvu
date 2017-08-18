@@ -130,9 +130,11 @@ class LinkController extends Controller {
 
         try {
             $link_object = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip, $creator, true);
-	    $short_url = LinkFactory::formatLink($creator, $link_object->short_url, $link_object->secret_key);
-        }
-        catch (\Exception $e) {
+            if (!($link_object instanceof Link)) {
+                throw new \Exception('Sorry, but your link already exist. ' . $link_object);
+            }
+	        $short_url = LinkFactory::formatLink($creator, $link_object->short_url, $link_object->secret_key);
+        } catch (\Exception $e) {
             return self::renderError($e->getMessage());
         }
 
@@ -140,14 +142,14 @@ class LinkController extends Controller {
         $description = $request->input("description");
         $image = $request->input("image");
 
-	$link_object->title = $title;
-	$link_object->description = $description;
-	$link_object->offer_code = $offer_code;
-	$link_object->image = $image;
-	$link_object->save();
+        $link_object->title = $title;
+        $link_object->description = $description;
+        $link_object->offer_code = $offer_code;
+        $link_object->image = $image;
+        $link_object->save();
 
         $short_url .= '?n=1';
-	return redirect($short_url);
+        return redirect($short_url);
 
         return view('shorten_result', [
             'short_url' => $short_url,
