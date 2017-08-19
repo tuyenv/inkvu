@@ -31,4 +31,19 @@ var polr = angular.module('polr',[]);
 // Setup FileStack
 var fileStackKey = 'APsEBWJ5KQtyzuUbunQDNz';
 
+// onboardModal
 $('#onboardModal').modalSteps();
+$( ".step4-6" ).click(function() {
+    $(".js-btn-step-next").trigger("click");
+    $(".js-btn-step-next").trigger("click");
+});
+$( ".step4-5" ).click(function() {
+    $(".js-btn-step-next").trigger("click");
+});
+$('#form-shorten-popup').on('click', '.upload-thumb-popup, #link_image_img_popup', function () {
+    client.pick(pickerOptions).then(function(result) {
+        var jsonData = result.filesUploaded[0];
+        $("#link_image_popup").val(jsonData.url);
+        document.getElementById("link_image_img_popup").src = jsonData.url;
+    })
+});
