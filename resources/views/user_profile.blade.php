@@ -239,9 +239,9 @@
                             @endif
                             <div class="card-footer">
                                 <div class="share-buttons">
-                                    <div class="fb-share-button" data-href="http://ink.vu/{{$link->creator}}/{{$link->short_url}}" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
-                                    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{urlencode($link->fullUrl())}}">Tweet</a>
-                                    <g:plus action="share" href="{{$link->fullUrl()}}"></g:plus>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u=http://ink.vu/{{$link->creator}}/{{$link->short_url}}"><i id="social-fb" class="fa fa-facebook-square fa-2x social"></i></a>
+                                    <a href="https://twitter.com/share?url={{urlencode($link->fullUrl())}}"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
+                                    <a href="https://plus.google.com/share?url={{urlencode($link->fullUrl())}}"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
                                 </div>
                             </div>
                             <a data-link-id="{{$link->id}}" data-clipboard-target="#target-url-{{$link->id}}" id="target-url-{{$link->id}}" data-full-url="{{$link->fullUrl()}}" class="btn-copy" href="javascript:void(0);"><p class="@if ($isOwner)clipboard_owner @endif clipboard">Copy Link</p></a>
@@ -290,9 +290,9 @@
                         <div class="card-footer">
                             <div class="text-center center-block">
                                 <div class="share-buttons">
-                                    <div class="fb-share-button" data-href="http://ink.vu/{{$link->creator}}/{{$link->short_url}}" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
-                                    <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{urlencode($link->fullUrl())}}">Tweet</a>
-                                    <g:plus action="share" href="{{$link->fullUrl()}}"></g:plus>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u=http://ink.vu/{{$link->creator}}/{{$link->short_url}}"><i id="social-fb" class="fa fa-facebook-square fa-2x social"></i></a>
+                                    <a href="https://twitter.com/share?url={{urlencode($link->fullUrl())}}"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
+                                    <a href="https://plus.google.com/share?url={{urlencode($link->fullUrl())}}"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
                                 </div>
                             </div>
                         </div>
