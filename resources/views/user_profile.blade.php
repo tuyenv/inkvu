@@ -212,14 +212,6 @@
 	</div>
 
 	<div id="linkcards">
-        @if ($isNewPost !== 0)
-        <div style="margin-bottom: 0px" class="alert alert-success alert-dismissible fade show in" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <strong>Post published.</strong>
-        </div>
-        @endif
         @foreach($links as $link)
 
                 <div class="wrapper" id="link-{{$link->short_url}}">

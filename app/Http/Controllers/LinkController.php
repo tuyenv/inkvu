@@ -149,7 +149,7 @@ class LinkController extends Controller {
         $link_object->save();
 
         $short_url .= '?n=1';
-        return redirect($short_url);
+        return redirect($short_url)->with('success', 'Post published.');
 
         return view('shorten_result', [
             'short_url' => $short_url,
