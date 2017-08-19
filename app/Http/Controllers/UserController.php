@@ -45,6 +45,15 @@ class UserController extends Controller {
             $request->session()->put('username', $username);
             $request->session()->put('role', $role);
 
+            // update last_login
+            $user = $credentials_valid['user'];
+            $request->session()->put('isNewUser', 0);
+            if (empty($user->last_login)) {
+                $request->session()->put('isNewUser', 1);
+            }
+            $user->last_login = date("Y-m-d H:i:s");
+            $user->save();
+
             return redirect()->route('index');
         }
         else {

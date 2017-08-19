@@ -50,7 +50,7 @@ class UserHelper {
             return false;
         }
         else {
-            return ['username' => $username, 'role' => $user->role];
+            return ['username' => $username, 'role' => $user->role, 'user' => $user];
         }
     }
 

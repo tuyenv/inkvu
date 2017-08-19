@@ -19,7 +19,7 @@
                     <form method='POST' action='/shorten' role='form' id='form-shorten'>
                         <div class="modal-body">
                             <div class="input-group">
-                                <input id="link-url-input" name="link-url" onchange="refreshLinkInfo(this.value);" type='url' autocomplete='off' class="form-control" placeholder='http://example.com' name='link-url'>
+                                <input id="link-url-input" name="link-url" onchange="refreshLinkInfo(this.value);" type='url' autocomplete='off' class="form-control" placeholder='http://example.com'>
                                <span class="input-group-btn">
                                     <button class="btn btn-analyze" onclick="clickAnalyze();" type="button">Analyze</button>
                                </span>
@@ -41,7 +41,14 @@
                                                 <label for="link_title">Title</label>
                                                 <input name="title" type="text" class="form-control" id="link_title" placeholder="Name your link...">
                                             </div>
-                                            <div class="permalink"><p>http://ink.vu/username/customURL</p></div>
+                                            <p>Customize link</p>
+                                            <div>
+                                                <div class='custom-link-text'>
+                                                    <h4 class='site-url-field'>ink.vu/{{session('username')}}/</h4>
+                                                    <input name="custom-ending" type='text' autocomplete="off" class='form-control custom-url-field' name='custom-ending' />
+                                                </div>
+                                                <a onclick="checkAvailability(this.value); return false;" href='#' class='btn btn-success btn-xs check-btn' id='check-link-availability'>Check Availability</a>
+                                            </div>
                                             <div class="form-group">
                                                 <label for="offer_code">Offer Code (Optional)</label>
                                                 <input id="offer_code" name="offer_code" type="text" class="form-control" placeholder="Create a unique code">
@@ -385,7 +392,7 @@
                     <div class="well">
                         <div class="pickone">
                             <div class="panel panel-default col-sm-6">
-                                <div class="panel-body"><i class="fa fa-instagram" aria-hidden="true"></i><br>
+                                <div class="step4-5 panel-body"><i class="fa fa-instagram" aria-hidden="true"></i><br>
                                     I want to Ink a link for an Instagram post
                                 </div>
                             </div>
@@ -403,36 +410,55 @@
                     </div>
                 </div>
                 <div class="row hide" data-step="6" data-title="Say a little bit about your link:">
+                    <form method='POST' action='/shorten' role='form' id='form-shorten-popup'>
                     <div class="well">
+                        <div class="input-group">
+                            <input id="link-url-input-popup" name="link-url" onchange="refreshLinkInfo(this.value, 1);" type='url' autocomplete='off' class="form-control" placeholder='http://example.com'>
+                           <span class="input-group-btn">
+                                <button class="btn btn-analyze" onclick="clickAnalyze(1);" type="button">Analyze</button>
+                           </span>
+                        </div>
                         <div class="mediadiv">
                             <div class="media">
-                                <div class="media-left">
+                                <div class="media-left text-center">
                                     <a href="#">
-                                        <img alt="postimage" class="media-object" id="link_image_img" src="http://ericatoelle.com/wp-content/uploads/2012/02/150x150.gif">
-                                        <p id="no-preview" style="display: none; margin-top: 30px; height: 150px; padding-top: 60px;">No image preview available please upload</p>
+                                        <img alt="postimage" class="media-object" id="link_image_img_popup" src="http://ericatoelle.com/wp-content/uploads/2012/02/150x150.gif">
+                                        <p id="no-preview-popup" style="display: none; margin-top: 30px; height: 150px; padding-top: 60px;">No image preview available please upload</p>
                                     </a>
-                                    <input type="hidden" id="link_image" name="image">
+                                    <input type="hidden" id="link_image_popup" name="image">
                                     <br>
-                                    <button class="btn btn-upload upload-thumb" type="button"><i class="fa fa-upload" aria-hidden="true"></i>Upload Image</button>
+                                    <button class="btn btn-upload upload-thumb-popup" type="button"><i class="fa fa-upload" aria-hidden="true"></i>Upload Image</button>
                                 </div>
                                 <div class="media-body">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Title</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name your link...">
+                                        <label>Title</label>
+                                        <input name="title" id="link_title_popup" type="text" class="form-control" placeholder="Name your link...">
                                     </div>
-                                    <div class="permalink"><p>http://ink.vu/username/customURL</p></div>
+                                    <p>Customize link</p>
+                                    <div>
+                                        <div class='custom-link-text'>
+                                            <h4 class='site-url-field'>ink.vu/{{session('username')}}/</h4>
+                                            <input name="custom-ending" type='text' autocomplete="off" class='form-control custom-url-field' name='custom-ending' />
+                                        </div>
+                                        <a onclick="checkAvailability(this.value); return false;" href='#' class='btn btn-success btn-xs check-btn' id='check-link-availability'>Check Availability</a>
+                                    </div>
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Offer Code (Optional)</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Create a unique code">
+                                        <label>Offer Code (Optional)</label>
+                                        <input name="offer_code" type="text" class="form-control" placeholder="Create a unique code">
                                     </div>
                                     <div class="form-group">
                                         <label for="comment">Description:</label>
-                                        <textarea class="form-control" rows="2" id="comment"></textarea>
+                                        <textarea name="description" class="form-control" rows="2" id="link_description_popup"></textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer" style="border-top:none;">
+                        <button style="margin-right: 15px;" type="submit" class="btn btn-primary">Publish</button>
+                    </div>
+                    <input type="hidden" name='_token' value='{{csrf_token()}}' />
+                    </form>
                 </div>
             </div>
             <div class="modal-footer">
@@ -485,26 +511,43 @@
 			return false;
 		}
 
-        function clickAnalyze() {
-            var url = $("#link-url-input").val();
-            refreshLinkInfo(url);
+        function clickAnalyze(popup) {
+            if (popup) {
+                var url = $("#link-url-input-popup").val();
+            } else {
+                var url = $("#link-url-input").val();
+            }
+            refreshLinkInfo(url, popup);
         }
 
-		function refreshLinkInfo(url) {
+		function refreshLinkInfo(url, popup) {
 			$.post("/describe", {url : url}, function(data) {
-				document.getElementById("link_title").value = data.title;
-				document.getElementById("link_description").value = data.description;
-				document.getElementById("link_image").value = data.image;
-                if (data.image) {
-                    $("#no-preview").hide();
-                    $("#link_image_img").show();
-                    document.getElementById("link_image_img").src = data.image;
+                if (popup) {
+                    document.getElementById("link_title_popup").value = data.title;
+                    document.getElementById("link_description_popup").value = data.description;
+                    document.getElementById("link_image_popup").value = data.image;
+                    if (data.image) {
+                        $("#no-preview-popup").hide();
+                        $("#link_image_img_popup").show();
+                        document.getElementById("link_image_img_popup").src = data.image;
+                    } else {
+                        $("#link_image_img_popup").hide();
+                        $("#no-preview-popup").show();
+                    }
                 } else {
-                    $("#link_image_img").hide();
-                    $("#no-preview").show();
+                    document.getElementById("link_title").value = data.title;
+                    document.getElementById("link_description").value = data.description;
+                    document.getElementById("link_image").value = data.image;
+                    if (data.image) {
+                        $("#no-preview").hide();
+                        $("#link_image_img").show();
+                        document.getElementById("link_image_img").src = data.image;
+                    } else {
+                        $("#link_image_img").hide();
+                        $("#no-preview").show();
+                    }
                 }
 			});
-
 		}
 
 		function checkAvailability(ext) {
@@ -595,12 +638,12 @@
         });
 
         var client = filestack.init(fileStackKey, { policy: 'policy', signature: 'signature' });
+        var pickerOptions = {
+            accept: ['image/*'],
+            maxFiles: 1,
+            storeTo: { path: '/custom_thumb/' }
+        };
         $('.content-div').on('click', '.upload-thumb, #link_image_img', function () {
-            var pickerOptions = {
-                accept: ['image/*'],
-                maxFiles: 1,
-                storeTo: { path: '/custom_thumb/' }
-            };
             client.pick(pickerOptions).then(function(result) {
                 var jsonData = result.filesUploaded[0];
                 $("#link_image").val(jsonData.url);
@@ -608,8 +651,20 @@
             })
         });
 
+        $('#form-shorten-popup').on('click', '.upload-thumb-popup, #link_image_img_popup', function () {
+            client.pick(pickerOptions).then(function(result) {
+                var jsonData = result.filesUploaded[0];
+                $("#link_image_popup").val(jsonData.url);
+                document.getElementById("link_image_img_popup").src = jsonData.url;
+            })
+        });
+
         $('.content-div').on('click', '.step4-6', function () {
             $(".js-btn-step-next").trigger("click");
+            $(".js-btn-step-next").trigger("click");
+        });
+
+        $('.content-div').on('click', '.step4-5', function () {
             $(".js-btn-step-next").trigger("click");
         });
 
@@ -620,7 +675,14 @@
 	<script>
 		showModalPost({!! json_encode($showlink) !!}, true);
 	</script>
-@endif
+    @endif
+
+    @if (session('isNewUser'))
+    {{session()->put('isNewUser', 0)}}
+    <script>
+        $('#onboardModal').modal('show');
+    </script>
+    @endif
 
 @endsection
 
