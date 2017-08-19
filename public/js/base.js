@@ -30,3 +30,5 @@ var polr = angular.module('polr',[]);
 
 // Setup FileStack
 var fileStackKey = 'APsEBWJ5KQtyzuUbunQDNz';
+
+$('#onboardModal').modalSteps();

@@ -80,7 +80,7 @@ class UserController extends Controller {
     public function instagram(Request $request) {
 	$client_id = env("INSTAGRAM_ID");
 	$client_secret = env("INSTAGRAM_SECRET");
-	$redirect_url = "http://ink.vu/instagram";
+	$redirect_url = env('APP_PROTOCOL') . env('APP_ADDRESS') . '/' . 'instagram';
 
 	if(isset($_GET['error'])) {
 		echo htmlentities($_GET['error_description']);
@@ -137,6 +137,11 @@ class UserController extends Controller {
                     $user->profile_picture_url = $json->user->profile_picture;
                 }
 
+                $request->session()->put('isNewUser', 0);
+                if (empty($user->last_login)) {
+                    $request->session()->put('isNewUser', 1);
+                }
+                $user->last_login = date("Y-m-d H:i:s");
                 $user->save();
 
                 $user = user::where('active', 1)
