@@ -11,8 +11,13 @@ $(function() {
             slide = 0;
         }
     });
-    $('#check-link-availability').click(function() {
-        var custom_link = $('.custom-url-field').val();
+    $('.check-link-availability').click(function() {
+        var selector = '';
+        if ($(this).attr('data-popup') == 1) {
+            selector = '-popup';
+        }
+
+        var custom_link = $(".custom-url-field"+selector).val();
         var request = $.ajax({
             url: "/api/v2/link_avail_check",
             type: "POST",
@@ -21,21 +26,21 @@ $(function() {
             },
             dataType: "html"
         });
-        $('#link-availability-status').html('<span><i class="fa fa-spinner"></i> Loading</span>');
+        $('#link-availability-status'+selector).html('<span><i class="fa fa-spinner"></i> Loading</span>');
         request.done(function(msg) {
             if (msg == 'unavailable') {
-                $('#link-availability-status').html(' <span style="color:red"><i class="fa fa-ban"></i> Already in use</span>');
+                $('#link-availability-status'+selector).html(' <span style="color:red"><i class="fa fa-ban"></i> Already in use</span>');
             } else if (msg == 'available') {
-                $('#link-availability-status').html('<span style="color:green"><i class="fa fa-check"></i> Available</span>');
+                $('#link-availability-status'+selector).html('<span style="color:green"><i class="fa fa-check"></i> Available</span>');
             } else if (msg == 'invalid') {
-                $('#link-availability-status').html('<span style="color:orange"><i class="fa fa-exclamation-triangle"></i> Invalid Custom URL Ending</span>');
+                $('#link-availability-status'+selector).html('<span style="color:orange"><i class="fa fa-exclamation-triangle"></i> Invalid Custom URL Ending</span>');
             } else {
-                $('#link-availability-status').html(' <span style="color:red"><i class="fa fa-exclamation-circle"></i> An error occured. Try again</span>' + msg);
+                $('#link-availability-status'+selector).html(' <span style="color:red"><i class="fa fa-exclamation-circle"></i> An error occured. Try again</span>' + msg);
             }
         });
 
         request.fail(function(jqXHR, textStatus) {
-            $('#link-availability-status').html(' <span style="color:red"><i class="fa fa-exclamation-circle"></i> An error occured. Try again</span>' + textstatus);
+            $('#link-availability-status'+selector).html(' <span style="color:red"><i class="fa fa-exclamation-circle"></i> An error occured. Try again</span>' + textstatus);
         });
     });
     min = 1;

@@ -1768,3 +1768,6 @@ label {
 .input-error {
     border: 1px solid #F00 !important;
 }
+.link-availability-status {
+    margin-top: -25px;
+}

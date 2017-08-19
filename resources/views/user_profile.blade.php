@@ -47,7 +47,8 @@
                                                     <h4 class='site-url-field'>ink.vu/{{session('username')}}/</h4>
                                                     <input name="custom-ending" type='text' autocomplete="off" class='form-control custom-url-field' name='custom-ending' />
                                                 </div>
-                                                <a onclick="checkAvailability(this.value); return false;" href='#' class='btn btn-success btn-xs check-btn' id='check-link-availability'>Check Availability</a>
+                                                <a href='#' data-popup="0" class='btn btn-success btn-xs check-btn check-link-availability'>Check Availability</a>
+                                                <div class="link-availability-status" id='link-availability-status'></div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="offer_code">Offer Code (Optional)</label>
@@ -438,9 +439,10 @@
                                     <div>
                                         <div class='custom-link-text'>
                                             <h4 class='site-url-field'>ink.vu/{{session('username')}}/</h4>
-                                            <input name="custom-ending" type='text' autocomplete="off" class='form-control custom-url-field' name='custom-ending' />
+                                            <input name="custom-ending" type='text' autocomplete="off" class='form-control custom-url-field-popup' name='custom-ending' />
                                         </div>
-                                        <a onclick="checkAvailability(this.value); return false;" href='#' class='btn btn-success btn-xs check-btn' id='check-link-availability'>Check Availability</a>
+                                        <a href='#' data-popup="1" class='btn btn-success btn-xs check-btn check-link-availability'>Check Availability</a>
+                                        <div class="link-availability-status" id='link-availability-status-popup'></div>
                                     </div>
                                     <div class="form-group">
                                         <label>Offer Code (Optional)</label>
@@ -479,7 +481,7 @@
 @endsection
 
 @section('js')
-	<script src='js/index.js'></script>
+	<script src='/js/index.js'></script>
 	<script>
 		function showModalPostViaLink(shortlink) {
 			if($("#modalRegister").hasClass('in')) {
@@ -548,10 +550,6 @@
                     }
                 }
 			});
-		}
-
-		function checkAvailability(ext) {
-
 		}
 
         // Set up clipboard
