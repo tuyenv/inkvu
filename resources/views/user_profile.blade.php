@@ -389,45 +389,6 @@
 			return false;
 		}
 
-        function clickAnalyze(popup) {
-            if (popup) {
-                var url = $("#link-url-input-popup").val();
-            } else {
-                var url = $("#link-url-input").val();
-            }
-            refreshLinkInfo(url, popup);
-        }
-
-		function refreshLinkInfo(url, popup) {
-			$.post("/describe", {url : url}, function(data) {
-                if (popup) {
-                    document.getElementById("link_title_popup").value = data.title;
-                    document.getElementById("link_description_popup").value = data.description;
-                    document.getElementById("link_image_popup").value = data.image;
-                    if (data.image) {
-                        $("#no-preview-popup").hide();
-                        $("#link_image_img_popup").show();
-                        document.getElementById("link_image_img_popup").src = data.image;
-                    } else {
-                        $("#link_image_img_popup").hide();
-                        $("#no-preview-popup").show();
-                    }
-                } else {
-                    document.getElementById("link_title").value = data.title;
-                    document.getElementById("link_description").value = data.description;
-                    document.getElementById("link_image").value = data.image;
-                    if (data.image) {
-                        $("#no-preview").hide();
-                        $("#link_image_img").show();
-                        document.getElementById("link_image_img").src = data.image;
-                    } else {
-                        $("#link_image_img").hide();
-                        $("#no-preview").show();
-                    }
-                }
-			});
-		}
-
         // Set up clipboard
         var clipboard = new Clipboard('.btn-copy', {
             text: function(trigger) {
@@ -511,14 +472,8 @@
             });
         });
 
-        var client = filestack.init(fileStackKey, { policy: 'policy', signature: 'signature' });
-        var pickerOptions = {
-            accept: ['image/*'],
-            maxFiles: 1,
-            storeTo: { path: '/custom_thumb/' }
-        };
         $('.content-div').on('click', '.upload-thumb, #link_image_img', function () {
-            client.pick(pickerOptions).then(function(result) {
+            clientFileStack.pick(pickerOptions).then(function(result) {
                 var jsonData = result.filesUploaded[0];
                 $("#link_image").val(jsonData.url);
                 document.getElementById("link_image_img").src = jsonData.url;

@@ -1771,3 +1771,21 @@ label {
 .link-availability-status {
     margin-top: -25px;
 }
+.hide-bullets {
+    list-style: none;
+    padding-left: 0px;
+}
+.thumbnail {
+    padding: 0px;
+    border: none;
+    border-radius: 0px;
+    margin-bottom: 2px;
+}
+.insta-li {
+    padding-left: 1px;
+    padding-right: 1px;
+    cursor: pointer;
+}
+.insta-img {
+    border: 1px solid #e95950;
+}

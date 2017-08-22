@@ -150,6 +150,7 @@ class UserController extends Controller {
 
                 $role = $user->role;
                 $request->session()->put('username', $username);
+                $request->session()->put('insta_token', $json->access_token);
 
 		return redirect("/");
 	} else {

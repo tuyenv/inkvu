@@ -9,11 +9,38 @@ use Illuminate\Support\Facades\View;
 
 class Controller extends BaseController {
 
-    public function __construct() {
+    public function __construct()
+    {
         if (!empty(session('username'))) {
             $user = UserHelper::getUserByUsername(session('username'));
-            View::share ( 'user', $user );
+            View::share('user', $user);
         }
+
+        if (session('insta_token')) {
+            $instaMedia = $this->getUserInstagramMedia(session('insta_token'));
+            View::share('instaMedia', $instaMedia);
+        }
+    }
+
+    private function getUserInstagramMedia($instaToken)
+    {
+        $urlEndpoint = 'https://api.instagram.com/v1/users/self/media/recent/?count=8&access_token='.$instaToken;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,120);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 400); //timeout in seconds
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, $urlEndpoint);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+        $data = curl_exec($ch);
+        curl_close($ch);
+
+        $resData = json_decode($data, true);
+        if (isset($resData['data']) && !empty($resData['data'])) {
+            return $resData['data'];
+        }
+
+        return false;
     }
 
     protected static function currIsAdmin() {

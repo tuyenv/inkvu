@@ -69,7 +69,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                             </div>
                             <div class="row hide" data-step="2" data-title="No more 'Link in Bio' posts, period.">
                                 <div class="well">
-                                    <center><img src="{{$user->profile_picture_url}}" alt="yourprofile" style="width:90%;"></center>
+                                    <center><img src="{{$user->profile_picture_url}}" alt="yourprofile"></center>
                                     <div class="tutorial-text">
                                         <center><p style="font-size:18px;">Instagram makes link sharing a pain. Stop sharing content that people can't find on Instagram and start tracking clicks with Ink.vu!</p></center>
                                     </div>
@@ -98,10 +98,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                                     </div>
                                 </div>
                             </div>
-                            <div class="row hide" data-step="5" data-title="Select a piece of content from your profile">
+                            <div style="margin-bottom: 30px;" class="row hide" data-step="5" data-title="Select a piece of content from your profile">
                                 <center><p style="font-size:18px;">You'll add details on the next page.</p></center>
                                 <div class="well">
-                                    <center><img src="/Images/Screen%20Shot%202017-07-24%20at%206.03.49%20PM.png" alt="yourprofile" style="width:100%;"></center>
+                                    @if (isset($instaMedia) && !empty($instaMedia))
+                                        <ul class="hide-bullets">
+                                        @foreach ($instaMedia as $media)
+                                            <li class="col-sm-3 insta-li">
+                                                <a class="thumbnail">
+                                                    <img src="{{$media['images']['thumbnail']['url']}}">
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                        </ul>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row hide" data-step="6" data-title="Say a little bit about your link:">
@@ -154,6 +164,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                                         <button style="margin-right: 15px;" type="submit" class="btn btn-primary">Publish</button>
                                     </div>
                                     <input type="hidden" name='_token' value='{{csrf_token()}}' />
+                                    <input type="hidden" id="is_replace_image" value="1" />
                                 </form>
                             </div>
                         </div>
