@@ -80,6 +80,7 @@ class LinkController extends Controller {
 
             if (!empty($image) && strpos($image, $long_url) === FALSE && strpos($image, 'http') === FALSE) {
                 $image = rtrim($long_url, "/") . '/' . ltrim($image, "/");
+                $image = $this->correctMediaUrl($image);
             }
         }
 
@@ -239,6 +240,35 @@ class LinkController extends Controller {
 		return $ctrl->userProfile($request, $link->creator, $link->short_url);
 
 	}
+    }
+
+    private function correctMediaUrl($url)
+    {
+        $parseUrl = parse_url($url);
+        $host = $parseUrl['scheme'] . '://' . $parseUrl['host'];
+        $path = $parseUrl['path'];
+        $arrPath = explode('/', trim($path, '/'));
+
+        $lastKey = 0;
+        $numberBack = 0;
+        foreach ($arrPath as $key => $val) {
+            if ($val == '..') {
+                $numberBack ++;
+                $lastKey = $key;
+            }
+        }
+
+        $unsetKey = $lastKey - ($numberBack * 2);
+        for ($i = $lastKey; $i >= $unsetKey; $i --) {
+            unset($arrPath[$i]);
+        }
+
+        $correctUrl = '';
+        foreach ($arrPath as $val) {
+            $correctUrl .= '/' . $val;
+        }
+
+        return $host . $correctUrl;
     }
 
 }
