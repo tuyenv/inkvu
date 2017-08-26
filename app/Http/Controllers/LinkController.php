@@ -57,7 +57,7 @@ class LinkController extends Controller {
             }
 
             // image
-            $arrFindImageElement = array('meta[property=og:image]', 'link[rel=apple-touch-icon]', 'link[rel=icon]');
+            $arrFindImageElement = array('meta[property=og:image]', 'link[rel=apple-touch-icon]');
             foreach ($arrFindImageElement as $find) {
                 $imageElement = $domParser->find($find, -1);
                 if (!empty($imageElement)) {

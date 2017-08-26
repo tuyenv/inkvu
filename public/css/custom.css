@@ -1789,3 +1789,7 @@ label {
 .insta-img {
     border: 1px solid #e95950;
 }
+.panel-picked {
+    color:white;
+    background-color: #e95950;
+}

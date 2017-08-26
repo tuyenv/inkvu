@@ -38,21 +38,42 @@ var pickerOptions = {
 };
 
 // onboardModal
-$('#onboardModal').modalSteps();
+$('#onboardModal').modalSteps({
+    btnLastStepHtml: 'Publish'
+});
+
+$( ".js-btn-step-next" ).click(function() {
+    var step = $(this).attr("data-step");
+    var actualStep = $("#actual-step").val();
+    var isComplete = $("#isPopupComplete").val();
+
+    if (step == 'complete' && actualStep == 6 && isComplete == 1) {
+        $( "#form-shorten-popup" ).submit();
+    }
+
+    if (step == 'complete' && actualStep == 6) {
+        $("#isPopupComplete").val(1);
+    } else {
+        $("#isPopupComplete").val(0);
+    }
+});
+
 $( ".step4-6" ).click(function() {
-    $(".js-btn-step-next").trigger("click");
-    $(".js-btn-step-next").trigger("click");
+    $(".pickone .panel-default").removeClass('panel-picked');
+    $(this).parent(".panel-default").addClass("panel-picked");
     $("#is_replace_image").val(1);
 });
+
 $( ".step4-5" ).click(function() {
-    $(".js-btn-step-next").trigger("click");
+    $(".pickone .panel-default").removeClass('panel-picked');
+    $(this).parent(".panel-default").addClass("panel-picked");
     $("#is_replace_image").val(1);
 });
+
 $('#form-shorten-popup').on('click', '.upload-thumb-popup, #link_image_img_popup', function () {
     clientFileStack.pick(pickerOptions).then(function(result) {
         var jsonData = result.filesUploaded[0];
         $("#link_image_popup").val(jsonData.url);
-        $("#link_image").val(jsonData.url);
         document.getElementById("link_image_img_popup").src = jsonData.url;
     })
 });
@@ -62,9 +83,14 @@ $(".insta-li").click(function() {
     $(this).find('img').addClass('insta-img');
     var imgLink = $(this).find('img').attr('src');
     $("#link_image_popup").val(imgLink);
-    $("#link_image").val(imgLink);
     document.getElementById("link_image_img_popup").src = imgLink;
     $("#is_replace_image").val(0);
+    $("#link_image_popup").val($(this).attr("data-img"));
+
+    if ($( ".step4-5").parent(".panel-default").hasClass("panel-picked")) {
+        $("#link-url-input-popup").val($(this).attr("data-link"));
+        clickAnalyze(1);
+    }
 });
 
 // scrape link

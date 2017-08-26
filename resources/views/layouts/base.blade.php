@@ -104,7 +104,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                                     @if (isset($instaMedia) && !empty($instaMedia))
                                         <ul class="hide-bullets">
                                         @foreach ($instaMedia as $media)
-                                            <li class="col-sm-3 insta-li">
+                                            <li class="col-sm-3 insta-li" data-link="{{$media['link']}}" data-img="{{$media['images']['standard_resolution']['url']}}">
                                                 <a class="thumbnail">
                                                     <img src="{{$media['images']['thumbnail']['url']}}">
                                                 </a>
@@ -160,14 +160,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="modal-footer" style="border-top:none;">
-                                        <button style="margin-right: 15px;" type="submit" class="btn btn-primary">Publish</button>
-                                    </div>
                                     <input type="hidden" name='_token' value='{{csrf_token()}}' />
                                     <input type="hidden" id="is_replace_image" value="1" />
                                 </form>
                             </div>
                         </div>
+                        <input type="hidden" id="isPopupComplete" value="0">
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default js-btn-step pull-left" data-orientation="skip" data-dismiss="modal">Skip</button>
                             <button type="button" class="btn btn-secondary js-btn-step" data-orientation="previous">Back</button>
@@ -186,9 +184,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     <footer id="myFooter">
         <div class="container">
             <ul>
-                <li><a href="#">Company Information</a></li>
                 <li><a href="#">Contact us</a></li>
-                <li><a href="#">Reviews</a></li>
                 <li><a href="#">Terms of service</a></li>
             </ul>
             <p class="footer-copyright">© 2017 Ink.vu</p>
