@@ -38,8 +38,26 @@ var pickerOptions = {
 };
 
 // onboardModal
+var callback = function() {
+    if ($("#isDoubleStep").val() == 1) {
+        $(".step4").hide();
+    } else {
+        $(".step4").show();
+    }
+
+    if ($("#actual-step").val() == 4) {
+        $(".step4").show();
+    } else {
+        $(".panel-default").removeClass('panel-picked');
+    }
+    $("#isPopupComplete").val(0);
+};
+
 $('#onboardModal').modalSteps({
-    btnLastStepHtml: 'Publish'
+    btnLastStepHtml: 'Publish',
+    callbacks: {
+        '*': callback
+    }
 });
 
 $( ".js-btn-step-next" ).click(function() {
@@ -62,12 +80,16 @@ $( ".step4-6" ).click(function() {
     $(".pickone .panel-default").removeClass('panel-picked');
     $(this).parent(".panel-default").addClass("panel-picked");
     $("#is_replace_image").val(1);
+    $("#isDoubleStep").val(1);
+    $("#actual-step").val(5);
 });
 
 $( ".step4-5" ).click(function() {
     $(".pickone .panel-default").removeClass('panel-picked');
     $(this).parent(".panel-default").addClass("panel-picked");
     $("#is_replace_image").val(1);
+    $("#isDoubleStep").val(0);
+    $("#actual-step").val(4);
 });
 
 $('#form-shorten-popup').on('click', '.upload-thumb-popup, #link_image_img_popup', function () {

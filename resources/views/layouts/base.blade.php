@@ -82,7 +82,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                                     </div>
                                 </div>
                             </div>
-                            <div class="row hide" data-step="4" data-title="Now, let's Ink your first link">
+                            <div class="row hide step4" data-step="4" data-title="Now, let's Ink your first link">
                                 <p style="font-size:18px;text-align:center;">What would you like to do?</p>
                                 <div class="well">
                                     <div class="pickone">
@@ -166,6 +166,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                             </div>
                         </div>
                         <input type="hidden" id="isPopupComplete" value="0">
+                        <input type="hidden" id="isDoubleStep" value="0">
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default js-btn-step pull-left" data-orientation="skip" data-dismiss="modal">Skip</button>
                             <button type="button" class="btn btn-secondary js-btn-step" data-orientation="previous">Back</button>
