@@ -74,6 +74,7 @@
         </div>
             <!-- End New Post Modal -->
 
+        <!-- Start Profile Details -->
 	<div role="tabpanel" class="tab-pane" id="settings">
                 <div class="profile">
                 <h3 style="display:block;padding-right:10px;">{{$user->username}}</h3>
@@ -102,34 +103,60 @@
         <div style="font-size: 20px; color: gray;">Your profile doesn’t have any links yet. Post something!</div>
         @endif
             </div>
-    
-    <!-- Start push Modal -->
-<div class="modal fade" id="pushModal" tabindex="-1" role="dialog" aria-labelledby="pushModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Get notifications from this user?</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
 
-    <div class="col-xs-6">
-        <button class="btn btn-warning btn-block" data-toggle="modal" data-target="#myInnerModal1">No Thanks</button>
+    <!-- Start push Modal -->
+    <div class="modal fade" id="pushModal" tabindex="-1" role="dialog" aria-labelledby="pushModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Get notifications from this user?</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="subscribeoptions">
+                            <p id="errMsg" style="color: red; display: none;"></p>
+                            <label class="switch">
+                                <input type="checkbox" id="push_web_check" checked>
+                                <div class="slider round push_web"></div>
+                            </label>
+                            <div class="optionslabel">Web Push Notifications&nbsp;<a data-toggle="tooltip" class="tooltipLink" data-original-title="Receive real-time notifications in your browser" data-placement="right"><span class="fa fa-question-circle" title="info"></span></a>
+                            </div>
+
+                            <br>
+                            <label class="switch">
+                                <input type="checkbox" id="push_email_check" checked>
+                                <div class="slider round"></div>
+                            </label>
+                            <div class="optionslabel">Email Notifications</div>
+                            <div class="input-group">
+                                <input type="text" id="push_email" class="form-control" placeholder="Your Email">
+      <span class="input-group-btn">
+        <button class="btn btn-default pushSave" type="button">Save</button>
+      </span>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="push_mobile_check" checked>
+                                <div class="slider round"></div>
+                            </label>
+                            <div class="optionslabel">Mobile Notifications</div>
+                            <div class="input-group">
+                                <input type="text" id="push_mobile" class="form-control" placeholder="Your Mobile #">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Verify</button>
+      </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="push_user_id" value="{{$user->id}}">
+                    <button type="button" class="btn btn-primary saveNotify">Save Options</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-xs-6">
-        <button class="btn btn-success btn-block" onclick="myFunction()" data-dismiss="modal">Allow</button>
-        
-    </div>
-</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- End push Modal -->
+    <!-- End push Modal -->
         
         
         <!-- Email Inner Modal -->
@@ -478,6 +505,34 @@
                 $("#link_image").val(jsonData.url);
                 document.getElementById("link_image_img").src = jsonData.url;
             })
+        });
+
+        $('#pushModal').on('click', '.saveNotify, .pushSave', function () {
+
+            var data = {
+                push_web_check: $('#push_web_check').is(":checked"),
+                push_email_check: $('#push_email_check').is(":checked"),
+                push_email: $("#push_email").val(),
+                push_mobile_check: $('#push_mobile_check').is(":checked"),
+                push_mobile: $("#push_mobile").val(),
+                push_notify_user: $("#push_user_id").val()
+            };
+
+            $.ajax({
+                url: '/save_notification',
+                data: data,
+                dataType: 'json',
+                type: 'POST',
+                success: function(jsonData) {
+                    if (parseInt(jsonData.code) != 1) {
+                        $("#errMsg").html(jsonData.message);
+                        $("#errMsg").show();
+                    } else {
+                        $("#pushModal").modal('hide');
+                        $("#errMsg").hide();
+                    }
+                }
+            });
         });
 
 	</script>

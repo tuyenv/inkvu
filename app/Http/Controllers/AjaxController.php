@@ -5,8 +5,11 @@ use Illuminate\Http\Request;
 use App\Helpers\LinkHelper;
 use App\Helpers\CryptoHelper;
 use App\Helpers\UserHelper;
+use App\Helpers\NotifyHelper;
 use App\Models\User;
 use App\Factories\UserFactory;
+use Validator;
+use Illuminate\Support\Facades\Input;
 
 class AjaxController extends Controller {
     /**
@@ -242,6 +245,34 @@ class AjaxController extends Controller {
 
         $jsonData['code'] = 1;
         $jsonData['message'] = 'OK.';
+        echo json_encode($jsonData);
+    }
+
+    public function saveNotification(Request $request)
+    {
+        $jsonData = array('code' => 0);
+        $rules = array('push_email' => 'required|email');
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            $jsonData['message'] = $messages->get('push_email')[0];
+        } else {
+            $payload = array(
+                'push_web_check' => $request->input('push_web_check'),
+                'push_email_check' => $request->input('push_email_check'),
+                'push_email' => $request->input('push_email'),
+                'push_mobile_check' => $request->input('push_mobile_check'),
+                'push_mobile' => $request->input('push_mobile'),
+                'push_notify_user' => $request->input('push_notify_user')
+            );
+
+            if (NotifyHelper::saveNotification($payload)) {
+                $jsonData['code'] = 1;
+                $jsonData['message'] = 'OK';
+            }
+        }
+
         echo json_encode($jsonData);
     }
 }

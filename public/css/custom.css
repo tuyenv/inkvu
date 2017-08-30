@@ -19,14 +19,6 @@
     padding-top:0px;
 }
 
-#mainprofile {
-    padding-left:50px;
-    padding-right:50px;
-    padding-top:75px;
-    padding-bottom:25px;
-    background-color:#FAFAFA;
-}
-
 .offercode {
     font-size:18px;
     padding-bottom: 20px;
@@ -463,20 +455,6 @@ a.divLink {
     /*workaround to make clickable in IE */
 }
 
-
-.subscribebutton {
-    color:red;
-    display:none;
-    background: none;
-    font-size:10px;
-    border: 1px solid red;
-    padding-left:20px;
-    padding-top:5px;
-    padding-bottom:5px;
-    padding-right:20px;
-    margin-top:-10px;
-}
-
 .copybutton {
     color:white;
     background: lightgray;
@@ -565,14 +543,6 @@ a.divLink {
     
 .subscribebutton {
     display:none;
-}
-    
-#mainprofile {
-    padding-left:25px;
-    padding-right:25px;
-    padding-top:75px;
-    padding-bottom:25px;
-    background-color:#FAFAFA;
 }
     
 #linkcards {
@@ -682,7 +652,7 @@ i {
 #mainprofile {
     padding-left:50px;
     padding-right:50px;
-    padding-top:75px;
+    padding-top:5px;
     padding-bottom:25px;
     background-color: #fafafa;
     border-bottom:1px solid #edeeee;
@@ -1249,6 +1219,10 @@ a.divLink {
     padding:20px;
 }
 
+.subscribeoptions input {
+    height: 48px;
+}
+
 .editprofilebutton {
     color:white;
     background: #e95950;
@@ -1338,7 +1312,7 @@ a.divLink {
     #mainprofile {
         padding-left:25px;
         padding-right:25px;
-        padding-top:75px;
+        padding-top:5px;
         padding-bottom:25px;
         background-color:#fafafa;
         border-bottom:1px solid #edeeee;

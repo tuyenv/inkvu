@@ -47,6 +47,7 @@ class UserController extends Controller {
 
             // update last_login
             $user = $credentials_valid['user'];
+            $request->session()->put('userId', $user->id);
             $request->session()->put('isNewUser', 0);
             if (empty($user->last_login)) {
                 $request->session()->put('isNewUser', 1);
@@ -138,6 +139,7 @@ class UserController extends Controller {
                 }
 
                 $request->session()->put('isNewUser', 0);
+                $request->session()->put('userId', $user->id);
                 if (empty($user->last_login)) {
                     $request->session()->put('isNewUser', 1);
                 }

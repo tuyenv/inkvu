@@ -16,7 +16,6 @@ class CreateNotifySettingsTable extends Migration
             $table->engine = 'InnoDB';
 
             $table->increments('id');
-            $table->integer('creator')->unsigned();
             $table->integer('notify_user')->unsigned();
             $table->string('email', 255);
             $table->string('mobile', 20);
@@ -25,8 +24,6 @@ class CreateNotifySettingsTable extends Migration
             $table->boolean('email_notify');
             $table->timestamps();
 
-            $table->index('creator');
-            $table->foreign('creator')->references('id')->on('users')->onDelete('cascade');
             $table->index('notify_user');
             $table->foreign('notify_user')->references('id')->on('users')->onDelete('cascade');
         });
