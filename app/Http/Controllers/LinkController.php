@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\Helpers\NotifyHelper;
 use Illuminate\Http\Request;
 use Illuminate\Http\Redirect;
 
@@ -78,9 +79,11 @@ class LinkController extends Controller {
                 }
             }
 
-            if (!empty($image) && strpos($image, $long_url) === FALSE && strpos($image, 'http') === FALSE) {
+            if (!empty($image) && strpos($image, 'http') === FALSE) {
                 $image = rtrim($long_url, "/") . '/' . ltrim($image, "/");
-                $image = $this->correctMediaUrl($image);
+                if (strpos($image, '..') !== FALSE) {
+                    $image = $this->correctMediaUrl($image);
+                }
             }
         }
 
@@ -148,6 +151,9 @@ class LinkController extends Controller {
         $link_object->offer_code = $offer_code;
         $link_object->image = $image;
         $link_object->save();
+
+        // insert notify queue and deliver
+        NotifyHelper::saveNotifyQueueDone($link_object->id);
 
         $short_url .= '?n=1';
         return redirect($short_url)->with('success', 'Post published.');
