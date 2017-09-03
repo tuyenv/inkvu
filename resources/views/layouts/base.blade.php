@@ -47,13 +47,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     <script>
         var OneSignal = window.OneSignal || [];
         OneSignal.push(["init", {
-            appId: "9dec9009-a7fa-4a3c-a556-ba42d7643782",
-            autoRegister: true, /* Set to true to automatically prompt visitors */
+            appId: "{{env('WEB_PUSH_APP_ID')}}",
+            autoRegister: false, /* Set to true to automatically prompt visitors */
             httpPermissionRequest: {
                 enable: true
             },
             notifyButton: {
-                enable: true /* Set to false to hide */
+                enable: false /* Set to false to hide */
             },
             // Your other init options here
             persistNotification: false // Automatically dismiss the notification after ~20 seconds in Chrome Deskop v47+

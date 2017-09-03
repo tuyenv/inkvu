@@ -17,7 +17,7 @@ class NotifyHelper
 
     public static function saveNotification($payload)
     {
-        $notifySettings = self::getNotifySetting($payload['push_notify_user'], $payload['push_email']);
+        $notifySettings = self::getNotifySetting($payload['push_notify_user'], $payload['push_email'], $payload['push_notify_user']);
         if (!($notifySettings instanceof NotifySettings)) {
             $notifySettings = new NotifySettings();
         }
@@ -31,10 +31,11 @@ class NotifyHelper
         return $notifySettings->save();
     }
 
-    public static function getNotifySetting($userId, $email)
+    public static function getNotifySetting($userId, $email, $nofityUser)
     {
         $notifySettings = NotifySettings::where('notify_user', $userId)
             ->where('email', $email)
+            ->where('notify_user', $nofityUser)
             ->first();
 
         return $notifySettings;
