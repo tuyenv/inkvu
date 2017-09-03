@@ -41,7 +41,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     <link href="/css/font-awesome.min.css" rel="stylesheet">
 
     @yield('css')
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
+    <script>
+        var OneSignal = window.OneSignal || [];
+        OneSignal.push(["init", {
+            appId: "9dec9009-a7fa-4a3c-a556-ba42d7643782",
+            autoRegister: true, /* Set to true to automatically prompt visitors */
+            httpPermissionRequest: {
+                enable: true
+            },
+            notifyButton: {
+                enable: true /* Set to false to hide */
+            },
+            // Your other init options here
+            persistNotification: false // Automatically dismiss the notification after ~20 seconds in Chrome Deskop v47+
+        }]);
+    </script>
 </head>
 <body>
     @include('snippets.navbar')
