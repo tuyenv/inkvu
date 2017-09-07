@@ -115,6 +115,7 @@ class NotifyHelper
             // 'data' => array("foo" => "bar"), A custom map of data that is passed back to your app.
         );
 
+        $fields = json_encode($fields);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8',
