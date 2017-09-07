@@ -112,14 +112,9 @@ class NotifyHelper
             'url' => $shortUrl,
             'contents' => $content,
             'chrome_web_image' => $linkObject->image,
-            // 'data' => array("foo" => "bar"), A custom map of data that is passed back to your app.
         );
 
-        print("<pre>");
         $fields = json_encode($fields);
-        print("\nJSON sent:\n");
-        print($fields);
-
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8',
@@ -132,15 +127,6 @@ class NotifyHelper
 
         $response = curl_exec($ch);
         curl_close($ch);
-
-        $return["allresponses"] = $response;
-        $return = json_encode( $return);
-        print("\n\nJSON received:\n");
-        print($return);
-        print("\n");
-        print("</pre>");
-        die;
-
         return $response;
     }
 }
