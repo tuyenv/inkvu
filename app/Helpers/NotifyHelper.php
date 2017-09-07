@@ -98,4 +98,36 @@ class NotifyHelper
 
         return NotifyDeliver::insert($arrInsert);
     }
+
+    public static function sendMessage($subscribedId)
+    {
+        $content = array(
+            "title" => "Title",
+            "en" => 'Message'
+        );
+
+        $fields = array(
+            'app_id' => env('WEB_PUSH_APP_ID'),
+            'filters' => array(array("field" => "tag", "key" => "subscribed_id", "relation" => "=", "value" => $subscribedId)),
+            'url' => 'https://documentation.onesignal.com/docs/web-push-notification-icons',
+            'contents' => $content,
+            'chrome_web_image' => 'http://i.imgur.com/9mAdbTH.png',
+            // 'data' => array("foo" => "bar"), A custom map of data that is passed back to your app.
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8',
+            'Authorization: Basic NGEwMGZmMjItY2NkNy0xMWUzLTk5ZDUtMDAwYzI5NDBlNjJj'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_HEADER, FALSE);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        return $response;
+    }
 }
