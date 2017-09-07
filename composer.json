@@ -15,7 +15,8 @@
         "geoip2/geoip2": "^2.4",
         "nesbot/carbon": "^1.22",
         "doctrine/dbal": "^2.5",
-        "tuyenv/php-simple-html-dom-parser": "dev-1.5.1-curl"
+        "tuyenv/php-simple-html-dom-parser": "dev-1.5.1-curl",
+        "aws/aws-sdk-php": "~3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.0",
