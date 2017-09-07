@@ -115,6 +115,7 @@ class NotifyHelper
             // 'data' => array("foo" => "bar"), A custom map of data that is passed back to your app.
         );
 
+        print("<pre>");
         $fields = json_encode($fields);
         print("\nJSON sent:\n");
         print($fields);
@@ -122,7 +123,7 @@ class NotifyHelper
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8',
-            'Authorization: Basic NGEwMGZmMjItY2NkNy0xMWUzLTk5ZDUtMDAwYzI5NDBlNjJj'));
+            'Authorization: Basic ' . env('WEB_PUSH_REST_API')));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($ch, CURLOPT_HEADER, FALSE);
         curl_setopt($ch, CURLOPT_POST, TRUE);
@@ -137,6 +138,7 @@ class NotifyHelper
         print("\n\nJSON received:\n");
         print($return);
         print("\n");
+        print("</pre>");
         die;
 
         return $response;
