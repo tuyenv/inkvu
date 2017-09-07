@@ -99,19 +99,19 @@ class NotifyHelper
         return NotifyDeliver::insert($arrInsert);
     }
 
-    public static function sendMessage($subscribedId)
+    public static function sendMessage($linkObject, $shortUrl)
     {
         $content = array(
-            "title" => "Title",
-            "en" => 'Message'
+            "title" => $linkObject->title,
+            "en" => $linkObject->description
         );
 
         $fields = array(
             'app_id' => env('WEB_PUSH_APP_ID'),
-            'filters' => array(array("field" => "tag", "key" => "subscribed_id", "relation" => "=", "value" => $subscribedId)),
-            'url' => 'https://documentation.onesignal.com/docs/web-push-notification-icons',
+            'filters' => array(array("field" => "tag", "key" => "subscribed_id", "relation" => "=", "value" => session('userId'))),
+            'url' => $shortUrl,
             'contents' => $content,
-            'chrome_web_image' => 'http://i.imgur.com/9mAdbTH.png',
+            'chrome_web_image' => $linkObject->image,
             // 'data' => array("foo" => "bar"), A custom map of data that is passed back to your app.
         );
 
