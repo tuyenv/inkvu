@@ -127,7 +127,7 @@ class NotifyHelper
             return false;
         }
 
-        $notifySettingID = array_column($notifySend, 'id');
+        $notifySettingPlayerID = array_filter(array_column($notifySend, 'web_push_userid'));
         $content = array(
             "title" => $linkObject->title,
             "en" => $linkObject->description
@@ -135,11 +135,7 @@ class NotifyHelper
 
         $fields = array(
             'app_id' => env('WEB_PUSH_APP_ID'),
-            'filters' => array(
-                array("field" => "tag", "key" => "subscribed_id", "relation" => "=", "value" => session('userId')),
-                array("operator" => "AND"),
-                array("field" => "tag", "key" => "setting_id", "relation" => "exists", "value" => $notifySettingID),
-            ),
+            'include_player_ids' => $notifySettingPlayerID,
             'url' => $shortUrl,
             'contents' => $content,
             'chrome_web_image' => $linkObject->image,
