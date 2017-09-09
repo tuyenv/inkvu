@@ -104,6 +104,7 @@
         @endif
             </div>
 
+    @if (!$isOwner && session('username'))
     <!-- Start push Modal -->
     <div class="modal fade" id="pushModal" tabindex="-1" role="dialog" aria-labelledby="pushModal">
         <div class="modal-dialog" role="document">
@@ -117,7 +118,7 @@
                         <div class="subscribeoptions">
                             <p id="errMsg" style="color: red; display: none;"></p>
                             <label class="switch">
-                                <input type="checkbox" id="push_web_check" checked>
+                                <input type="checkbox" id="push_web_check" @if($notifySetting->web_notify) checked @endif>
                                 <div class="slider round push_web"></div>
                             </label>
                             <div class="optionslabel">Web Push Notifications&nbsp;<a data-toggle="tooltip" class="tooltipLink" data-original-title="Receive real-time notifications in your browser" data-placement="right"><span class="fa fa-question-circle" title="info"></span></a>
@@ -125,23 +126,23 @@
 
                             <br>
                             <label class="switch">
-                                <input type="checkbox" id="push_email_check" checked>
+                                <input type="checkbox" id="push_email_check" @if($notifySetting->email_notify) checked @endif>
                                 <div class="slider round"></div>
                             </label>
                             <div class="optionslabel">Email Notifications</div>
                             <div class="input-group">
-                                <input type="text" id="push_email" class="form-control" placeholder="Your Email">
+                                <input type="text" id="push_email" class="form-control" placeholder="Your Email" value="{{ $notifySetting->email }}">
       <span class="input-group-btn">
         <button class="btn btn-default pushSave" type="button">Save</button>
       </span>
                             </div>
                             <label class="switch">
-                                <input type="checkbox" id="push_mobile_check" checked>
+                                <input type="checkbox" id="push_mobile_check" @if($notifySetting->mobile_notify) checked @endif>
                                 <div class="slider round"></div>
                             </label>
                             <div class="optionslabel">Mobile Notifications</div>
                             <div class="input-group">
-                                <input type="text" id="push_mobile" class="form-control" placeholder="Your Mobile #">
+                                <input value="{{ $notifySetting->mobile }}" type="text" id="push_mobile" class="form-control" placeholder="Your Mobile #">
       <span class="input-group-btn">
         <button class="btn btn-default" type="button">Verify</button>
       </span>
@@ -157,6 +158,7 @@
         </div>
     </div>
     <!-- End push Modal -->
+    @endif
         
         
         <!-- Email Inner Modal -->

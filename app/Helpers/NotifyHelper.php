@@ -29,6 +29,9 @@ class NotifyHelper
         $notifySettings->mobile_notify = $payload['push_mobile_check'] == 'true' ? 1 : 0;
         $notifySettings->email_notify = $payload['push_email_check'] == 'true' ? 1 : 0;
         $notifySettings->web_push_userid = $payload['push_web_userid'];
+        if (session('userId')) {
+            $notifySettings->creator = session('userId');
+        }
         $notifySettings->save();
         return $notifySettings;
     }
@@ -44,10 +47,10 @@ class NotifyHelper
         return $notifySettings->save();
     }
 
-    public static function getNotifySetting($userId, $email)
+    public static function getNotifySetting($userId)
     {
         $notifySettings = NotifySettings::where('notify_user', $userId)
-            ->where('email', $email)
+            ->where('creator', session('userId'))
             ->first();
 
         return $notifySettings;

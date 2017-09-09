@@ -5,6 +5,7 @@ use App\Helpers\CryptoHelper;
 use App\Models\User;
 use App\Models\Link;
 use App\Helpers\UserHelper;
+use App\Helpers\NotifyHelper;
 
 class IndexController extends Controller {
     /**
@@ -41,13 +42,33 @@ class IndexController extends Controller {
             return redirect(route('index'))->with('error', 'Invalid or disabled account: '.$username.'.');
         }
 
-	return view('user_profile', [
-		'isOwner' => session('username') == $username,
-		'user' => $user,
-		'showlink' => $shortlink,
-        'isNewPost' => $request->input('n', 0),
-        'no_div_padding' => true,
-		'links' => Link::where('creator', $username)->select(['id', 'creator', 'short_url', 'long_url', 'clicks', 'created_at', 'title', 'description', 'image', 'offer_code'])->orderBy('id', 'DESC')->get()
-	]);
+        if (!empty(session('userId'))) {
+            $notifySetting = NotifyHelper::getNotifySetting($user->id);
+            if (session('username') != $username && empty($notifySetting)) {
+                $currentUser = UserHelper::getUserById(session('userId'));
+                $notifySetting = new \stdClass();
+                $notifySetting->mobile = '';
+                $notifySetting->web_notify = 1;
+                $notifySetting->mobile_notify = 1;
+                $notifySetting->email_notify = 1;
+                $notifySetting->email = $currentUser->email;
+            }
+        } else {
+            $notifySetting = new \stdClass();
+            $notifySetting->mobile = '';
+            $notifySetting->web_notify = 1;
+            $notifySetting->mobile_notify = 1;
+            $notifySetting->email_notify = 1;
+        }
+
+        return view('user_profile', [
+            'notifySetting' => $notifySetting,
+            'isOwner' => session('username') == $username,
+            'user' => $user,
+            'showlink' => $shortlink,
+            'isNewPost' => $request->input('n', 0),
+            'no_div_padding' => true,
+            'links' => Link::where('creator', $username)->select(['id', 'creator', 'short_url', 'long_url', 'clicks', 'created_at', 'title', 'description', 'image', 'offer_code'])->orderBy('id', 'DESC')->get()
+        ]);
     }
 }
