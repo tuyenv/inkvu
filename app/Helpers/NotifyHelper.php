@@ -127,7 +127,17 @@ class NotifyHelper
             return false;
         }
 
-        $notifySettingPlayerID = array_filter(array_column($notifySend, 'web_push_userid'));
+        $notifySettingPlayerID = [];
+        foreach ($notifySend as $item) {
+            if (!empty($item['web_push_userid'])) {
+                $notifySettingPlayerID[] = $item['web_push_userid'];
+            }
+        }
+
+        if (empty($notifySettingPlayerID)) {
+            return false;
+        }
+
         $content = array(
             "title" => $linkObject->title,
             "en" => $linkObject->description
