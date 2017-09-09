@@ -52,6 +52,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
             httpPermissionRequest: {
                 enable: true
             },
+            // Your other init options here
+            promptOptions: {
+                /* Change bold title, limited to 30 characters */
+                siteName: 'Inkvu',
+                /* Subtitle, limited to 90 characters */
+                actionMessage: "We'd like to show you notifications for the updates of your subscribed user.",
+                /* Example notification title */
+                exampleNotificationTitle: 'Subscribe notification',
+                /* Example notification message */
+                exampleNotificationMessage: 'We will send you a push notification',
+                /* Text below example notification, limited to 50 characters */
+                exampleNotificationCaption: 'You can unsubscribe anytime',
+                /* Accept button text, limited to 15 characters */
+                acceptButtonText: "ALLOW",
+                /* Cancel button text, limited to 15 characters */
+                cancelButtonText: "NO THANKS"
+            },
             notifyButton: {
                 enable: false /* Set to false to hide */
             },
