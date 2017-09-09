@@ -515,9 +515,11 @@
                 push_email: $("#push_email").val(),
                 push_mobile_check: $('#push_mobile_check').is(":checked"),
                 push_mobile: $("#push_mobile").val(),
-                push_notify_user: $("#push_user_id").val()
+                push_notify_user: $("#push_user_id").val(),
+                push_web_userid: OneSignalUserID
             };
 
+            var dataUpdatePlayerID = '';
             $.ajax({
                 url: '/save_notification',
                 data: data,
@@ -541,13 +543,28 @@
                                     OneSignal.registerForPushNotifications({
                                         modalPrompt: true
                                     });
+
                                     OneSignal.sendTags({
-                                        email: $("#push_email").val(),
-                                        subscribed_id: $("#push_user_id").val(),
-                                        setting_id: jsonData.data
+                                        email: $("#push_email").val()
                                     }).then(function(tagsSent) {
                                         // Callback called when tags have finished sending
 
+                                    });
+
+                                    OneSignal.getUserId(function(userId) {
+                                        dataUpdatePlayerID = {
+                                            id: jsonData.data,
+                                            push_web_userid: userId
+                                        };
+                                        $.ajax({
+                                            url: '/update_notification',
+                                            data: dataUpdatePlayerID,
+                                            dataType: 'json',
+                                            type: 'POST',
+                                            success: function(jsonData) {
+
+                                            }
+                                        });
                                     });
                                 });
                             });
@@ -560,6 +577,20 @@
                                 OneSignal.isPushNotificationsEnabled(function(isEnabled) {
                                     if (isEnabled) {
                                         OneSignal.push(["setSubscription", false]);
+                                    }
+                                });
+
+                                dataUpdatePlayerID = {
+                                    id: jsonData.data,
+                                    push_web_userid: ''
+                                };
+                                $.ajax({
+                                    url: '/update_notification',
+                                    data: dataUpdatePlayerID,
+                                    dataType: 'json',
+                                    type: 'POST',
+                                    success: function(jsonData) {
+
                                     }
                                 });
                             });

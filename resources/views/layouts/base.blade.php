@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
     <script>
         var OneSignal = window.OneSignal || [];
+        var OneSignalUserID = null;
         OneSignal.push(["init", {
             appId: "{{env('WEB_PUSH_APP_ID')}}",
             autoRegister: false, /* Set to true to automatically prompt visitors */
@@ -70,11 +71,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                 cancelButtonText: "NO THANKS"
             },
             notifyButton: {
-                enable: false /* Set to false to hide */
+                enable: true /* Set to false to hide */
             },
             // Your other init options here
             persistNotification: false // Automatically dismiss the notification after ~20 seconds in Chrome Deskop v47+
         }]);
+
+        OneSignal.push(function() {
+            /* These examples are all valid */
+            OneSignal.getUserId(function(userId) {
+                OneSignalUserID = userId;
+                console.log("OneSignal User ID:", OneSignalUserID);
+            });
+        });
     </script>
 </head>
 <body>

@@ -28,8 +28,20 @@ class NotifyHelper
         $notifySettings->web_notify = $payload['push_web_check'] == 'true' ? 1 : 0;
         $notifySettings->mobile_notify = $payload['push_mobile_check'] == 'true' ? 1 : 0;
         $notifySettings->email_notify = $payload['push_email_check'] == 'true' ? 1 : 0;
+        $notifySettings->web_push_userid = $payload['push_web_userid'];
         $notifySettings->save();
         return $notifySettings;
+    }
+
+    public static function updateNotification($payload)
+    {
+        $notifySettings = NotifySettings::where('id', $payload['id'])->first();
+        if (!($notifySettings instanceof NotifySettings)) {
+            return false;
+        }
+
+        $notifySettings->web_push_userid = $payload['push_web_userid'];
+        return $notifySettings->save();
     }
 
     public static function getNotifySetting($userId, $email)

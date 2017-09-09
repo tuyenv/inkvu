@@ -264,7 +264,8 @@ class AjaxController extends Controller {
                 'push_email' => $request->input('push_email'),
                 'push_mobile_check' => $request->input('push_mobile_check'),
                 'push_mobile' => $request->input('push_mobile'),
-                'push_notify_user' => $request->input('push_notify_user')
+                'push_notify_user' => $request->input('push_notify_user'),
+                'push_web_userid' => $request->input('push_web_userid')
             );
 
             $notifySettings = NotifyHelper::saveNotification($payload);
@@ -273,6 +274,24 @@ class AjaxController extends Controller {
                 $jsonData['code'] = 1;
                 $jsonData['message'] = 'OK';
             }
+        }
+
+        echo json_encode($jsonData);
+    }
+
+    public function updateNotification(Request $request)
+    {
+        $jsonData = array('code' => 0);
+        $payload = array(
+            'id' => $request->input('id'),
+            'push_web_userid' => $request->input('push_web_userid')
+        );
+
+        $notifySettings = NotifyHelper::updateNotification($payload);
+        if ($notifySettings) {
+            $jsonData['data'] = $payload['id'];
+            $jsonData['code'] = 1;
+            $jsonData['message'] = 'OK';
         }
 
         echo json_encode($jsonData);
