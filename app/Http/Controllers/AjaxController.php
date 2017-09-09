@@ -267,7 +267,9 @@ class AjaxController extends Controller {
                 'push_notify_user' => $request->input('push_notify_user')
             );
 
-            if (NotifyHelper::saveNotification($payload)) {
+            $notifySettings = NotifyHelper::saveNotification($payload);
+            if ($notifySettings) {
+                $jsonData['data'] = $notifySettings->id;
                 $jsonData['code'] = 1;
                 $jsonData['message'] = 'OK';
             }

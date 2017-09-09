@@ -156,7 +156,7 @@ class LinkController extends Controller {
         NotifyHelper::saveNotifyQueueDone($link_object->id);
 
         // send notify message - web push
-        NotifyHelper::sendMessage($link_object, $short_url);
+        NotifyHelper::sendMessageWebPush($link_object, $short_url);
 
         $short_url .= '?n=1';
         return redirect($short_url)->with('success', 'Post published.');

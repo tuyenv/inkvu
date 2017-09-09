@@ -518,33 +518,6 @@
                 push_notify_user: $("#push_user_id").val()
             };
 
-            if ($('#push_web_check').is(":checked")) {
-                OneSignal.push(function() {
-                    // If we're on an unsupported browser, do nothing
-                    if (!OneSignal.isPushNotificationsSupported()) {
-                        return;
-                    }
-                    OneSignal.isPushNotificationsEnabled(function(isEnabled) {
-                        if (isEnabled) {
-                            // The user is subscribed to notifications
-                            // Don't show anything
-                        } else {
-                            OneSignal.registerForPushNotifications({
-                                modalPrompt: true
-                            });
-                            OneSignal.sendTags({
-                                email: $("#push_email").val(),
-                                subscribed_id: $("#push_user_id").val()
-                            }).then(function(tagsSent) {
-                                // Callback called when tags have finished sending
-                            });
-                        }
-                    });
-                });
-            } else {
-                OneSignal.push(["setSubscription", false]);
-            }
-
             $.ajax({
                 url: '/save_notification',
                 data: data,
@@ -557,6 +530,39 @@
                     } else {
                         $("#pushModal").modal('hide');
                         $("#errMsg").hide();
+
+                        if ($('#push_web_check').is(":checked")) {
+                            OneSignal.push(function() {
+                                // If we're on an unsupported browser, do nothing
+                                if (!OneSignal.isPushNotificationsSupported()) {
+                                    return;
+                                }
+                                OneSignal.isPushNotificationsEnabled(function(isEnabled) {
+                                    OneSignal.registerForPushNotifications({
+                                        modalPrompt: true
+                                    });
+                                    OneSignal.sendTags({
+                                        email: $("#push_email").val(),
+                                        subscribed_id: $("#push_user_id").val(),
+                                        setting_id: jsonData.data
+                                    }).then(function(tagsSent) {
+                                        // Callback called when tags have finished sending
+                                    });
+                                });
+                            });
+                        } else {
+                            OneSignal.push(function() {
+                                // If we're on an unsupported browser, do nothing
+                                if (!OneSignal.isPushNotificationsSupported()) {
+                                    return;
+                                }
+                                OneSignal.isPushNotificationsEnabled(function(isEnabled) {
+                                    if (isEnabled) {
+                                        OneSignal.push(["setSubscription", false]);
+                                    }
+                                });
+                            });
+                        }
                     }
                 }
             });

@@ -17,7 +17,7 @@ class NotifyHelper
 
     public static function saveNotification($payload)
     {
-        $notifySettings = self::getNotifySetting($payload['push_notify_user'], $payload['push_email'], $payload['push_notify_user']);
+        $notifySettings = self::getNotifySetting($payload['push_notify_user'], $payload['push_email']);
         if (!($notifySettings instanceof NotifySettings)) {
             $notifySettings = new NotifySettings();
         }
@@ -28,15 +28,24 @@ class NotifyHelper
         $notifySettings->web_notify = $payload['push_web_check'] == 'true' ? 1 : 0;
         $notifySettings->mobile_notify = $payload['push_mobile_check'] == 'true' ? 1 : 0;
         $notifySettings->email_notify = $payload['push_email_check'] == 'true' ? 1 : 0;
-        return $notifySettings->save();
+        $notifySettings->save();
+        return $notifySettings;
     }
 
-    public static function getNotifySetting($userId, $email, $nofityUser)
+    public static function getNotifySetting($userId, $email)
     {
         $notifySettings = NotifySettings::where('notify_user', $userId)
             ->where('email', $email)
-            ->where('notify_user', $nofityUser)
             ->first();
+
+        return $notifySettings;
+    }
+
+    public static function getNotifySettingByUser($userId, $where)
+    {
+        $notifySettings = NotifySettings::where('notify_user', $userId)
+            ->where($where['key'], $where['value'])
+            ->get()->toArray();
 
         return $notifySettings;
     }
@@ -99,8 +108,14 @@ class NotifyHelper
         return NotifyDeliver::insert($arrInsert);
     }
 
-    public static function sendMessage($linkObject, $shortUrl)
+    public static function sendMessageWebPush($linkObject, $shortUrl)
     {
+        $notifySend = self::getNotifySettingByUser(session('userId'), ['key' => 'web_notify', 'value' => 1]);
+        if (empty($notifySend)) {
+            return false;
+        }
+
+        $notifySettingID = array_column($notifySend, 'id');
         $content = array(
             "title" => $linkObject->title,
             "en" => $linkObject->description
@@ -108,7 +123,11 @@ class NotifyHelper
 
         $fields = array(
             'app_id' => env('WEB_PUSH_APP_ID'),
-            'filters' => array(array("field" => "tag", "key" => "subscribed_id", "relation" => "=", "value" => session('userId'))),
+            'filters' => array(
+                array("field" => "tag", "key" => "subscribed_id", "relation" => "=", "value" => session('userId')),
+                array("operator" => "AND"),
+                array("field" => "tag", "key" => "setting_id", "relation" => "exists", "value" => $notifySettingID),
+            ),
             'url' => $shortUrl,
             'contents' => $content,
             'chrome_web_image' => $linkObject->image,
