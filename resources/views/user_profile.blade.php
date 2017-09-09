@@ -538,15 +538,15 @@
                                     return;
                                 }
                                 OneSignal.isPushNotificationsEnabled(function(isEnabled) {
-                                    OneSignal.registerForPushNotifications({
-                                        modalPrompt: true
-                                    });
                                     OneSignal.sendTags({
                                         email: $("#push_email").val(),
                                         subscribed_id: $("#push_user_id").val(),
                                         setting_id: jsonData.data
                                     }).then(function(tagsSent) {
                                         // Callback called when tags have finished sending
+                                        OneSignal.registerForPushNotifications({
+                                            modalPrompt: true
+                                        });
                                     });
                                 });
                             });
