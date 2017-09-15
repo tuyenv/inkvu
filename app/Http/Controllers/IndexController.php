@@ -36,6 +36,10 @@ class IndexController extends Controller {
     }
 
     public function userProfile(Request $request, $username, $shortlink = null) {
+        if ($username == 'favicon.ico') {
+            return response('favicon.ico', 200)->header('Content-Type', 'text/plain');
+        }
+
         $user = UserHelper::getUserByUsername($username);
 
         if (!$user) {
