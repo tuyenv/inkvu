@@ -52,6 +52,7 @@ $app->post('/admin/action/change_password', ['as' => 'change_password', 'uses' =
 $app->post('/edit_link', ['as' => 'elink', 'uses' => 'AjaxController@editLink']);
 $app->post('/save_notification', ['uses' => 'AjaxController@saveNotification']);
 $app->post('/update_notification', ['uses' => 'AjaxController@updateNotification']);
+$app->post('/verifysns', ['uses' => 'AjaxController@subscribeSNS']);
 
 $app->group(['prefix' => '/api/v2', 'namespace' => 'App\Http\Controllers'], function ($app) {
     /* API internal endpoints */

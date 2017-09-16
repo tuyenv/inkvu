@@ -144,7 +144,7 @@
                             <div class="input-group">
                                 <input value="{{ $notifySetting->mobile }}" type="text" id="push_mobile" class="form-control" placeholder="Your Mobile #">
       <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Verify</button>
+        <button class="btn btn-default pushVerify" type="button">Verify</button>
       </span>
                             </div>
                         </div>
@@ -602,6 +602,21 @@
             });
         });
 
+        $('#pushModal').on('click', '.pushVerify', function () {
+            var data = {
+                mobile: $("#push_mobile").val(),
+            };
+
+            $.ajax({
+                url: '/verifysns',
+                data: data,
+                dataType: 'json',
+                type: 'POST',
+                success: function(jsonData) {
+
+                }
+            });
+        });
 	</script>
 
 	@if ($showlink && $isNewPost == 0)

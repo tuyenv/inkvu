@@ -10,6 +10,8 @@ use App\Models\User;
 use App\Factories\UserFactory;
 use Validator;
 use Illuminate\Support\Facades\Input;
+use Aws\Sns\SnsClient;
+use Aws\Credentials\Credentials;
 
 class AjaxController extends Controller {
     /**
@@ -292,6 +294,36 @@ class AjaxController extends Controller {
             $jsonData['data'] = $payload['id'];
             $jsonData['code'] = 1;
             $jsonData['message'] = 'OK';
+        }
+
+        echo json_encode($jsonData);
+    }
+
+    public function subscribeSNS(Request $request)
+    {
+        $jsonData = array('code' => 0);
+        try {
+            $client = SnsClient::factory(
+                array(
+                    'region'  => 'us-east-1',
+                    'version' => 'latest',
+                    'credentials' => [
+                        'key'     => env('SNS_KEY'),
+                        'secret'  => env('SNS_SECRET')
+                    ]
+                )
+            );
+
+            $result = $client->subscribe(array(
+                'TopicArn' => 'arn:aws:sns:us-east-1:267506388672:ink-notification',
+                'Protocol' => 'sms',
+                'Endpoint' => $request->input('mobile')
+            ));
+
+            $jsonData['code'] = 1;
+            $jsonData['result'] = $result;
+        } catch (\Exception $e) {
+            $jsonData['message'] = $e->getMessage();
         }
 
         echo json_encode($jsonData);
