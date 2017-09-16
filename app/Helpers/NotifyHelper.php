@@ -107,10 +107,6 @@ class NotifyHelper
                 'updated_at' => date('Y-m-d H:i:s')
             );
 
-            if ($setting['web_notify']) {
-                $arrInsert[] = array_merge($arrBase, array('push_type' => self::PUSH_TYPE_WEB));
-            }
-
             if ($setting['mobile_notify']) {
                 $arrInsert[] = array_merge($arrBase, array('push_type' => self::PUSH_TYPE_MOBILE));
             }
@@ -168,5 +164,16 @@ class NotifyHelper
         $response = curl_exec($ch);
         curl_close($ch);
         return $response;
+    }
+
+    public static function getNotifyDelivery($type, $limit)
+    {
+        $deliver = NotifyDeliver::where('push_type', $type)
+            ->where('status', 'init')
+            ->orderBy('id', 'ASC')
+            ->limit($limit)
+            ->get();
+
+        return $deliver;
     }
 }

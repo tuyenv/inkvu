@@ -16,7 +16,8 @@
         "nesbot/carbon": "^1.22",
         "doctrine/dbal": "^2.5",
         "tuyenv/php-simple-html-dom-parser": "dev-1.5.1-curl",
-        "aws/aws-sdk-php": "~3.0"
+        "aws/aws-sdk-php": "~3.0",
+        "guzzlehttp/guzzle": "~5.3|~6.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.0",
