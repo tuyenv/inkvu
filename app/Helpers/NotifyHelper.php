@@ -109,6 +109,7 @@ class NotifyHelper
                 'status' => self::STATUS_INIT,
                 'email' => $setting['email'],
                 'mobile' => $setting['mobile'],
+                'is_verified' => $setting['is_verified'],
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             );
@@ -176,6 +177,7 @@ class NotifyHelper
     {
         $deliver = NotifyDeliver::where('push_type', $type)
             ->where('status', 'init')
+            ->where('is_verified', 1)
             ->orderBy('id', 'ASC')
             ->limit($limit)
             ->get();
