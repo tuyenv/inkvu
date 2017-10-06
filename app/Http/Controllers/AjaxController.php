@@ -314,14 +314,44 @@ class AjaxController extends Controller {
                 )
             );
 
+            // subscribe
             $result = $client->subscribe(array(
                 'TopicArn' => 'arn:aws:sns:us-east-1:267506388672:ink-notification',
                 'Protocol' => 'sms',
                 'Endpoint' => $request->input('mobile')
             ));
 
+            // send verify
+            $randomNumber = random_int(111111, 999999);
+            $request->session()->put('subscribeSNS', $randomNumber);
+            $request->session()->put('isVerifiedSNS', 0);
+            $payload = array(
+                'Message' => $randomNumber,
+                'MessageStructure' => 'string',
+                'PhoneNumber' => $request->input('mobile'),
+                'SenderID' => "Inkvu",
+                'SMSType' => "Promotional",
+            );
+            $client->publish($payload);
+
             $jsonData['code'] = 1;
             $jsonData['result'] = $result;
+        } catch (\Exception $e) {
+            $jsonData['message'] = $e->getMessage();
+        }
+
+        echo json_encode($jsonData);
+    }
+
+    public function verifySubscribeSNS(Request $request)
+    {
+        $jsonData = array('code' => 0);
+        try {
+            if (session('subscribeSNS') == $request->input('verifyNumber')) {
+                $jsonData['code'] = 1;
+                $request->session()->forget('isVerifiedSNS');
+                $request->session()->put('isVerifiedSNS', 1);
+            }
         } catch (\Exception $e) {
             $jsonData['message'] = $e->getMessage();
         }

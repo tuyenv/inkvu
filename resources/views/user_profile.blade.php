@@ -141,12 +141,20 @@
                                 <div class="slider round"></div>
                             </label>
                             <div class="optionslabel">Mobile Notifications</div>
-                            <div class="input-group">
+                            <div class="input-group mobile-group">
                                 <input value="{{ $notifySetting->mobile }}" type="text" id="push_mobile" class="form-control" placeholder="Your Mobile #">
       <span class="input-group-btn">
         <button class="btn btn-default pushVerify" type="button">Verify</button>
       </span>
                             </div>
+                            <div class="verifylabel" style="display: none; margin: 10px 0px;">Your Mobile: <strong style="color: #e95950"></strong></div>
+                            <div class="input-group verify-group" style="display: none">
+                                <input value="" type="text" id="push_mobile_verify" class="form-control" placeholder="Please enter verify number #">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default pushVerifyNumber" type="button">Verify</button>
+                                </span>
+                            </div>
+                            <div class="verify_error_label" style="color: #e95950; display: none">Verify number incorrect</div>
                         </div>
                     </div>
                 </div>
@@ -603,10 +611,14 @@
         });
 
         $('#pushModal').on('click', '.pushVerify', function () {
-            var data = {
-                mobile: $("#push_mobile").val(),
-            };
+            var mobile = $("#push_mobile").val();
+            if (!mobile) {
+                return false;
+            }
 
+            var data = {
+                mobile: $("#push_mobile").val()
+            };
             $.ajax({
                 url: '/verifysns',
                 data: data,
@@ -614,6 +626,40 @@
                 type: 'POST',
                 success: function(jsonData) {
 
+                }
+            });
+
+            $(".mobile-group").hide();
+            $(".verify-group").show();
+            $(".verifylabel strong").text(mobile);
+            $(".verifylabel").show();
+        });
+
+        $('#pushModal').on('click', '.pushVerifyNumber', function () {
+            var verifyNumber = $("#push_mobile_verify").val();
+            if (!verifyNumber) {
+                $(".push_mobile_verify").addClass("input-error");
+                $(".verify_error_label").show();
+                return false;
+            }
+
+            var data = {
+                verifyNumber: verifyNumber
+            };
+            $.ajax({
+                url: '/verifynumbersns',
+                data: data,
+                dataType: 'json',
+                type: 'POST',
+                success: function(jsonData) {
+                    if (jsonData.code == 1) {
+                        $(".push_mobile_verify").removeClass("input-error");
+                        $(".verify_error_label").text("Verified");
+                        $(".verify_error_label").show();
+                    } else {
+                        $(".push_mobile_verify").addClass("input-error");
+                        $(".verify_error_label").show();
+                    }
                 }
             });
         });

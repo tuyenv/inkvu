@@ -17,9 +17,14 @@ class NotifyHelper
 
     public static function saveNotification($payload)
     {
-        $notifySettings = self::getNotifySetting($payload['push_notify_user'], $payload['push_email']);
+        $notifySettings = self::getNotifySetting($payload['push_notify_user']);
         if (!($notifySettings instanceof NotifySettings)) {
             $notifySettings = new NotifySettings();
+        }
+
+        $isVerifiedSNS = 0;
+        if (session('isVerifiedSNS')) {
+            $isVerifiedSNS = 1;
         }
 
         $notifySettings->notify_user = $payload['push_notify_user'];
@@ -29,6 +34,7 @@ class NotifyHelper
         $notifySettings->mobile_notify = $payload['push_mobile_check'] == 'true' ? 1 : 0;
         $notifySettings->email_notify = $payload['push_email_check'] == 'true' ? 1 : 0;
         $notifySettings->web_push_userid = $payload['push_web_userid'];
+        $notifySettings->is_verified = $isVerifiedSNS;
         if (session('userId')) {
             $notifySettings->creator = session('userId');
         }
