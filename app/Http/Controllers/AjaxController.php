@@ -12,6 +12,7 @@ use Validator;
 use Illuminate\Support\Facades\Input;
 use Aws\Sns\SnsClient;
 use Aws\Credentials\Credentials;
+use Mail;
 
 class AjaxController extends Controller {
     /**
@@ -351,6 +352,45 @@ class AjaxController extends Controller {
                 $jsonData['code'] = 1;
                 $request->session()->forget('isVerifiedSNS');
                 $request->session()->put('isVerifiedSNS', 1);
+            }
+        } catch (\Exception $e) {
+            $jsonData['message'] = $e->getMessage();
+        }
+
+        echo json_encode($jsonData);
+    }
+
+    public function subscribeEmail(Request $request)
+    {
+        $jsonData = array('code' => 0);
+        try {
+            // send verify
+            $randomNumber = random_int(111111, 999999);
+            $request->session()->put('subscribeEmail', $randomNumber);
+            $request->session()->put('isVerifiedEmail', 0);
+
+            $email = $request->input('email');
+            Mail::send('emails.verify_email', ['randomNumber' => $randomNumber], function ($m) use ($email) {
+                $m->from('notification@ink.vu', 'Inkvu Notification');
+                $m->to($email, $email)->subject('Subscribed verify email');
+            });
+
+            $jsonData['code'] = 1;
+        } catch (\Exception $e) {
+            $jsonData['message'] = $e->getMessage();
+        }
+
+        echo json_encode($jsonData);
+    }
+
+    public function verifyEmail(Request $request)
+    {
+        $jsonData = array('code' => 0);
+        try {
+            if (session('subscribeEmail') == $request->input('verifyNumber')) {
+                $jsonData['code'] = 1;
+                $request->session()->forget('isVerifiedEmail');
+                $request->session()->put('isVerifiedEmail', 1);
             }
         } catch (\Exception $e) {
             $jsonData['message'] = $e->getMessage();

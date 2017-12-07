@@ -130,12 +130,22 @@
                                 <div class="slider round"></div>
                             </label>
                             <div class="optionslabel">Email Notifications</div>
-                            <div class="input-group">
+                            <div class="input-group email-group">
                                 <input type="text" id="push_email" class="form-control" placeholder="Your Email" value="{{ $notifySetting->email }}">
       <span class="input-group-btn">
-        <button class="btn btn-default pushSave" type="button">Save</button>
+        <button class="btn btn-default pushVerifyEmail" type="button">Verify</button>
       </span>
                             </div>
+                            <div class="verifylabelemail" style="display: none; margin: 10px 0px;">Your Email: <strong style="color: #e95950"></strong></div>
+                            <div class="input-group verify-group-email" style="display: none">
+                                <input value="" type="text" id="push_email_verify" class="form-control" placeholder="Please enter verify number #">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default pushVerifyNumberEmail" type="button">Verify</button>
+                                </span>
+                            </div>
+                            <div class="verify_error_label_email" style="color: #e95950; display: none">Verify number incorrect</div>
+
+
                             <label class="switch">
                                 <input type="checkbox" id="push_mobile_check" @if($notifySetting->mobile_notify) checked @endif>
                                 <div class="slider round"></div>
@@ -255,11 +265,15 @@
 
                     <div style="display: none" id="linkmodal-{{$link->short_url}}">
                         <div class="modalicon">
-                            <img class="pic" src="{{$link->image}}" />
+                            @if ($link->image)
+                            <img class="pic error_image" src="{{$link->image}}" />
+                            @else
+                            <img class="pic error_image" src="{{$error_image}}" />
+                            @endif
                         </div>
                         <div class="content">
                             <h6>{{$link->created_at}}</h6>
-                            <h4 class="linktitle">{{$link->title}}</h4>
+                            <h4 class="linktitle"><a target="_blank" href="{{$link->long_url}}">{{$link->title}}</a></h4>
                             <p class="short-desc">{{$link->description}}</p>
                             @if ($link->offer_code)
                                 <p class="offercode"><strong>Offer Code:</strong> <input readonly type="text" class="offer-code-holder" value="{{$link->offer_code}}" /> <button class="btn copybutton btn-xs" type="button" onclick="
@@ -292,7 +306,11 @@
                     </div>
 
                     <div class="icon" onclick="return showModalPostViaLink({{json_encode($link->short_url)}});">
-                        <img class="pic" src="{{$link->image}}" />
+                        @if ($link->image)
+                            <img class="pic error_image" src="{{$link->image}}" />
+                        @else
+                            <img class="pic error_image" src="{{$error_image}}" />
+                        @endif
                     </div>
                     <div class="content" id="linkcontent-{{$link->short_url}}">
                         @if ($isOwner)
@@ -396,6 +414,12 @@
 @section('js')
 	<script src='/js/index.js'></script>
 	<script>
+        $(document).ready(function () {
+            $(".error_image").on("error", function() {
+                $(this).attr('src', '{{$error_image}}');
+            });
+        });
+
 		function showModalPostViaLink(shortlink) {
 			if($("#modalRegister").hasClass('in')) {
 				// from clicks on the page just keep going
@@ -610,6 +634,65 @@
             });
         });
 
+
+        $('#pushModal').on('click', '.pushVerifyEmail', function () {
+            var email = $("#push_email").val();
+            if (!email) {
+                return false;
+            }
+
+            var data = {
+                email: $("#push_email").val()
+            };
+            $.ajax({
+                url: '/verifyemail',
+                data: data,
+                dataType: 'json',
+                type: 'POST',
+                success: function(jsonData) {
+
+                }
+            });
+
+            $(".email-group").hide();
+            $(".verify-group-email").show();
+            $(".verifylabelemail strong").text(email);
+            $(".verifylabelemail").show();
+        });
+
+        $('#pushModal').on('click', '.pushVerifyNumberEmail', function () {
+            var verifyNumber = $("#push_email_verify").val();
+            if (!verifyNumber) {
+                $(".push_email_verify").addClass("input-error");
+                $(".verify_error_label_email").show();
+                return false;
+            }
+
+            var data = {
+                verifyNumber: verifyNumber
+            };
+            $.ajax({
+                url: '/verifynumberemail',
+                data: data,
+                dataType: 'json',
+                type: 'POST',
+                success: function(jsonData) {
+                    if (jsonData.code == 1) {
+                        $(".push_email_verify").removeClass("input-error");
+                        $(".verify_error_label_email").text("Verified");
+                        $(".verify_error_label_email").show();
+                    } else {
+                        $(".push_email_verify").addClass("input-error");
+                        $(".verify_error_label_email").show();
+                    }
+                }
+            });
+        });
+
+
+
+
+
         $('#pushModal').on('click', '.pushVerify', function () {
             var mobile = $("#push_mobile").val();
             if (!mobile) {
@@ -683,3 +766,5 @@
 @section('css')
 	<link rel='stylesheet' href='css/index.css' />
 @endsection
+
+

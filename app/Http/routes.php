@@ -54,6 +54,8 @@ $app->post('/save_notification', ['uses' => 'AjaxController@saveNotification']);
 $app->post('/update_notification', ['uses' => 'AjaxController@updateNotification']);
 $app->post('/verifysns', ['uses' => 'AjaxController@subscribeSNS']);
 $app->post('/verifynumbersns', ['uses' => 'AjaxController@verifySubscribeSNS']);
+$app->post('/verifyemail', ['uses' => 'AjaxController@subscribeEmail']);
+$app->post('/verifynumberemail', ['uses' => 'AjaxController@verifyEmail']);
 
 $app->group(['prefix' => '/api/v2', 'namespace' => 'App\Http\Controllers'], function ($app) {
     /* API internal endpoints */
