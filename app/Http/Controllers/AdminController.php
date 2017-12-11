@@ -7,6 +7,7 @@ use Hash;
 use App\Models\Link;
 use App\Models\User;
 use App\Helpers\UserHelper;
+use App\Models\NotifySettings;
 
 class AdminController extends Controller {
     /**
@@ -68,5 +69,30 @@ class AdminController extends Controller {
             $request->session()->flash('success', "Password changed successfully.");
             return redirect(route('admin'));
         }
+    }
+
+    public function changeSettings(Request $request)
+    {
+        if (!$this->isLoggedIn()) {
+            return abort(404);
+        }
+
+        $username = session('username');
+        $email = $request->input('txt_email');
+        $mobile = $request->input('txt_mobile');
+        $user = UserHelper::getUserByUsername($username);
+        $user->email = $email;
+        $user->mobile = $mobile;
+        $user->save();
+
+        $notifySetting = NotifySettings::where('creator', $user->id)->get();
+        foreach ($notifySetting as $noti) {
+            $noti->email = $email;
+            $noti->mobile = $mobile;
+            $noti->save();
+        }
+
+        $request->session()->flash('success', "Settings changed successfully.");
+        return redirect(route('admin'));
     }
 }
