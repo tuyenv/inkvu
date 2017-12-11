@@ -42,6 +42,13 @@
                     <div>{{$bio}}</div>
                     <br clear="both" />
 
+                <form action='/admin/action/change_setting' method='POST'>
+                    Email: <input class="form-control password-box" type='text' name='txt_email' value="{{$user->email}}" />
+                    Mobile: <input class="form-control password-box" type='text' name='txt_mobile' value="{{$user->mobile}}" />
+                    <input type="hidden" name='_token' value='{{csrf_token()}}' />
+                    <input type='submit' class='btn btn-success change-password-btn'/>
+                </form>
+
                 <h3>Change Password</h3>
                 <form action='/admin/action/change_password' method='POST'>
                     Old Password: <input class="form-control password-box" type='password' name='current_password' />

@@ -253,30 +253,33 @@ class AjaxController extends Controller {
 
     public function saveNotification(Request $request)
     {
+        $username = session('username');
+        $user = user::where('active', 1)
+            ->where('username', $username)
+            ->first();
         $jsonData = array('code' => 0);
-        $rules = array('push_email' => 'required|email');
-        $validator = Validator::make(Input::all(), $rules);
 
-        if ($validator->fails()) {
-            $messages = $validator->messages();
-            $jsonData['message'] = $messages->get('push_email')[0];
-        } else {
-            $payload = array(
-                'push_web_check' => $request->input('push_web_check'),
-                'push_email_check' => $request->input('push_email_check'),
-                'push_email' => $request->input('push_email'),
-                'push_mobile_check' => $request->input('push_mobile_check'),
-                'push_mobile' => $request->input('push_mobile'),
-                'push_notify_user' => $request->input('push_notify_user'),
-                'push_web_userid' => $request->input('push_web_userid')
-            );
+        $payload = array(
+            'push_web_check' => $request->input('push_web_check'),
+            'push_email_check' => $request->input('push_email_check'),
+            'push_email' => $user->email,
+            'push_mobile_check' => $request->input('push_mobile_check'),
+            'push_mobile' => $request->input('push_mobile'),
+            'push_notify_user' => $request->input('push_notify_user'),
+            'push_web_userid' => $request->input('push_web_userid')
+        );
 
-            $notifySettings = NotifyHelper::saveNotification($payload);
-            if ($notifySettings) {
-                $jsonData['data'] = $notifySettings->id;
-                $jsonData['code'] = 1;
-                $jsonData['message'] = 'OK';
-            }
+        if (!empty($user->mobile)) {
+            $payload['push_mobile'] = $user->mobile;
+        }
+
+        $notifySettings = NotifyHelper::saveNotification($payload);
+
+
+        if ($notifySettings) {
+            $jsonData['data'] = $notifySettings->id;
+            $jsonData['code'] = 1;
+            $jsonData['message'] = 'OK';
         }
 
         echo json_encode($jsonData);

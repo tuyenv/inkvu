@@ -3,6 +3,7 @@ namespace App\Helpers;
 use App\Models\NotifySettings;
 use App\Models\NotifyQueue;
 use App\Models\NotifyDeliver;
+use App\Models\User;
 
 class NotifyHelper
 {
@@ -17,6 +18,11 @@ class NotifyHelper
 
     public static function saveNotification($payload)
     {
+        $username = session('username');
+        $user = user::where('active', 1)
+            ->where('username', $username)
+            ->first();
+
         $notifySettings = self::getNotifySetting($payload['push_notify_user']);
         if (!($notifySettings instanceof NotifySettings)) {
             $notifySettings = new NotifySettings();
@@ -25,10 +31,12 @@ class NotifyHelper
         if (session('isVerifiedSNS')) {
             $notifySettings->is_verified = 1;
             $notifySettings->mobile = $payload['push_mobile'];
+            $user->mobile = $payload['push_mobile'];
         }
 
         if (session('isVerifiedEmail')) {
             $notifySettings->email = $payload['push_email'];
+            $user->email = $payload['push_email'];
         }
 
         $notifySettings->notify_user = $payload['push_notify_user'];
@@ -41,6 +49,9 @@ class NotifyHelper
             $notifySettings->creator = session('userId');
         }
         $notifySettings->save();
+
+        $user->save();
+
         return $notifySettings;
     }
 

@@ -130,12 +130,18 @@
                                 <div class="slider round"></div>
                             </label>
                             <div class="optionslabel">Email Notifications</div>
-                            <div class="input-group email-group">
-                                <input type="text" id="push_email" class="form-control" placeholder="Your Email" value="{{ $notifySetting->email }}">
-      <span class="input-group-btn">
-        <button class="btn btn-default pushVerifyEmail" type="button">Verify</button>
-      </span>
-                            </div>
+                            @if ($notifySetting->email)
+                                <div>Your email: <span style="color: #e95950;">{{ $notifySetting->email }}</span>
+                                    <a style="color: #222" href="/admin#settings">#settings</a>
+                                </div>
+                            @else
+                                <div class="input-group email-group">
+                                    <input type="text" id="push_email" class="form-control" placeholder="Your Email" value="{{ $notifySetting->email }}">
+                                <span class="input-group-btn">
+                                  <button class="btn btn-default pushVerifyEmail" type="button">Verify</button>
+                                </span>
+                                </div>
+                            @endif
                             <div class="verifylabelemail" style="display: none; margin: 10px 0px;">Your Email: <strong style="color: #e95950"></strong></div>
                             <div class="input-group verify-group-email" style="display: none">
                                 <input value="" type="text" id="push_email_verify" class="form-control" placeholder="Please enter verify number #">
@@ -143,6 +149,7 @@
                                     <button class="btn btn-default pushVerifyNumberEmail" type="button">Verify</button>
                                 </span>
                             </div>
+                            <div class="email_verified" style="color: #e95950; display: none"></div>
                             <div class="verify_error_label_email" style="color: #e95950; display: none">Verify number incorrect</div>
 
 
@@ -151,12 +158,19 @@
                                 <div class="slider round"></div>
                             </label>
                             <div class="optionslabel">Mobile Notifications</div>
+                            @if ($notifySetting->mobile)
+                                <div>Your mobile: <span style="color: #e95950;">{{ $notifySetting->mobile }}</span>
+                                    <a style="color: #222" href="/admin#settings">#settings</a>
+                                </div>
+                            @else
                             <div class="input-group mobile-group">
                                 <input value="{{ $notifySetting->mobile }}" type="text" id="push_mobile" class="form-control" placeholder="Your Mobile #">
-      <span class="input-group-btn">
-        <button class="btn btn-default pushVerify" type="button">Verify</button>
-      </span>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default pushVerify" type="button">Verify</button>
+                                </span>
                             </div>
+                            @endif
+
                             <div class="verifylabel" style="display: none; margin: 10px 0px;">Your Mobile: <strong style="color: #e95950"></strong></div>
                             <div class="input-group verify-group" style="display: none">
                                 <input value="" type="text" id="push_mobile_verify" class="form-control" placeholder="Please enter verify number #">
@@ -164,6 +178,7 @@
                                     <button class="btn btn-default pushVerifyNumber" type="button">Verify</button>
                                 </span>
                             </div>
+                            <div class="mobile_verified" style="color: #e95950; display: none"></div>
                             <div class="verify_error_label" style="color: #e95950; display: none">Verify number incorrect</div>
                         </div>
                     </div>
@@ -679,8 +694,12 @@
                 success: function(jsonData) {
                     if (jsonData.code == 1) {
                         $(".push_email_verify").removeClass("input-error");
-                        $(".verify_error_label_email").text("Verified");
-                        $(".verify_error_label_email").show();
+                        $(".verify_error_label_email").hide();
+
+                        $(".verifylabelemail").hide();
+                        $(".verify-group-email").hide();
+                        $(".email_verified").html($("#push_email").val() + ' <span style="color: #cccccc;">Verified</span>');
+                        $(".email_verified").show();
                     } else {
                         $(".push_email_verify").addClass("input-error");
                         $(".verify_error_label_email").show();
@@ -737,8 +756,12 @@
                 success: function(jsonData) {
                     if (jsonData.code == 1) {
                         $(".push_mobile_verify").removeClass("input-error");
-                        $(".verify_error_label").text("Verified");
-                        $(".verify_error_label").show();
+                        $(".verify_error_label").hide();
+
+                        $(".verifylabel").hide();
+                        $(".verify-group").hide();
+                        $(".mobile_verified").html($("#push_mobile").val() + ' <span style="color: #cccccc;">Verified</span>');
+                        $(".mobile_verified").show();
                     } else {
                         $(".push_mobile_verify").addClass("input-error");
                         $(".verify_error_label").show();

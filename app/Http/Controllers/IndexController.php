@@ -51,18 +51,18 @@ class IndexController extends Controller {
             if (session('username') != $username && empty($notifySetting)) {
                 $currentUser = UserHelper::getUserById(session('userId'));
                 $notifySetting = new \stdClass();
-                $notifySetting->mobile = '';
-                $notifySetting->web_notify = 1;
-                $notifySetting->mobile_notify = 1;
-                $notifySetting->email_notify = 1;
+                $notifySetting->mobile = $currentUser->mobile;
+                $notifySetting->web_notify = 0;
+                $notifySetting->mobile_notify = 0;
+                $notifySetting->email_notify = 0;
                 $notifySetting->email = $currentUser->email;
             }
         } else {
             $notifySetting = new \stdClass();
             $notifySetting->mobile = '';
-            $notifySetting->web_notify = 1;
-            $notifySetting->mobile_notify = 1;
-            $notifySetting->email_notify = 1;
+            $notifySetting->web_notify = 0;
+            $notifySetting->mobile_notify = 0;
+            $notifySetting->email_notify = 0;
         }
 
         return view('user_profile', [

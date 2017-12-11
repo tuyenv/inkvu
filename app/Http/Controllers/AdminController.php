@@ -30,6 +30,7 @@ class AdminController extends Controller {
         }
 
         return view('admin', [
+            'user' => $user,
             'role' => $role,
             'admin_role' => UserHelper::$USER_ROLES['admin'],
             'user_roles' => UserHelper::$USER_ROLES,
