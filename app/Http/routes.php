@@ -58,6 +58,8 @@ $app->post('/verifynumbersns', ['uses' => 'AjaxController@verifySubscribeSNS']);
 $app->post('/verifyemail', ['uses' => 'AjaxController@subscribeEmail']);
 $app->post('/verifynumberemail', ['uses' => 'AjaxController@verifyEmail']);
 
+$app->post('/save_settings', ['uses' => 'AjaxController@changeSettings']);
+
 $app->group(['prefix' => '/api/v2', 'namespace' => 'App\Http\Controllers'], function ($app) {
     /* API internal endpoints */
     $app->post('link_avail_check', ['as' => 'api_link_check', 'uses' => 'AjaxController@checkLinkAvailability']);

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Input;
 use Aws\Sns\SnsClient;
 use Aws\Credentials\Credentials;
 use Mail;
+use App\Models\NotifySettings;
 
 class AjaxController extends Controller {
     /**
@@ -399,6 +400,41 @@ class AjaxController extends Controller {
             $jsonData['message'] = $e->getMessage();
         }
 
+        echo json_encode($jsonData);
+    }
+
+    public function changeSettings(Request $request)
+    {
+        $jsonData = array('code' => 0);
+        if (!$this->isLoggedIn()) {
+            $jsonData['message'] = 'Authenticate failed';
+            echo json_encode($jsonData);
+            exit();
+        }
+
+        $username = session('username');
+        $email = $request->input('push_email');
+        $mobile = $request->input('push_mobile');
+        $user = UserHelper::getUserByUsername($username);
+
+        if (session('isVerifiedEmail')) {
+            $user->email = $email;
+        }
+        if (session('isVerifiedSNS')) {
+            $user->mobile = $mobile;
+        }
+
+        $user->save();
+
+        $notifySetting = NotifySettings::where('creator', $user->id)->get();
+        foreach ($notifySetting as $noti) {
+            $noti->email = $email;
+            $noti->mobile = $mobile;
+            $noti->save();
+        }
+
+        $jsonData['code'] = 1;
+        $jsonData['message'] = 'Updated!';
         echo json_encode($jsonData);
     }
 }

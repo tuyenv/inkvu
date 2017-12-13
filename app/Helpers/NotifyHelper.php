@@ -28,15 +28,24 @@ class NotifyHelper
             $notifySettings = new NotifySettings();
         }
 
-        if (session('isVerifiedSNS')) {
+        if ($user->mobile != '') {
             $notifySettings->is_verified = 1;
-            $notifySettings->mobile = $payload['push_mobile'];
-            $user->mobile = $payload['push_mobile'];
+            $notifySettings->mobile = $user->mobile;
+        } else {
+            if (session('isVerifiedSNS')) {
+                $notifySettings->is_verified = 1;
+                $notifySettings->mobile = $payload['push_mobile'];
+                $user->mobile = $payload['push_mobile'];
+            }
         }
 
-        if (session('isVerifiedEmail')) {
-            $notifySettings->email = $payload['push_email'];
-            $user->email = $payload['push_email'];
+        if ($user->email != '') {
+            $notifySettings->email = $user->email;
+        } else {
+            if (session('isVerifiedEmail')) {
+                $notifySettings->email = $payload['push_email'];
+                $user->email = $payload['push_email'];
+            }
         }
 
         $notifySettings->notify_user = $payload['push_notify_user'];
