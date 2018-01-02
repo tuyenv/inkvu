@@ -64,7 +64,6 @@
                     <a class="dropdown-toggle login-name" href="#" data-toggle="dropdown">{{session('username')}} <strong class="caret"></strong></a>
                         <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
                             <li><a tabindex="-1" href="{{ route('admin') }}">Dashboard</a></li>
-                            <li><a tabindex="-1" href="{{ route('admin') }}#settings">Settings</a></li>
                             <li><a tabindex="-1" href="{{ route('logout') }}">Logout</a></li>
                         </ul>
                     </li>

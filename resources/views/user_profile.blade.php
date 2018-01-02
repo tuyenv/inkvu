@@ -230,9 +230,10 @@
 		<div class="editprofile">
 
 			<!-- Button trigger modal -->
+            <!--
 			<button type="button" class="btn btn-default editprofilebutton" data-toggle="modal" data-target="#myModal">
   Edit Profile
-</button>
+</button>-->
 
 			<!-- Start Edit Profile Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

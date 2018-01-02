@@ -11,7 +11,7 @@
         <ul class='nav nav-pills nav-stacked admin-nav' role='tablist'>
             <li role='presentation' aria-controls="home" class='admin-nav-item active'><a href='#home'>Home</a></li>
             <li role='presentation' aria-controls="links" class='admin-nav-item'><a href='#links'>Links</a></li>
-            <li role='presentation' aria-controls="settings" class='admin-nav-item'><a href='#settings'>Settings</a></li>
+            <li role='presentation' aria-controls="settings" class='admin-nav-item'><a href='#settings'>Edit profile</a></li>
 
             @if ($role == $admin_role)
             <li role='presentation' class='admin-nav-item'><a href='#admin'>Admin</a></li>
@@ -27,6 +27,38 @@
             <div role="tabpanel" class="tab-pane active" id="home">
                 <h2>Welcome to your {{env('APP_NAME')}} dashboard!</h2>
                 <p>Use the links on the left hand side to navigate your {{env('APP_NAME')}} dashboard.</p>
+                <a href="#" data-toggle="modal" data-target="#myModal">Social links</a>
+            </div>
+
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Edit Profile</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="/{{$user->username}}/update">
+                                <div class="modal-body">
+                                    <input type="hidden" name='_token' value='{{csrf_token()}}' />
+                                    <div class="form-group">
+                                        <input name="facebook_url" type="url" value="{{$user->facebook_url}}" class="form-control" placeholder="Facebook URL">
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="twitter_url" type="url" value="{{$user->twitter_url}}" class="form-control" placeholder="Twitter URL">
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="instagram_url" type="url" value="{{$user->instagram_url}}" class="form-control" placeholder="Instagram URL">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div role="tabpanel" class="tab-pane" id="links">

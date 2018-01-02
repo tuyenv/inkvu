@@ -7,7 +7,7 @@ use App\Helpers\CryptoHelper;
 use App\Helpers\UserHelper;
 
 class UserFactory {
-    public static function createUser($username, $email, $password, $active=0, $ip='127.0.0.1', $api_key=false, $api_active=0, $role=false) {
+    public static function createUser($username, $email, $password, $active=0, $ip='127.0.0.1', $api_key=false, $api_active=0, $role=false, $profile_picture_url = '') {
         if (!$role) {
             $role = UserHelper::$USER_ROLES['default'];
         }
@@ -25,6 +25,7 @@ class UserFactory {
         $user->role = $role;
         $user->api_key = $api_key;
         $user->api_active = $api_active;
+        $user->profile_picture_url = $profile_picture_url;
 
         $user->save();
         return $user;
