@@ -282,12 +282,13 @@
                     <div style="display: none" id="linkmodal-{{$link->short_url}}">
                         <div class="modalicon">
                             @if ($link->image)
-                            <img class="pic error_image" src="{{$link->image}}" />
+                                <a target="_blank" href="{{$link->long_url}}"><img class="pic error_image" src="{{$link->image}}" /></a>
                             @else
-                            <img class="pic error_image" src="{{$error_image}}" />
+                                <a target="_blank" href="{{$link->long_url}}"><img class="pic error_image" src="{{$error_image}}" /></a>
                             @endif
                         </div>
                         <div class="content">
+                            <a style="position: absolute;right: 10px;" target="_blank" href="{{$link->fullUrl()}}"><img width="60" src="http://beta.ink.vu/wp-content/uploads/2017/04/inkvu-03.png" alt="Ink.vu"></a>
                             <h6>{{$link->created_at}}</h6>
                             <h4 class="linktitle"><a target="_blank" href="{{$link->long_url}}">{{$link->title}}</a></h4>
                             <p class="short-desc">{{$link->description}}</p>
@@ -383,11 +384,7 @@
 <!-- Start Card 1 Modal -->
 <div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="modalRegister">
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="singlemodal" style="display:none;">Post</h4>
-            </div>
+        <div class="modal-content" style="padding-top: 0px;">
             <div class="modal-body">
                 <div class="wrapper">
 
