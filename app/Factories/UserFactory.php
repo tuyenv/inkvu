@@ -25,8 +25,8 @@ class UserFactory {
         $user->role = $role;
         $user->api_key = $api_key;
         $user->api_active = $api_active;
-        $user->profile_picture_url = $profile_picture_url;
         if ($profile_picture_url != '') {
+            $user->profile_picture_url = $profile_picture_url;
             $user->is_first_pass = 1;
         }
 

@@ -128,7 +128,7 @@ class UserController extends Controller {
                     }
                     $ip = $request->ip();
 
-                    $user = UserFactory::createUser($username, $email, $password, $active, $ip, $api_key, $api_active, $json->user->profile_picture);
+                    $user = UserFactory::createUser($username, $email, $password, $active, $ip, $api_key, $api_active, false, $json->user->profile_picture);
 
                 } else {
                     $user = $users->first();
