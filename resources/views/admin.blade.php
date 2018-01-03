@@ -3,6 +3,9 @@
 @section('css')
 <link rel='stylesheet' href='/css/admin.css'>
 <link rel='stylesheet' href='/css/datatables.min.css'>
+<style>
+    .tab-pane {margin-bottom: 20px;}
+</style>
 @endsection
 
 @section('content')
@@ -69,10 +72,15 @@
 
             <div role="tabpanel" class="tab-pane" id="settings">
                 <h3>User Profile</h3>
-                    <img style="float: left; margin-right: 1em; margin-bottom: 1em;" src="{{$profile_picture_url}}" alt="" />
+                    <img style="width: 150px; height:150px;float: left; margin-right: 1em; margin-bottom: 1em;" src="{{$profile_picture_url}}" alt="" />
                     Website: <a href="{{$website}}">{{$website}}</a>
                     <div>{{$bio}}</div>
-                    <br clear="both" />
+                <br clear="both" />
+                <form enctype="multipart/form-data" method="post" action="/admin/action/change_picture" style="margin-bottom: 10px;">
+                    Picture profile: <input type="file" name="picture_profile">
+                    <input type="hidden" name='_token' value='{{csrf_token()}}' />
+                    <button type="submit" class='btn btn-success change-password-btn'>Submit picture</button>
+                </form>
 
                 <form action='/admin/action/change_setting' method='POST'>
                     Email: <input disabled class="form-control password-box" type='text' name='txt_email' value="{{$user->email}}" />
@@ -81,6 +89,7 @@
                     <a class='btn btn-success change-password-btn' data-toggle="modal" data-target="#pushModal">Change</a>
                 </form>
 
+                @if ($user->is_first_pass == 0)
                 <h3>Change Password</h3>
                 <form action='/admin/action/change_password' method='POST'>
                     Old Password: <input class="form-control password-box" type='password' name='current_password' />
@@ -88,6 +97,14 @@
                     <input type="hidden" name='_token' value='{{csrf_token()}}' />
                     <input type='submit' class='btn btn-success change-password-btn'/>
                 </form>
+                @else
+                    <h3>Add Password</h3>
+                    <form action='/admin/action/change_password' method='POST'>
+                        Password: <input class="form-control password-box" type='password' name='new_password' />
+                        <input type="hidden" name='_token' value='{{csrf_token()}}' />
+                        <input type='submit' class='btn btn-success change-password-btn'/>
+                    </form>
+                @endif
             </div>
 
             @if ($role == $admin_role)

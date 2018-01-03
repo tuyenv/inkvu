@@ -30,6 +30,10 @@ class AdminController extends Controller {
             return redirect(route('index'))->with('error', 'Invalid or disabled account.');
         }
 
+        if ($user->profile_picture_url == '') {
+            $user->profile_picture_url = url('/') . '/img/default.jpg';
+        }
+
         return view('admin', [
             'user' => $user,
             'role' => $role,
@@ -53,17 +57,28 @@ class AdminController extends Controller {
         }
 
         $username = session('username');
-        $old_password = $request->input('current_password');
-        $new_password = $request->input('new_password');
+        $user = UserHelper::getUserByUsername($username);
+        if ($user->is_first_pass == 0) {
+            $old_password = $request->input('current_password');
+            $new_password = $request->input('new_password');
 
-        if (UserHelper::checkCredentials($username, $old_password) == false) {
-            // Invalid credentials
-            return redirect('admin')->with('error', 'Current password invalid. Try again.');
-        }
-        else {
-            // Credentials are correct
-            $user = UserHelper::getUserByUsername($username);
+            if (UserHelper::checkCredentials($username, $old_password) == false) {
+                // Invalid credentials
+                return redirect('admin')->with('error', 'Current password invalid. Try again.');
+            }
+            else {
+                // Credentials are correct
+
+                $user->password = Hash::make($new_password);
+                $user->save();
+
+                $request->session()->flash('success', "Password changed successfully.");
+                return redirect(route('admin'));
+            }
+        } else {
+            $new_password = $request->input('new_password');
             $user->password = Hash::make($new_password);
+            $user->is_first_pass = 0;
             $user->save();
 
             $request->session()->flash('success', "Password changed successfully.");
@@ -93,6 +108,38 @@ class AdminController extends Controller {
         }
 
         $request->session()->flash('success', "Settings changed successfully.");
+        return redirect(route('admin'));
+    }
+
+    public function changePicture(Request $request)
+    {
+        if (!$this->isLoggedIn()) {
+            return abort(404);
+        }
+
+        try {
+            $this->validate($request, [
+                'picture_profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+
+            if ($request->hasFile('picture_profile')) {
+                $username = session('username');
+                $user = UserHelper::getUserByUsername($username);
+
+                $image = $request->file('picture_profile');
+                $name = $user->id . time().'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('/users');
+                $image->move($destinationPath, $name);
+                $profile_picture_url = url('/') . '/users/' . $name;
+
+                $user->profile_picture_url = $profile_picture_url;
+                $user->save();
+                $request->session()->flash('success', "Picture changed successfully.");
+            }
+        } catch (\Exception $e) {
+
+        }
+
         return redirect(route('admin'));
     }
 }

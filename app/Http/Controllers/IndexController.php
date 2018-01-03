@@ -65,6 +65,10 @@ class IndexController extends Controller {
             $notifySetting->email_notify = 0;
         }
 
+        if ($user->profile_picture_url == '') {
+            $user->profile_picture_url = url('/') . '/img/default.jpg';
+        }
+
         return view('user_profile', [
             'notifySetting' => $notifySetting,
             'isOwner' => session('username') == $username,

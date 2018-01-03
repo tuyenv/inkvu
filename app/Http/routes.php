@@ -50,6 +50,7 @@ $app->post('/reset_password/{username}/{recovery_key}', ['as' => 'preset_passwor
 
 $app->post('/admin/action/change_password', ['as' => 'change_password', 'uses' => 'AdminController@changePassword']);
 $app->post('/admin/action/change_setting', ['as' => 'change_setting', 'uses' => 'AdminController@changeSettings']);
+$app->post('/admin/action/change_picture', ['as' => 'change_picture', 'uses' => 'AdminController@changePicture']);
 $app->post('/edit_link', ['as' => 'elink', 'uses' => 'AjaxController@editLink']);
 $app->post('/save_notification', ['uses' => 'AjaxController@saveNotification']);
 $app->post('/update_notification', ['uses' => 'AjaxController@updateNotification']);

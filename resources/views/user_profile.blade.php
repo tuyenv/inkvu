@@ -78,7 +78,7 @@
 	<div role="tabpanel" class="tab-pane" id="settings">
                 <div class="profile">
                 <h3 style="display:block;padding-right:10px;">{{$user->username}}</h3>
-                    <img class="profilepic" src="{{$user->profile_picture_url}}" alt="" />
+                    <img style="height: 150px; width: 150px;" class="profilepic" src="{{$user->profile_picture_url}}" alt="" />
                     <div class="profileinfo">
                     <p>Website: <a href="{{$user->website}}" target="_blank">{{$user->website}}</a><br>{{$user->bio}}
                     </p>
