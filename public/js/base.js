@@ -30,11 +30,12 @@ var polr = angular.module('polr',[]);
 
 // Setup FileStack
 var fileStackKey = 'APsEBWJ5KQtyzuUbunQDNz';
-var clientFileStack = filestack.init(fileStackKey, { policy: 'policy', signature: 'signature' });
+var clientFileStack = filestack.init(fileStackKey);
 var pickerOptions = {
+    fromSources: ['local_file_system', 'instagram', 'facebook', 'googledrive', 'dropbox'],
     accept: ['image/*'],
     maxFiles: 1,
-    storeTo: { path: '/custom_thumb/' }
+    storeTo: { path: '/custom_thumb/', location: 's3' }
 };
 
 // onboardModal
