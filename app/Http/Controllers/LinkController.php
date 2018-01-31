@@ -10,6 +10,7 @@ use App\Helpers\CryptoHelper;
 use App\Helpers\LinkHelper;
 use App\Helpers\ClickHelper;
 use Sunra\PhpSimple\HtmlDomParser;
+use MongoDB;
 
 class LinkController extends Controller {
     /**
@@ -31,64 +32,90 @@ class LinkController extends Controller {
         $description = "";
         $image = "";
 
-        $domParser = HtmlDomParser::file_get_html($long_url);
-        if (!empty($domParser)) {
+        if (strpos($long_url, 'steemit.com') !== FALSE) {
+            $username = 'steemit';
+            $password = 'steemit';
+            $host = 'mongo1.steemdata.com';
+            $port = '27017';
+            $db = 'SteemData';
+            $connectionString = "mongodb://$username:$password@$host:$port/$db";
+            $connectionOption = [];
+            $connectionOption['readPreference'] = 'primaryPreferred';
+            $mongodb = (new MongoDB\Client($connectionString, $connectionOption))->$db;
 
-            // title
-            $arrFindTitleElement = array('title', 'meta[property=og:title]', 'meta[name=twitter:title]');
-            foreach ($arrFindTitleElement as $find) {
-                $titleElement = $domParser->find($find, 0);
-                if (!empty($titleElement)) {
-                    $title = $titleElement->getAttribute('content');
-                    if (empty($image)) {
-                        $title = html_entity_decode($titleElement->plaintext);
-                    }
-                    break;
+            if ($mongodb) {
+                $collection = $mongodb->Posts;
+                $parseUrl = parse_url($long_url);
+                $identifier = strstr($parseUrl['path'], '@');
+                $document = $collection->findOne(
+                    ['identifier' => $identifier],
+                    ['projection' => ['root_title' => 1, 'body' => 1]]
+                );
+                if (!empty($document)) {
+                    $title = $document['root_title'];
+                    $description = $this->truncate(strip_tags(htmlspecialchars_decode($document['body'])), 255);
                 }
             }
+        } else {
+            $domParser = HtmlDomParser::file_get_html($long_url);
+            if (!empty($domParser)) {
 
-            // description
-            $arrFindDescElement = array('meta[name=description]', 'meta[property=og:description]', );
-            foreach ($arrFindDescElement as $find) {
-                $descElement = $domParser->find($find, 0);
-                if (!empty($descElement)) {
-                    $description = html_entity_decode($descElement->getAttribute('content'));
-                    break;
-                }
-            }
-
-            // image
-            $arrFindImageElement = array('meta[property=og:image]', 'link[rel=apple-touch-icon]');
-            foreach ($arrFindImageElement as $find) {
-                $imageElement = $domParser->find($find, -1);
-                if (!empty($imageElement)) {
-                    $image = $imageElement->getAttribute('href');
-                    if (empty($image)) {
-                        $image = $imageElement->getAttribute('content');
-                    }
-                }
-            }
-
-            if (empty($image)) {
-                $arrValidExtension = array('png', 'jpg', 'jpeg');
-                foreach ($domParser->find('img') as $imageElement) {
-                    $ext = pathinfo($imageElement->src, PATHINFO_EXTENSION);
-                    if (in_array($ext, $arrValidExtension, 1)) {
-                        $image = $imageElement->src;
+                // title
+                $arrFindTitleElement = array('title', 'meta[property=og:title]', 'meta[name=twitter:title]');
+                foreach ($arrFindTitleElement as $find) {
+                    $titleElement = $domParser->find($find, 0);
+                    if (!empty($titleElement)) {
+                        $title = $titleElement->getAttribute('content');
+                        if (empty($image)) {
+                            $title = html_entity_decode($titleElement->plaintext);
+                        }
+                        break;
                     }
                 }
-            }
 
-            if (!empty($image) && strpos($image, 'http') === FALSE) {
-                $image = rtrim($long_url, "/") . '/' . ltrim($image, "/");
-                if (strpos($image, '..') !== FALSE) {
-                    $image = $this->correctMediaUrl($image);
+                // description
+                $arrFindDescElement = array('meta[name=description]', 'meta[property=og:description]', );
+                foreach ($arrFindDescElement as $find) {
+                    $descElement = $domParser->find($find, 0);
+                    if (!empty($descElement)) {
+                        $description = html_entity_decode($descElement->getAttribute('content'));
+                        break;
+                    }
+                }
+
+                // image
+                $arrFindImageElement = array('meta[property=og:image]', 'link[rel=apple-touch-icon]');
+                foreach ($arrFindImageElement as $find) {
+                    $imageElement = $domParser->find($find, -1);
+                    if (!empty($imageElement)) {
+                        $image = $imageElement->getAttribute('href');
+                        if (empty($image)) {
+                            $image = $imageElement->getAttribute('content');
+                        }
+                    }
+                }
+
+                if (empty($image)) {
+                    $arrValidExtension = array('png', 'jpg', 'jpeg');
+                    foreach ($domParser->find('img') as $imageElement) {
+                        $ext = pathinfo($imageElement->src, PATHINFO_EXTENSION);
+                        if (in_array($ext, $arrValidExtension, 1)) {
+                            $image = $imageElement->src;
+                        }
+                    }
+                }
+
+                if (!empty($image) && strpos($image, 'http') === FALSE) {
+                    $image = rtrim($long_url, "/") . '/' . ltrim($image, "/");
+                    if (strpos($image, '..') !== FALSE) {
+                        $image = $this->correctMediaUrl($image);
+                    }
                 }
             }
+
+            $domParser->clear();
+            unset($domParser);
         }
-
-        $domParser->clear();
-        unset($domParser);
 
 	    $shell_url = escapeshellarg($long_url);
 
@@ -280,4 +307,14 @@ class LinkController extends Controller {
         return $host . $correctUrl;
     }
 
+    private function truncate($string, $length = 155, $append = "...")
+    {
+        $string = trim($string);
+        if(strlen($string) > $length) {
+            $string = wordwrap($string, $length);
+            $string = explode("\n", $string, 2);
+            $string = $string[0] . $append;
+        }
+        return $string;
+    }
 }
