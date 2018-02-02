@@ -53,7 +53,8 @@ class LinkController extends Controller {
                 );
                 if (!empty($document)) {
                     $title = $document['root_title'];
-                    $description = $this->truncate(strip_tags(htmlspecialchars_decode($document['body'])), 255);
+                    $content = preg_replace('/<img[^>]+\>/i', "", htmlspecialchars_decode($document['body']));
+                    $description = $this->truncate(strip_tags($content), 255);
                 }
             }
         } else {
@@ -122,6 +123,8 @@ class LinkController extends Controller {
         $id = md5($long_url);
         // make the screenshot if there is no other image
         if(strlen($image) == 0) {
+
+            /*
             if(!file_exists("/var/www/polr/public/screenshots/l$id.png")) {
                 system("/opt/wkhtmltox/bin/wkhtmltoimage --crop-h 853 $shell_url /var/www/polr/public/screenshots/l$id.png");
                 system("convert -resize 300x250 /var/www/polr/public/screenshots/l$id.png /var/www/polr/public/screenshots/$id.png");
@@ -132,6 +135,7 @@ class LinkController extends Controller {
             if (!file_exists(public_path() . "/screenshots/$id.png")) {
                 $image = '';
             }
+            */
         }
 
         return array(
