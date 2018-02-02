@@ -55,6 +55,7 @@ class LinkController extends Controller {
                     $title = $document['root_title'];
                     $content = preg_replace('/<img[^>]+\>/i', "", htmlspecialchars_decode($document['body']));
                     $content = preg_replace('~<center[^>]*>[^<]*</center>~', "", $content);
+                    $content = preg_replace('/!\[.*\]\(.*\)/i', "", $content);
                     $description = $this->truncate(strip_tags($content), 255);
                 }
             }
