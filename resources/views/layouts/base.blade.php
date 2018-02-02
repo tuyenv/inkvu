@@ -84,6 +84,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                 console.log("OneSignal User ID:", OneSignalUserID);
             });
         });
+
+        function onErrorTeam(source) {
+            source.src = '/img/default.jpg';
+            source.onerror = "";
+            return true;
+        }
     </script>
 </head>
 <body>
@@ -112,7 +118,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                             </div>
                             <div class="row hide" data-step="2" data-title="No more 'Link in Bio' posts, period.">
                                 <div class="well">
-                                    <center><img src="{{$user->profile_picture_url}}" alt="yourprofile"></center>
+                                    <center><img src="{{$user->profile_picture_url}}" style="width: 100%;" alt="yourprofile"></center>
                                     <div class="tutorial-text">
                                         <center><p style="font-size:18px;">Instagram makes link sharing a pain. Stop sharing content that people can't find on Instagram and start tracking clicks with Ink.vu!</p></center>
                                     </div>

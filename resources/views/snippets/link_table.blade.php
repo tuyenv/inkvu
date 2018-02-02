@@ -2,18 +2,18 @@
     <thead>
         <tr>
             <th>Link Ending</th>
-            <th>Long Link</th>
-            <th>Clicks</th>
-            <th>Date</th>
+            <th class="hidden-xs">Long Link</th>
+            <th class="hidden-xs">Clicks</th>
+            <th class="hidden-xs">Date</th>
             @if ($table_id == "admin_links_table")
             {{-- Show action buttons only if admin view --}}
-            <th>Creator</th>
-            <th>Disable</th>
-            <th>Delete</th>
+            <th class="hidden-xs">Creator</th>
+            <th class="hidden-xs">Disable</th>
+            <th class="hidden-xs">Delete</th>
             @endif
 	    <th>Title</th>
-	    <th>Description</th>
-	    <th>Image</th>
+	    <th class="hidden-xs">Description</th>
+	    <th class="hidden-xs">Image</th>
         </tr>
     </thead>
 </table>

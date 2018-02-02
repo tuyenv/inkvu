@@ -612,9 +612,6 @@ i {
 	vertical-align: top !important;
 }
 
-.content-div-padding {
-    padding: 0px;
-}
 
 .btn-delete {
     background-color:white;
@@ -1766,4 +1763,16 @@ label {
 .panel-picked {
     color:white;
     background-color: #e95950;
+}
+@media (max-width: 767px) {
+    .media-body { padding: 0px; width: 100%; }
+    .media-left, .media-right, .media-body { display: block; }
+    .media-object { display: inherit; padding-bottom: 20px; padding-top: 0px; }
+    .modal-footer { padding: 15px 0px; }
+    .modal-body { padding: 0px; }
+    .modal-content { padding: 10px; }
+    .row { margin-left: 0px; margin-right: 0px; }
+    .col-sm-6 { width: 100%; }
+    #onboardModal .media-left, .media-right, .media-body { padding-top: 20px; }
+    .long-link { width: 20%; }
 }

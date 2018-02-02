@@ -282,9 +282,9 @@
                     <div style="display: none" id="linkmodal-{{$link->short_url}}">
                         <div class="modalicon">
                             @if ($link->image)
-                                <a target="_blank" href="{{$link->long_url}}"><img class="pic error_image" src="{{$link->image}}" /></a>
+                                <a target="_blank" href="{{$link->long_url}}"><img onerror="onErrorTeam(this);" class="pic error_image" src="{{$link->image}}" /></a>
                             @else
-                                <a target="_blank" href="{{$link->long_url}}"><img class="pic error_image" src="{{$error_image}}" /></a>
+                                <a target="_blank" href="{{$link->long_url}}"><img onerror="onErrorTeam(this);" class="pic error_image" src="{{$error_image}}" /></a>
                             @endif
                         </div>
                         <div class="content">
@@ -324,9 +324,9 @@
 
                     <div class="icon" onclick="return showModalPostViaLink({{json_encode($link->short_url)}});">
                         @if ($link->image)
-                            <img class="pic error_image" src="{{$link->image}}" />
+                            <img onerror="onErrorTeam(this);" class="pic error_image" src="{{$link->image}}" />
                         @else
-                            <img class="pic error_image" src="{{$error_image}}" />
+                            <img onerror="onErrorTeam(this);" class="pic error_image" src="{{$error_image}}" />
                         @endif
                     </div>
                     <div class="content" id="linkcontent-{{$link->short_url}}">
@@ -489,6 +489,7 @@
 
         $('.content-div').on('click', '.edit-inline', function () {
             $("#modalRegister .close").click();
+            $("#modalRegister").modal('hide');
             $(this).hide();
             var linkId = $(this).data('link-id');
 
@@ -504,8 +505,8 @@
                 var desc = $("#linkcontent-"+linkId+" .short-desc").html();
             }
 
-            $("#linkcontent-"+linkId+" .linktitle_text").html('<input class="form-control" style="width: 400px" onclick="return false;" id="inp-linktitle-'+linkId+'" value="'+title+'" />');
-            $("#linkcontent-"+linkId+" .short-desc").html('<textarea class="form-control" style="width: 400px; height: 75px">' + desc + '</textarea>');
+            $("#linkcontent-"+linkId+" .linktitle_text").html('<input class="form-control" style="width: 100%" onclick="return false;" id="inp-linktitle-'+linkId+'" value="'+title+'" />');
+            $("#linkcontent-"+linkId+" .short-desc").html('<textarea class="form-control" style="width: 100%; height: 75px">' + desc + '</textarea>');
 
             $("#linkcontent-"+linkId+" .linktitle").hide();
             $("#linkcontent-"+linkId+" .linktitle_text").show();

@@ -65,12 +65,12 @@ polr.controller('AdminCtrl', function($scope, $compile) {
 
             "columns": [
                 {className: 'wrap-text', data: 'short_url', name: 'short_url'},
-                {className: 'wrap-text', data: 'long_url', name: 'long_url'},
-                {data: 'clicks', name: 'clicks'},
-                {data: 'created_at', name: 'created_at'},
+                {className: 'hidden-xs wrap-text', data: 'long_url', name: 'long_url'},
+                {className: 'hidden-xs', data: 'clicks', name: 'clicks'},
+                {className: 'hidden-xs', data: 'created_at', name: 'created_at'},
                 {data: 'title', name: 'title'},
-                {data: 'description', name: 'description'},
-                {data: 'image', name: 'image'},
+                {className: 'hidden-xs', data: 'description', name: 'description'},
+                {className: 'hidden-xs', data: 'image', name: 'image'},
             ]
         }, datatables_config));
     };
