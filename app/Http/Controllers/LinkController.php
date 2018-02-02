@@ -49,7 +49,7 @@ class LinkController extends Controller {
                 $identifier = strstr($parseUrl['path'], '@');
                 $document = $collection->findOne(
                     ['identifier' => $identifier],
-                    ['projection' => ['root_title' => 1, 'body' => 1]]
+                    ['projection' => ['root_title' => 1, 'body' => 1, 'json_metadata' => 1]]
                 );
                 if (!empty($document)) {
                     $title = $document['root_title'];
@@ -57,6 +57,10 @@ class LinkController extends Controller {
                     $content = preg_replace('~<center[^>]*>[^<]*</center>~', "", $content);
                     $content = preg_replace('/!\[.*\]\(.*\)/i', "", $content);
                     $description = $this->truncate(strip_tags($content), 255);
+
+                    if (isset($document['json_metadata']['image']) && !empty($document['json_metadata']['image'])) {
+                        $image = $document['json_metadata']['image'][0];
+                    }
                 }
             }
         } else {
