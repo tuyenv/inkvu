@@ -36,10 +36,10 @@
 	<div class="container">
 		<div class="message">
 			<img width="200" src="http://beta.ink.vu/wp-content/uploads/2017/04/inkvu-03.png" alt="Ink.vu" />
-			<h2>Connect directly to your followers</h2>
-			<h3>Join the free beta waiting list:</h3>
 			<br>
-			<a href="/instagram" class="button btn btn-primary btn-lg"><i class="fa fa-instagram" aria-hidden="true"></i>&nbsp;&nbsp;Register with Instagram</a>
+			<a href="/instagram" class="button btn btn-primary btn-lg"><i class="fa fa-instagram" aria-hidden="true"></i>&nbsp;&nbsp;Login with Instagram</a>
+			<br>
+			<h5>not a member ? register free</h5>
 		</div>
 	</div>
   @else
