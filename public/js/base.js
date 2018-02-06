@@ -29,6 +29,7 @@ console.log('%cDocs: https://docs.polr.me', 'color:blue');
 var polr = angular.module('polr',[]);
 
 // Setup FileStack
+/*
 var fileStackKey = 'APsEBWJ5KQtyzuUbunQDNz';
 var clientFileStack = filestack.init(fileStackKey);
 var pickerOptions = {
@@ -37,6 +38,7 @@ var pickerOptions = {
     maxFiles: 1,
     storeTo: { path: '/custom_thumb/', location: 's3' }
 };
+*/
 
 // onboardModal
 var callback = function() {
@@ -94,11 +96,18 @@ $( ".step4-5" ).click(function() {
 });
 
 $('#form-shorten-popup').on('click', '.upload-thumb-popup, #link_image_img_popup', function () {
-    clientFileStack.pick(pickerOptions).then(function(result) {
-        var jsonData = result.filesUploaded[0];
-        $("#link_image_popup").val(jsonData.url);
-        document.getElementById("link_image_img_popup").src = jsonData.url;
-    })
+    var dialog = uploadcare.openDialog(null, {
+        crop: "disabled",
+        imagesOnly: true
+    });
+
+    dialog.done(function(file) {
+        file.promise().done(function(fileInfo){
+            console.log(fileInfo.cdnUrl);
+            $("#link_image_popup").val(fileInfo.cdnUrl);
+            document.getElementById("link_image_img_popup").src = fileInfo.cdnUrl;
+        });
+    });
 });
 
 $(".insta-li").click(function() {
@@ -158,3 +167,4 @@ function refreshLinkInfo(url, popup) {
         }
     });
 }
+

@@ -180,9 +180,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                                                         <img alt="postimage" class="media-object" id="link_image_img_popup" src="http://ericatoelle.com/wp-content/uploads/2012/02/150x150.gif">
                                                         <p id="no-preview-popup" style="display: none; margin-top: 30px; height: 150px; padding-top: 60px;">No image preview available please upload</p>
                                                     </a>
-                                                    <input type="hidden" id="link_image_popup" name="image">
+
+                                                    <input type="hidden" role="uploadcare-uploader" name="image"
+                                                           data-crop="disabled"
+                                                           id="link_image_popup"
+                                                           data-images-only="true" />
                                                     <br>
-                                                    <button class="btn btn-upload upload-thumb-popup" type="button"><i class="fa fa-upload" aria-hidden="true"></i>Upload Image</button>
+
                                                 </div>
                                                 <div class="media-body">
                                                     <div class="form-group">
@@ -248,6 +252,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     </footer>
 
     {{-- Load header JavaScript --}}
+    <script>
+        UPLOADCARE_LOCALE = "en";
+        UPLOADCARE_TABS = "file url instagram facebook gdrive dropbox";
+        UPLOADCARE_PUBLIC_KEY = "{{ env('UPLOADCARE_PUBLIC_KEY') }}";
+    </script>
+    <script charset="utf-8" src="//ucarecdn.com/libs/widget/3.2.2/uploadcare.full.min.js"></script>
     <script src='/js/constants.js'></script>
     <script src="/js/jquery-1.11.3.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -255,7 +265,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     <script src='/js/toastr.min.js'></script>
     <script src='/js/clipboard.min.js'></script>
     <script src='/js/jquery-bootstrap-modal-steps.js'></script>
-    <script src="https://static.filestackapi.com/v3/filestack.js"></script>
     <script src='/js/base.js'></script>
 
     <script>
