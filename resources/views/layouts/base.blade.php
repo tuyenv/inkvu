@@ -105,6 +105,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="js-title-step"></h4>
                         </div>
                         <div class="modal-hide">

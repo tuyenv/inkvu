@@ -1,3 +1,6 @@
+.modal-header .close {
+    margin-top: -10px;
+}
 .form-field ~ .tip {
 	font-size: 80%;
 	margin-top: -20px;

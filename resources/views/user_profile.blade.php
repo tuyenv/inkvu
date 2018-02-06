@@ -385,6 +385,9 @@
 <div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="modalRegister">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content" style="padding-top: 0px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
             <div class="modal-body">
                 <div class="wrapper">
 
