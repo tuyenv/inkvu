@@ -119,6 +119,12 @@ $(".insta-li").click(function() {
     $("#is_replace_image").val(0);
     $("#link_image_popup").val($(this).attr("data-img"));
 
+    var url = $(this).data('link');
+    var caption = $(this).data('caption');
+    $("#link-url-input-popup").val(url);
+    $("#link_description_popup").val(caption);
+
+
     if ($( ".step4-5").parent(".panel-default").hasClass("panel-picked")) {
         $("#link-url-input-popup").val($(this).attr("data-link"));
         clickAnalyze(1);

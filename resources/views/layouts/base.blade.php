@@ -154,7 +154,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                                     @if (isset($instaMedia) && !empty($instaMedia))
                                         <ul class="hide-bullets">
                                         @foreach ($instaMedia as $media)
-                                            <li class="col-sm-3 insta-li" data-link="{{$media['link']}}" data-img="{{$media['images']['standard_resolution']['url']}}">
+                                            <li class="col-sm-3 insta-li" data-caption="{{$media['caption']['text']}}" data-link="{{$media['link']}}" data-img="{{$media['images']['standard_resolution']['url']}}">
                                                 <a class="thumbnail">
                                                     <img src="{{$media['images']['thumbnail']['url']}}">
                                                 </a>
