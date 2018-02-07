@@ -31,6 +31,9 @@ class LinkController extends Controller {
         $title = "";
         $description = "";
         $image = "";
+        $likes = 0;
+        $comments = 0;
+        $tags = '';
 
         if (strpos($long_url, 'steemit.com') !== FALSE) {
             $username = 'steemit';
@@ -61,6 +64,10 @@ class LinkController extends Controller {
                     if (isset($document['json_metadata']['image']) && !empty($document['json_metadata']['image'])) {
                         $image = $document['json_metadata']['image'][0];
                     }
+
+                    $tags = implode(',', $document['tags']);
+                    $likes = $document['net_votes'];
+                    $comments = count($document['replies']);
                 }
             }
         } else {
@@ -147,7 +154,10 @@ class LinkController extends Controller {
         return array(
             "title" => $title,
             "description" => $description,
-            "image" => $image
+            "image" => $image,
+            "likes" => $likes,
+            "comments" => $comments,
+            "tags" => $tags
         );
     }
 
@@ -182,11 +192,17 @@ class LinkController extends Controller {
         $title = $request->input("title");
         $description = $request->input("description");
         $image = $request->input("image");
+        $likes = $request->input("l-likes");
+        $comments = $request->input("l-comments");
+        $tags = $request->input("l-tags");
 
         $link_object->title = $title;
         $link_object->description = $description;
         $link_object->offer_code = $offer_code;
         $link_object->image = $image;
+        $link_object->likes = $likes;
+        $link_object->comments = $comments;
+        $link_object->tags = $tags;
         $link_object->save();
 
         // insert notify queue and deliver

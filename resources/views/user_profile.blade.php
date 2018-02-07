@@ -63,6 +63,10 @@
                                                 <textarea name="description" class="form-control" rows="2" id="link_description"></textarea>
                                             </div>
                                             <input type="hidden" name='_token' value='{{csrf_token()}}' />
+
+                                            <input type="hidden" name="l-likes" class="l-likes" value="0">
+                                            <input type="hidden" name="l-comments" class="l-comments" value="0">
+                                            <input type="hidden" name="l-tags" class="l-tags" value="0">
                                         </div>
                                     </div>
                                 </div>

@@ -123,6 +123,9 @@ $(".insta-li").click(function() {
     var caption = $(this).data('caption');
     $("#link-url-input-popup").val(url);
     $("#link_description_popup").val(caption);
+    $("#form-shorten-popup .l-likes").val($(this).data('likes'));
+    $("#form-shorten-popup .l-comments").val($(this).data('comments'));
+    $("#form-shorten-popup .l-tags").val($(this).data('tags'));
 
 
     if ($( ".step4-5").parent(".panel-default").hasClass("panel-picked")) {
@@ -158,6 +161,10 @@ function refreshLinkInfo(url, popup) {
                 $("#link_image_img_popup").hide();
                 $("#no-preview-popup").show();
             }
+
+            $("#form-shorten-popup .l-likes").val(data.likes);
+            $("#form-shorten-popup .l-comments").val(data.comments);
+            $("#form-shorten-popup .l-tags").val(data.tags);
         } else {
             document.getElementById("link_title").value = data.title;
             document.getElementById("link_description").value = data.description;
@@ -170,6 +177,10 @@ function refreshLinkInfo(url, popup) {
                 $("#link_image_img").hide();
                 $("#no-preview").show();
             }
+
+            $("#form-shorten .l-likes").val(data.likes);
+            $("#form-shorten .l-comments").val(data.comments);
+            $("#form-shorten .l-tags").val(data.tags);
         }
     });
 }

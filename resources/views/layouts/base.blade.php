@@ -154,7 +154,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                                     @if (isset($instaMedia) && !empty($instaMedia))
                                         <ul class="hide-bullets">
                                         @foreach ($instaMedia as $media)
-                                            <li class="col-sm-3 insta-li" data-caption="{{$media['caption']['text']}}" data-link="{{$media['link']}}" data-img="{{$media['images']['standard_resolution']['url']}}">
+                                            <li class="col-sm-3 insta-li" data-tags="{{implode(',', $media['tags'])}}" data-comments="{{$media['comments']['count']}}" data-likes="{{$media['likes']['count']}}" data-caption="{{$media['caption']['text']}}" data-link="{{$media['link']}}" data-img="{{$media['images']['standard_resolution']['url']}}">
                                                 <a class="thumbnail">
                                                     <img src="{{$media['images']['thumbnail']['url']}}">
                                                 </a>
@@ -210,6 +210,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                                                         <label for="comment">Description:</label>
                                                         <textarea name="description" class="form-control" rows="2" id="link_description_popup"></textarea>
                                                     </div>
+
+                                                    <input type="hidden" name="l-likes" class="l-likes" value="0">
+                                                    <input type="hidden" name="l-comments" class="l-comments" value="0">
+                                                    <input type="hidden" name="l-tags" class="l-tags" value="0">
                                                 </div>
                                             </div>
                                         </div>
