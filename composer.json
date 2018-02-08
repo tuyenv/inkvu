@@ -18,7 +18,8 @@
         "tuyenv/php-simple-html-dom-parser": "dev-1.5.1-curl",
         "aws/aws-sdk-php": "~3.0",
         "mongodb/mongodb": "1.1",
-        "guzzlehttp/guzzle": "~5.3|~6.0"
+        "guzzlehttp/guzzle": "~5.3|~6.0",
+        "raiym/instagram-php-scraper": "^0.8.13"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.0",

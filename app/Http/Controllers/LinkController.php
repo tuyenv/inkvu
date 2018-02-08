@@ -11,6 +11,7 @@ use App\Helpers\LinkHelper;
 use App\Helpers\ClickHelper;
 use Sunra\PhpSimple\HtmlDomParser;
 use MongoDB;
+use InstagramScraper;
 
 class LinkController extends Controller {
     /**
@@ -28,49 +29,25 @@ class LinkController extends Controller {
 	    $long_url = $request->input("url");
 
         // get the open graph data
+        $data = array(
+            'title' => '',
+            'description' => '',
+            'image' => '',
+            'tags' => '',
+            'likes' => '',
+            'comments' => '',
+        );
         $title = "";
         $description = "";
         $image = "";
-        $likes = 0;
-        $comments = 0;
-        $tags = '';
 
         if (strpos($long_url, 'steemit.com') !== FALSE) {
-            $username = 'steemit';
-            $password = 'steemit';
-            $host = 'mongo1.steemdata.com';
-            $port = '27017';
-            $db = 'SteemData';
-            $connectionString = "mongodb://$username:$password@$host:$port/$db";
-            $connectionOption = [];
-            $connectionOption['readPreference'] = 'primaryPreferred';
-            $mongodb = (new MongoDB\Client($connectionString, $connectionOption))->$db;
+            $this->getSteemitData($long_url, $data);
 
-            if ($mongodb) {
-                $collection = $mongodb->Posts;
-                $parseUrl = parse_url($long_url);
-                $identifier = strstr($parseUrl['path'], '@');
-                $document = $collection->findOne(
-                    ['identifier' => $identifier],
-                    ['projection' => ['root_title' => 1, 'body' => 1, 'json_metadata' => 1]]
-                );
-                if (!empty($document)) {
-                    $title = $document['root_title'];
-                    $content = preg_replace('/<img[^>]+\>/i', "", htmlspecialchars_decode($document['body']));
-                    $content = preg_replace('~<center[^>]*>[^<]*</center>~', "", $content);
-                    $content = preg_replace('/!\[.*\]\(.*\)/i', "", $content);
-                    $description = $this->truncate(strip_tags($content), 255);
-
-                    if (isset($document['json_metadata']['image']) && !empty($document['json_metadata']['image'])) {
-                        $image = $document['json_metadata']['image'][0];
-                    }
-
-                    $tags = implode(',', $document['tags']);
-                    $likes = $document['net_votes'];
-                    $comments = count($document['replies']);
-                }
-            }
-        } else {
+        } else if (strpos($long_url, 'instagram.com') !== FALSE) {
+            $this->getInstagramData($long_url, $data);
+        }
+        else {
             $domParser = HtmlDomParser::file_get_html($long_url);
             if (!empty($domParser)) {
 
@@ -83,6 +60,7 @@ class LinkController extends Controller {
                         if (empty($image)) {
                             $title = html_entity_decode($titleElement->plaintext);
                         }
+                        $data['title'] = $title;
                         break;
                     }
                 }
@@ -93,6 +71,7 @@ class LinkController extends Controller {
                     $descElement = $domParser->find($find, 0);
                     if (!empty($descElement)) {
                         $description = html_entity_decode($descElement->getAttribute('content'));
+                        $data['description'] = $description;
                         break;
                     }
                 }
@@ -125,6 +104,8 @@ class LinkController extends Controller {
                         $image = $this->correctMediaUrl($image);
                     }
                 }
+
+                $data['image'] = $image;
             }
 
             $domParser->clear();
@@ -151,14 +132,7 @@ class LinkController extends Controller {
             */
         }
 
-        return array(
-            "title" => $title,
-            "description" => $description,
-            "image" => $image,
-            "likes" => $likes,
-            "comments" => $comments,
-            "tags" => $tags
-        );
+        return $data;
     }
 
     public function performShorten(Request $request) {
@@ -242,6 +216,7 @@ class LinkController extends Controller {
 	return redirect("/" . session('username'));
     }
 
+
     public function performRedirect(Request $request, $short_url, $secret_key=false) {
         $link = Link::where('short_url', $short_url)
             ->first();
@@ -302,6 +277,70 @@ class LinkController extends Controller {
 		return $ctrl->userProfile($request, $link->creator, $link->short_url);
 
 	}
+    }
+
+    private function getInstagramData($long_url, &$data)
+    {
+        $instagram = new \InstagramScraper\Instagram();
+        $instaData = $instagram->getMediaByUrl($long_url);
+        if (!empty($instaData)) {
+            $data['title'] = $this->truncate($instaData['caption'], 155);
+            $data['description'] = $instaData['caption'];
+            $data['image'] = $instaData['imageStandardResolutionUrl'];
+            $data['likes'] = $instaData['likesCount'];
+            $data['comments'] = $instaData['commentsCount'];
+
+            preg_match_all("/#(\\w+)/", $data['description'], $matches);
+            $data['tags'] = implode(',', $matches[1]);
+        }
+    }
+
+    private function getSteemitData($long_url, &$data)
+    {
+        $username = 'steemit';
+        $password = 'steemit';
+        $host = 'mongo1.steemdata.com';
+        $port = '27017';
+        $db = 'SteemData';
+        $connectionString = "mongodb://$username:$password@$host:$port/$db";
+        $connectionOption = [];
+        $connectionOption['readPreference'] = 'primaryPreferred';
+        $mongodb = (new MongoDB\Client($connectionString, $connectionOption))->$db;
+
+        if ($mongodb) {
+            $collection = $mongodb->Posts;
+            $parseUrl = parse_url($long_url);
+            $identifier = strstr($parseUrl['path'], '@');
+            $document = $collection->findOne(
+                ['identifier' => $identifier],
+                ['projection' => ['root_title' => 1, 'body' => 1, 'json_metadata' => 1]]
+            );
+            if (!empty($document)) {
+                $data['title'] = $document['root_title'];
+                $content = preg_replace('/<img[^>]+\>/i', "", htmlspecialchars_decode($document['body']));
+                $content = preg_replace('~<center[^>]*>[^<]*</center>~', "", $content);
+                $content = preg_replace('/!\[.*\]\(.*\)/i', "", $content);
+                $data['description'] = $this->truncate(strip_tags($content), 255);
+
+                if (isset($document['json_metadata']['image']) && !empty($document['json_metadata']['image'])) {
+                    $data['image'] = $document['json_metadata']['image'][0];
+                }
+
+                if (isset($document['tags'])) {
+                    $data['tags'] = implode(',', $document['tags']);
+                }
+
+                if (isset($document['net_votes'])) {
+                    $data['likes'] = $document['net_votes'];
+                }
+
+                if (isset($document['replies'])) {
+                    $data['comments'] = count($document['replies']);
+                }
+            }
+        }
+
+        return $data;
     }
 
     private function correctMediaUrl($url)
