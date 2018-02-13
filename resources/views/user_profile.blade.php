@@ -20,6 +20,9 @@
                         <div class="modal-body">
                             <div class="input-group">
                                 <input id="link-url-input" name="link-url" onchange="refreshLinkInfo(this.value);" type='url' autocomplete='off' class="form-control" placeholder='http://example.com'>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-analyze btn-refresh" style="background-color: #e95950" onclick="clickRefresh();" type="button">Refresh</button>
+                               </span>
                                <span class="input-group-btn">
                                     <button class="btn btn-analyze" onclick="clickAnalyze();" type="button">Analyze</button>
                                </span>
@@ -43,7 +46,7 @@
                                         <div class="media-body">
                                             <div class="form-group">
                                                 <label for="link_title">Title</label>
-                                                <input name="title" type="text" class="form-control" id="link_title" placeholder="Name your link...">
+                                                <textarea rows="3" name="title" class="form-control" id="link_title" placeholder="Name your link..."></textarea>
                                             </div>
                                             <p>Customize link</p>
                                             <div>
@@ -60,7 +63,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="link_description">Description:</label>
-                                                <textarea name="description" class="form-control" rows="2" id="link_description"></textarea>
+                                                <textarea name="description" class="form-control" rows="4" id="link_description"></textarea>
                                             </div>
                                             <input type="hidden" name='_token' value='{{csrf_token()}}' />
 

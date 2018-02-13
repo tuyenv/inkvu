@@ -169,7 +169,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                                     <div class="well">
                                         <div class="input-group">
                                             <input id="link-url-input-popup" name="link-url" onchange="refreshLinkInfo(this.value, 1);" type='url' autocomplete='off' class="form-control" placeholder='http://example.com'>
-                           <span class="input-group-btn">
+                            <span class="input-group-btn">
+                                    <button class="btn btn-analyze btn-refresh" style="background-color: #e95950" onclick="clickRefresh();" type="button">Refresh</button>
+                               </span>
+                                            <span class="input-group-btn">
                                 <button class="btn btn-analyze" onclick="clickAnalyze(1);" type="button">Analyze</button>
                            </span>
                                         </div>
@@ -191,7 +194,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                                                 <div class="media-body">
                                                     <div class="form-group">
                                                         <label>Title</label>
-                                                        <input name="title" id="link_title_popup" type="text" class="form-control" placeholder="Name your link...">
+                                                        <textarea rows="3" name="title" class="form-control" id="link_title_popup" placeholder="Name your link..."></textarea>
                                                     </div>
                                                     <p>Customize link</p>
                                                     <div>
@@ -208,7 +211,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="comment">Description:</label>
-                                                        <textarea name="description" class="form-control" rows="2" id="link_description_popup"></textarea>
+                                                        <textarea name="description" class="form-control" rows="4" id="link_description_popup"></textarea>
                                                     </div>
 
                                                     <input type="hidden" name="l-likes" class="l-likes" value="0">
@@ -260,6 +263,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
         UPLOADCARE_LOCALE = "en";
         UPLOADCARE_TABS = "file url instagram facebook gdrive dropbox";
         UPLOADCARE_PUBLIC_KEY = "{{ env('UPLOADCARE_PUBLIC_KEY') }}";
+        UPLOADCARE_LOCALE_TRANSLATIONS = {
+            buttons: {
+                choose: {
+                    files: {
+                        one: 'Upload a file',
+                        other: 'Choose files'
+                    },
+                    images: {
+                        one: 'Upload an image',
+                        other: 'Choose images'
+                    }
+                }
+            }
+        };
     </script>
     <script charset="utf-8" src="//ucarecdn.com/libs/widget/3.2.2/uploadcare.full.min.js"></script>
     <script src='/js/constants.js'></script>

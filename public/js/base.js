@@ -1,3 +1,6 @@
+var isRefresh = false;
+var isPostedImg = false;
+
 // AJAX settings
 $.ajaxSetup({
     headers: {
@@ -144,7 +147,23 @@ function clickAnalyze(popup) {
     refreshLinkInfo(url, popup);
 }
 
+function clickRefresh() {
+    isRefresh = true;
+    $("#link-url-input").val('');
+    $("#link_title").val('');
+    $(".custom-url-field").val('');
+    $("#offer_code").val('');
+    $("#link_description").val('');
+    $(".btn-refresh").text('Clear');
+    $("#link_image_img").attr("src", "http://ericatoelle.com/wp-content/uploads/2012/02/150x150.gif");
+    $(".uploadcare--widget__button").text('Upload an image');
+}
+
 function refreshLinkInfo(url, popup) {
+    if (isRefresh) {
+        return false;
+    }
+
     $.post("/describe", {url : url}, function(data) {
         if (popup) {
             document.getElementById("link_title_popup").value = data.title;
@@ -165,6 +184,10 @@ function refreshLinkInfo(url, popup) {
             $("#form-shorten-popup .l-likes").val(data.likes);
             $("#form-shorten-popup .l-comments").val(data.comments);
             $("#form-shorten-popup .l-tags").val(data.tags);
+            if (data.image != '') {
+                isPostedImg = true;
+                $("#form-shorten-popup .uploadcare--widget__button").text('Change Image');
+            }
         } else {
             document.getElementById("link_title").value = data.title;
             document.getElementById("link_description").value = data.description;
@@ -181,6 +204,10 @@ function refreshLinkInfo(url, popup) {
             $("#form-shorten .l-likes").val(data.likes);
             $("#form-shorten .l-comments").val(data.comments);
             $("#form-shorten .l-tags").val(data.tags);
+            if (data.image != '') {
+                isPostedImg = true;
+                $("#form-shorten .uploadcare--widget__button").text('Change Image');
+            }
         }
     });
 }
