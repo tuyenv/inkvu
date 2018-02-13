@@ -281,6 +281,7 @@ class LinkController extends Controller {
 
     private function getInstagramData($long_url, &$data)
     {
+        $long_url = preg_replace('/\?.+/', '', $long_url);
         $instagram = new \InstagramScraper\Instagram();
         $instaData = $instagram->getMediaByUrl($long_url);
         if (!empty($instaData)) {
