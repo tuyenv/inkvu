@@ -285,7 +285,7 @@ class LinkController extends Controller {
         $instagram = new \InstagramScraper\Instagram();
         $instaData = $instagram->getMediaByUrl($long_url);
         if (!empty($instaData)) {
-            $data['title'] = $this->truncate($instaData['caption'], 155);
+            $data['title'] = $this->truncate($instaData['caption'], 500);
             $data['description'] = $instaData['caption'];
             $data['image'] = $instaData['imageStandardResolutionUrl'];
             $data['likes'] = $instaData['likesCount'];
@@ -321,7 +321,7 @@ class LinkController extends Controller {
                 $content = preg_replace('/<img[^>]+\>/i', "", htmlspecialchars_decode($document['body']));
                 $content = preg_replace('~<center[^>]*>[^<]*</center>~', "", $content);
                 $content = preg_replace('/!\[.*\]\(.*\)/i', "", $content);
-                $data['description'] = $this->truncate(strip_tags($content), 255);
+                $data['description'] = $this->truncate(strip_tags($content), 500);
 
                 if (isset($document['json_metadata']['image']) && !empty($document['json_metadata']['image'])) {
                     $data['image'] = $document['json_metadata']['image'][0];
