@@ -34,7 +34,7 @@
                                             </a>
                                             <!--<input type="hidden" id="link_image" name="image">-->
                                             <input type="hidden" role="uploadcare-uploader" name="image"
-                                                   data-crop="disabled"
+                                                   data-crop="300x300 upscale"
                                                    id="link_image"
                                                    data-images-only="true" />
                                             <br>
