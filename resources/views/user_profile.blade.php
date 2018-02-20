@@ -61,10 +61,23 @@
                                                 <label for="offer_code">Offer Code (Optional)</label>
                                                 <input id="offer_code" name="offer_code" type="text" class="form-control" placeholder="Create a unique code">
                                             </div>
+
                                             <div class="form-group">
                                                 <label for="link_description">Description:</label>
                                                 <textarea name="description" class="form-control" rows="4" id="link_description"></textarea>
                                             </div>
+
+                                            <div class="div-stats" style="display: none">
+                                                <div class="form-group">
+                                                    <label for="stats_like">Like:</label>
+                                                    <input value="0" disabled id="stats_like" name="stats_like" type="text" class="custom-url-field form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="stats_comment">Comment:</label>
+                                                    <input value="0" disabled id="stats_comment" name="stats_comment" type="text" class="custom-url-field form-control">
+                                                </div>
+                                            </div>
+
                                             <input type="hidden" name='_token' value='{{csrf_token()}}' />
 
                                             <input type="hidden" name="l-likes" class="l-likes" value="0">
@@ -325,6 +338,8 @@
                             </div>
                             <a data-link-id="{{$link->id}}" data-clipboard-target="#target-url-{{$link->id}}" id="target-url-{{$link->id}}" data-full-url="{{$link->fullUrl()}}" class="btn-copy" href="javascript:void(0);"><p class="@if ($isOwner)clipboard_owner @endif clipboard">Copy Link</p></a>
                             @if ($isOwner)<p class="clicks"><i class="fa fa-bar-chart" aria-hidden="true"></i>{{$link->clicks}} Clicks</p>@endif
+                            @if ($link->likes) <p class="p2-likes">{{$link->likes}} Likes {{$link->comments}} Comments</p> @endif
+
                             <p class="copied copytext-{{$link->id}}" style="display: none">copied</p>
                             @if ($isOwner)
                                 <button data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary btn-inline edit-inline"><span class="glyphicon glyphicon-edit"></span> Edit</button>
@@ -381,6 +396,8 @@
                         </div>
                         <a data-link-id="{{$link->id}}" data-clipboard-target="#target-url-{{$link->id}}" id="target-url-{{$link->id}}" data-full-url="{{$link->fullUrl()}}" class="btn-copy" href="javascript:void(0);"><p class="@if ($isOwner)clipboard_owner @endif clipboard">Copy Link</p></a>
                         @if ($isOwner)<p class="clicks"><i class="fa fa-bar-chart" aria-hidden="true"></i>{{$link->clicks}} Clicks</p>@endif
+                        @if ($link->likes) <p class="p-likes">{{$link->likes}} Likes {{$link->comments}} Comments</p> @endif
+
                         <p class="copied copytext-{{$link->id}}" style="display: none">copied</p>
                         @if ($isOwner)
                             <button data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary btn-inline edit-inline"><span class="glyphicon glyphicon-edit"></span> Edit</button>

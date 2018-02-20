@@ -34,20 +34,23 @@ class LinkController extends Controller {
             'description' => '',
             'image' => '',
             'tags' => '',
-            'likes' => '',
-            'comments' => '',
+            'likes' => 0,
+            'comments' => 0,
+            'is_stats' => '',
         );
         $title = "";
         $description = "";
         $image = "";
+        $isStats = 1;
 
         if (strpos($long_url, 'steemit.com') !== FALSE) {
             $this->getSteemitData($long_url, $data);
 
         } else if (strpos($long_url, 'instagram.com') !== FALSE) {
             $this->getInstagramData($long_url, $data);
-        }
-        else {
+
+        } else {
+            $isStats = 0;
             $domParser = HtmlDomParser::file_get_html($long_url);
             if (!empty($domParser)) {
 
@@ -132,6 +135,7 @@ class LinkController extends Controller {
             */
         }
 
+        $data['is_stats'] = $isStats;
         return $data;
     }
 

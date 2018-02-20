@@ -181,6 +181,8 @@ function refreshLinkInfo(url, popup) {
                 $("#no-preview-popup").show();
             }
 
+            $("#form-shorten-popup #stats_like").val(data.likes);
+            $("#form-shorten-popup #stats_comment").val(data.comments);
             $("#form-shorten-popup .l-likes").val(data.likes);
             $("#form-shorten-popup .l-comments").val(data.comments);
             $("#form-shorten-popup .l-tags").val(data.tags);
@@ -188,6 +190,10 @@ function refreshLinkInfo(url, popup) {
                 isPostedImg = true;
                 $("#form-shorten-popup .uploadcare--widget__button").text('Change Image');
             }
+            if (data.is_stats == 1) {
+                $("#form-shorten-popup .div-stats").show();
+            }
+
         } else {
             document.getElementById("link_title").value = data.title;
             document.getElementById("link_description").value = data.description;
@@ -201,12 +207,18 @@ function refreshLinkInfo(url, popup) {
                 $("#no-preview").show();
             }
 
+            $("#form-shorten #stats_like").val(data.likes);
+            $("#form-shorten #stats_comment").val(data.comments);
             $("#form-shorten .l-likes").val(data.likes);
             $("#form-shorten .l-comments").val(data.comments);
             $("#form-shorten .l-tags").val(data.tags);
             if (data.image != '') {
                 isPostedImg = true;
                 $("#form-shorten .uploadcare--widget__button").text('Change Image');
+            }
+
+            if (data.is_stats == 1) {
+                $("#form-shorten .div-stats").show();
             }
         }
     });

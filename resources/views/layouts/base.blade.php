@@ -214,6 +214,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                                                         <textarea name="description" class="form-control" rows="4" id="link_description_popup"></textarea>
                                                     </div>
 
+                                                    <div class="div-stats" style="display: none">
+                                                        <div class="form-group">
+                                                            <label for="stats_like">Like:</label>
+                                                            <input value="0" disabled id="stats_like" name="stats_like" type="text" class="custom-url-field form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="stats_comment">Comment:</label>
+                                                            <input value="0" disabled id="stats_comment" name="stats_comment" type="text" class="custom-url-field form-control">
+                                                        </div>
+                                                    </div>
+
                                                     <input type="hidden" name="l-likes" class="l-likes" value="0">
                                                     <input type="hidden" name="l-comments" class="l-comments" value="0">
                                                     <input type="hidden" name="l-tags" class="l-tags" value="0">

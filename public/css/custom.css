@@ -791,14 +791,6 @@ ul.share-buttons .sr-only {
     text-decoration: none;
 }
 
-.clicks {
-    display: inline-block;
-    position:absolute;
-    bottom: 0px;
-    color:darkgray;
-    right:90px;
-}
-
 .stats {
     float:right;
     color:black;
@@ -1612,6 +1604,22 @@ label {
     bottom: 0px;
     color:darkgray;
     right:145px;
+}
+
+.p-likes {
+    display: inline-block;
+    position:absolute;
+    bottom: 0px;
+    color:darkgray;
+    left:42%;
+}
+
+.p2-likes {
+    display: inline-block;
+    position:absolute;
+    bottom: 0px;
+    color:darkgray;
+    left:48%;
 }
 
 .clipboard {
