@@ -318,9 +318,12 @@ class LinkController extends Controller {
             $identifier = strstr($parseUrl['path'], '@');
             $document = $collection->findOne(
                 ['identifier' => $identifier],
-                ['projection' => ['root_title' => 1, 'body' => 1, 'json_metadata' => 1]]
+                ['projection' => ['root_title' => 1, 'body' => 1, 'tags' => 1, 'json_metadata' => 1, 'net_votes' => 1, 'children' => 1, 'replies' => 1]]
             );
             if (!empty($document)) {
+                $document = $document->getArrayCopy();
+
+
                 $data['title'] = $document['root_title'];
                 $content = preg_replace('/<img[^>]+\>/i', "", htmlspecialchars_decode($document['body']));
                 $content = preg_replace('~<center[^>]*>[^<]*</center>~', "", $content);
@@ -331,16 +334,18 @@ class LinkController extends Controller {
                     $data['image'] = $document['json_metadata']['image'][0];
                 }
 
-                if (isset($document['tags'])) {
-                    $data['tags'] = implode(',', $document['tags']);
+                if (isset($document['tags']) && !empty($document['tags'])) {
+                    $data['tags'] = implode(',', $document['tags']->getArrayCopy());
                 }
 
                 if (isset($document['net_votes'])) {
                     $data['likes'] = $document['net_votes'];
                 }
 
-                if (isset($document['replies'])) {
-                    $data['comments'] = count($document['replies']);
+                if (isset($document['children']) && $document['children']) {
+                    $data['comments'] = $document['children'];
+                } else if (isset($document['replies']) && !empty($document['replies'])) {
+                    $data['comments'] = count($document['replies']->getArrayCopy());
                 }
             }
         }
