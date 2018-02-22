@@ -38,6 +38,7 @@ class LinkController extends Controller {
             'comments' => 0,
             'is_stats' => '',
             'original_date' => '',
+            'author' => ''
         );
         $title = "";
         $description = "";
@@ -184,6 +185,7 @@ class LinkController extends Controller {
         $link_object->tags = $tags;
         $link_object->original_date = $request->input("l-original-date");
         $link_object->source = parse_url($long_url, PHP_URL_HOST);
+        $link_object->created_by = $request->input("l-author");
         $link_object->save();
 
         // insert notify queue and deliver
@@ -292,7 +294,7 @@ class LinkController extends Controller {
         $instagram = new \InstagramScraper\Instagram();
         $instaData = $instagram->getMediaByUrl($long_url);
         if (!empty($instaData)) {
-            $data['title'] = $this->truncate($instaData['caption'], 500);
+            $data['title'] = $this->truncate($instaData['caption'], 400);
             $data['description'] = $instaData['caption'];
             $data['image'] = $instaData['imageStandardResolutionUrl'];
             $data['likes'] = $instaData['likesCount'];
@@ -321,7 +323,8 @@ class LinkController extends Controller {
             $identifier = strstr($parseUrl['path'], '@');
             $document = $collection->findOne(
                 ['identifier' => $identifier],
-                ['projection' => ['root_title' => 1, 'body' => 1, 'tags' => 1, 'json_metadata' => 1, 'net_votes' => 1, 'children' => 1, 'replies' => 1, 'created' => 1]]
+                ['projection' => ['root_title' => 1, 'body' => 1, 'tags' => 1, 'json_metadata' => 1,
+                                    'net_votes' => 1, 'children' => 1, 'replies' => 1, 'created' => 1, 'author' => 1]]
             );
             if (!empty($document)) {
                 $document = $document->getArrayCopy();
@@ -330,7 +333,8 @@ class LinkController extends Controller {
                 $content = preg_replace('/<img[^>]+\>/i', "", htmlspecialchars_decode($document['body']));
                 $content = preg_replace('~<center[^>]*>[^<]*</center>~', "", $content);
                 $content = preg_replace('/!\[.*\]\(.*\)/i', "", $content);
-                $data['description'] = $this->truncate(strip_tags($content), 500);
+                $content = preg_replace('/\s+/', ' ',$content);
+                $data['description'] = $this->truncate(strip_tags($content), 400);
 
                 if (isset($document['json_metadata']['image']) && !empty($document['json_metadata']['image'])) {
                     $data['image'] = $document['json_metadata']['image'][0];
@@ -351,6 +355,7 @@ class LinkController extends Controller {
                 }
 
                 $data['original_date'] = $document['created']->toDateTime()->format('Y-m-d H:i:s');
+                $data['author'] = $document['author'];
             }
         }
 

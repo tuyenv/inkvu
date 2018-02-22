@@ -77,7 +77,10 @@ class IndexController extends Controller {
             'isNewPost' => $request->input('n', 0),
             'no_div_padding' => true,
             'error_image' => url('/') . '/img/default.jpg',
-            'links' => Link::where('creator', $username)->select(['id', 'creator', 'short_url', 'long_url', 'clicks', 'created_at', 'title', 'description', 'image', 'offer_code','likes','comments','tags','source','original_date'])->orderBy('id', 'DESC')->get()
+            'links' => Link::where('creator', $username)->select(['id', 'creator', 'short_url', 'long_url', 'clicks',
+                                    'created_at', 'title', 'description', 'image', 'offer_code','likes','comments',
+                                    'tags','source','original_date','created_by'])
+                        ->orderBy('id', 'DESC')->get()
         ]);
     }
 }

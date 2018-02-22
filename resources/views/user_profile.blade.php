@@ -84,6 +84,7 @@
                                             <input type="hidden" name="l-comments" class="l-comments" value="0">
                                             <input type="hidden" name="l-tags" class="l-tags" value="0">
                                             <input type="hidden" name="l-original-date" class="l-original-date" value="">
+                                            <input type="hidden" name="l-author" class="l-author" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -355,6 +356,10 @@
                         @else
                             <img onerror="onErrorTeam(this);" class="pic error_image" src="{{$error_image}}" />
                         @endif
+
+                        @if ($isOwner)
+                            <button data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary edit-picture"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                        @endif
                     </div>
                     <div class="content content-list" id="linkcontent-{{$link->short_url}}">
                         @if ($isOwner)
@@ -375,8 +380,9 @@
 
                         @if ($link->source == 'steemit.com')
                         <div class="cl-steemit">
-                            <span class="sp-original-date"><i class="fa fa-clock-o" aria-hidden="true"></i> 1 hour ago by <a class="ptc">{{$link->creator}}</a></span>
-                            <span class="vote">5 votes</span>
+                            <span class="st-original-date"><i class="fa fa-clock-o fa-st" aria-hidden="true"></i> {{ time_elapsed_string($link->original_date) }} by <a class="ptc">{{$link->created_by}}</a></span>
+                            <span class="st-comments fl-right"><i class="fa fa-comments fa-st" aria-hidden="true"></i> {{$link->comments}}</span>
+                            <span class="st-votes fl-right">{{$link->likes}} votes</span>
                         </div>
                         @endif
 
@@ -403,6 +409,21 @@
                                 </div>
                             </div>
                         </div>
+
+                        @if ($link->tags)
+                        <?php
+                        $arrTag = explode(',', $link->tags);
+                        ?>
+                        <div class="st-tag">
+                            <?php
+                            if (!empty($arrTag)) {
+                                foreach ($arrTag as $tag) {
+                                    echo '<a href="#">'.$tag.'</a>';
+                                }
+                            }
+                            ?>
+                        </div>
+                        @endif
 
                         <div class="card-top-right">
                             <a data-link-id="{{$link->id}}" data-clipboard-target="#target-url-{{$link->id}}" id="target-url-{{$link->id}}" data-full-url="{{$link->fullUrl()}}" class="btn-copy" href="javascript:void(0);"><p class="@if ($isOwner)clipboard_owner @endif clipboard">Copy Link</p></a>

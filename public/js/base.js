@@ -187,6 +187,7 @@ function refreshLinkInfo(url, popup) {
             $("#form-shorten-popup .l-comments").val(data.comments);
             $("#form-shorten-popup .l-tags").val(data.tags);
             $("#form-shorten-popup .l-original-date").val(data.original_date);
+            $("#form-shorten-popup .l-author").val(data.author);
             if (data.image != '') {
                 isPostedImg = true;
                 $("#form-shorten-popup .uploadcare--widget__button").text('Change Image');
@@ -214,6 +215,7 @@ function refreshLinkInfo(url, popup) {
             $("#form-shorten .l-comments").val(data.comments);
             $("#form-shorten .l-tags").val(data.tags);
             $("#form-shorten .l-original-date").val(data.original_date);
+            $("#form-shorten .l-author").val(data.author);
             if (data.image != '') {
                 isPostedImg = true;
                 $("#form-shorten .uploadcare--widget__button").text('Change Image');

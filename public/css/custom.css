@@ -1682,7 +1682,7 @@ label {
 .cl-steemit {
     margin-bottom: 20px;
 }
-.cl-steemit .sp-original-date {
+.cl-steemit .st-original-date {
     color: #788187;
 }
 .cl-steemit .ptc {
@@ -1690,9 +1690,31 @@ label {
     font-weight: bold;
     cursor: pointer;
 }
-
-
-
+.cl-steemit .fl-right { float: right; padding: 0px 5px; color: #788187;}
+.cl-steemit .fa-st { color: #788187; }
+.cl-steemit .st-votes { padding-right: 20px; }
+.content-list .card-footer { right: 15px; }
+.st-tag {
+    position: absolute;
+    bottom: 10px;
+    display: inline-block;
+}
+.st-tag a {
+    background: #fcfcfc;
+    color: #333;
+    border: 1px solid #eee;
+    display: inline-block;
+    margin: 0.1rem 0.4rem 0.1rem 0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.3rem;
+    transition: 0.2s all ease-in-out;
+}
+.edit-picture {
+    position: absolute;
+    top: 5px;
+    left: 245px;
+    padding: 0px 5px;
+}
 
 /* Absolute Center Spinner */
 .loading {
