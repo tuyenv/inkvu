@@ -636,14 +636,6 @@ i {
     background-color:white;
 }
 
-.copied {
-    display: inline-block;
-    position: absolute;
-    bottom: 20px;
-    color: darkgray;
-    right: 15px;
-}
-
 .container {
     margin-right: auto;
     margin-left: auto;
@@ -1582,23 +1574,32 @@ label {
     background-color: #e5e5e5;
 }
 
-.btn-inline {
+/* content-popup  */
+.content-popup .copied {
+    display: inline-block;
+    position: absolute;
+    bottom: 20px;
+    color: darkgray;
+    right: 15px;
+}
+
+.content-popup .btn-inline {
     display: inline-block;
     position: absolute;
     padding: 0px 5px;
 }
 
-.edit-inline {
+.content-popup .edit-inline {
     bottom: 8px;
     right: 15px;
 }
 
-.save-inline {
+.content-popup .save-inline {
     bottom: 8px;
     right: 15px;
 }
 
-.clicks {
+.content-popup .clicks {
     display: inline-block;
     position:absolute;
     bottom: 0px;
@@ -1606,7 +1607,7 @@ label {
     right:145px;
 }
 
-.p-likes {
+.content-popup .p-likes {
     display: inline-block;
     position:absolute;
     bottom: 0px;
@@ -1614,7 +1615,7 @@ label {
     left:42%;
 }
 
-.p2-likes {
+.content-popup .p2-likes {
     display: inline-block;
     position:absolute;
     bottom: 0px;
@@ -1622,7 +1623,7 @@ label {
     left:48%;
 }
 
-.clipboard {
+.content-popup .clipboard {
     display: inline-block;
     position:absolute;
     bottom: 0px;
@@ -1630,9 +1631,68 @@ label {
     text-decoration: none;
 }
 
-.clipboard_owner {
+.content-popup .clipboard_owner {
     right:75px !important;
 }
+
+/* content-list  */
+.content-list .copied {
+    display: inline-block;
+    position: absolute;
+    top: 30px;
+    color: darkgray;
+    right: 75px;
+}
+
+.content-list .btn-inline {
+    display: inline-block;
+    position: absolute;
+    padding: 0px 5px;
+}
+
+.content-list .edit-inline {
+    top: 10px;
+    right: 15px;
+}
+
+.content-list .save-inline {
+    top: 10px;
+    right: 15px;
+}
+
+.content-list .clicks {
+    display: inline-block;
+    position:absolute;
+    top: 10px;
+    color:darkgray;
+    right:145px;
+}
+
+.content-list .clipboard {
+    display: inline-block;
+    position:absolute;
+    top: 10px;
+    right:15px;
+    text-decoration: none;
+}
+
+.content-list .clipboard_owner {
+    right:75px !important;
+}
+.cl-steemit {
+    margin-bottom: 20px;
+}
+.cl-steemit .sp-original-date {
+    color: #788187;
+}
+.cl-steemit .ptc {
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+
 
 /* Absolute Center Spinner */
 .loading {

@@ -83,6 +83,7 @@
                                             <input type="hidden" name="l-likes" class="l-likes" value="0">
                                             <input type="hidden" name="l-comments" class="l-comments" value="0">
                                             <input type="hidden" name="l-tags" class="l-tags" value="0">
+                                            <input type="hidden" name="l-original-date" class="l-original-date" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -311,7 +312,7 @@
                                 <a target="_blank" href="{{$link->long_url}}"><img onerror="onErrorTeam(this);" class="pic error_image" src="{{$error_image}}" /></a>
                             @endif
                         </div>
-                        <div class="content">
+                        <div class="content content-popup">
                             <a style="position: absolute;right: 10px;" target="_blank" href="{{$link->fullUrl()}}"><img width="60" src="http://beta.ink.vu/wp-content/uploads/2017/04/inkvu-03.png" alt="Ink.vu"></a>
                             <h6>{{$link->created_at}}</h6>
                             <h4 class="linktitle"><a target="_blank" href="{{$link->long_url}}">{{$link->title}}</a></h4>
@@ -336,11 +337,11 @@
                                     <a href="https://plus.google.com/share?url={{urlencode($link->fullUrl())}}"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
                                 </div>
                             </div>
+
                             <a data-link-id="{{$link->id}}" data-clipboard-target="#target-url-{{$link->id}}" id="target-url-{{$link->id}}" data-full-url="{{$link->fullUrl()}}" class="btn-copy" href="javascript:void(0);"><p class="@if ($isOwner)clipboard_owner @endif clipboard">Copy Link</p></a>
                             @if ($isOwner)<p class="clicks"><i class="fa fa-bar-chart" aria-hidden="true"></i>{{$link->clicks}} Clicks</p>@endif
-                            @if ($link->likes) <p class="p2-likes">{{$link->likes}} Likes {{$link->comments}} Comments</p> @endif
-
                             <p class="copied copytext-{{$link->id}}" style="display: none">copied</p>
+
                             @if ($isOwner)
                                 <button data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary btn-inline edit-inline"><span class="glyphicon glyphicon-edit"></span> Edit</button>
                                 <button style="display: none" data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary btn-inline save-inline"><span class="glyphicon glyphicon-save"></span> Save</button>
@@ -355,7 +356,7 @@
                             <img onerror="onErrorTeam(this);" class="pic error_image" src="{{$error_image}}" />
                         @endif
                     </div>
-                    <div class="content" id="linkcontent-{{$link->short_url}}">
+                    <div class="content content-list" id="linkcontent-{{$link->short_url}}">
                         @if ($isOwner)
                             <div class="dropdown" style="float:right;">
                                 <button class="btn-delete dropdown-toggle" style="background:none;" type="button" data-toggle="dropdown">
@@ -371,6 +372,14 @@
                         <h6>{{$link->created_at}}</h6>
                         <h4 class="linktitle" onclick="return showModalPostViaLink({{json_encode($link->short_url)}});">{{$link->title}}</h4>
                         <h4 style="display: none" class="linktitle_text">{{$link->title}}</h4>
+
+                        @if ($link->source == 'steemit.com')
+                        <div class="cl-steemit">
+                            <span class="sp-original-date"><i class="fa fa-clock-o" aria-hidden="true"></i> 1 hour ago by <a class="ptc">{{$link->creator}}</a></span>
+                            <span class="vote">5 votes</span>
+                        </div>
+                        @endif
+
                         <p class="short-desc">{{$link->description}}</p>
                         @if ($link->offer_code)
                             <p class="offercode"><strong>Offer Code:</strong> <input readonly type="text" class="offer-code-holder" value="{{$link->offer_code}}" /> <button class="btn copybutton btn-xs" type="button" onclick="
@@ -394,15 +403,17 @@
                                 </div>
                             </div>
                         </div>
-                        <a data-link-id="{{$link->id}}" data-clipboard-target="#target-url-{{$link->id}}" id="target-url-{{$link->id}}" data-full-url="{{$link->fullUrl()}}" class="btn-copy" href="javascript:void(0);"><p class="@if ($isOwner)clipboard_owner @endif clipboard">Copy Link</p></a>
-                        @if ($isOwner)<p class="clicks"><i class="fa fa-bar-chart" aria-hidden="true"></i>{{$link->clicks}} Clicks</p>@endif
-                        @if ($link->likes) <p class="p-likes">{{$link->likes}} Likes {{$link->comments}} Comments</p> @endif
 
-                        <p class="copied copytext-{{$link->id}}" style="display: none">copied</p>
-                        @if ($isOwner)
-                            <button data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary btn-inline edit-inline"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-                            <button style="display: none" data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary btn-inline save-inline"><span class="glyphicon glyphicon-save"></span> Save</button>
-                        @endif
+                        <div class="card-top-right">
+                            <a data-link-id="{{$link->id}}" data-clipboard-target="#target-url-{{$link->id}}" id="target-url-{{$link->id}}" data-full-url="{{$link->fullUrl()}}" class="btn-copy" href="javascript:void(0);"><p class="@if ($isOwner)clipboard_owner @endif clipboard">Copy Link</p></a>
+                            @if ($isOwner)<p class="clicks"><i class="fa fa-bar-chart" aria-hidden="true"></i>{{$link->clicks}} Clicks</p>@endif
+                            <p class="copied copytext-{{$link->id}}" style="display: none">copied</p>
+                            @if ($isOwner)
+                                <button data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary btn-inline edit-inline"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                                <button style="display: none" data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary btn-inline save-inline"><span class="glyphicon glyphicon-save"></span> Save</button>
+                            @endif
+                        </div>
+
                     </div>
                 </div>
 

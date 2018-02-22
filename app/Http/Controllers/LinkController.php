@@ -37,6 +37,7 @@ class LinkController extends Controller {
             'likes' => 0,
             'comments' => 0,
             'is_stats' => '',
+            'original_date' => '',
         );
         $title = "";
         $description = "";
@@ -181,6 +182,8 @@ class LinkController extends Controller {
         $link_object->likes = $likes;
         $link_object->comments = $comments;
         $link_object->tags = $tags;
+        $link_object->original_date = $request->input("l-original-date");
+        $link_object->source = parse_url($long_url, PHP_URL_HOST);
         $link_object->save();
 
         // insert notify queue and deliver
@@ -318,11 +321,10 @@ class LinkController extends Controller {
             $identifier = strstr($parseUrl['path'], '@');
             $document = $collection->findOne(
                 ['identifier' => $identifier],
-                ['projection' => ['root_title' => 1, 'body' => 1, 'tags' => 1, 'json_metadata' => 1, 'net_votes' => 1, 'children' => 1, 'replies' => 1]]
+                ['projection' => ['root_title' => 1, 'body' => 1, 'tags' => 1, 'json_metadata' => 1, 'net_votes' => 1, 'children' => 1, 'replies' => 1, 'created' => 1]]
             );
             if (!empty($document)) {
                 $document = $document->getArrayCopy();
-
 
                 $data['title'] = $document['root_title'];
                 $content = preg_replace('/<img[^>]+\>/i', "", htmlspecialchars_decode($document['body']));
@@ -347,6 +349,8 @@ class LinkController extends Controller {
                 } else if (isset($document['replies']) && !empty($document['replies'])) {
                     $data['comments'] = count($document['replies']->getArrayCopy());
                 }
+
+                $data['original_date'] = $document['created']->toDateTime()->format('Y-m-d H:i:s');
             }
         }
 
