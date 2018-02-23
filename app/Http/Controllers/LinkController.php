@@ -288,6 +288,37 @@ class LinkController extends Controller {
 	}
     }
 
+    public function performEditPicture(Request $request)
+    {
+        if (env('SETTING_SHORTEN_PERMISSION') && !self::isLoggedIn()) {
+            return redirect(route('index'))->with('error', 'You must be logged in to shorten links.');
+        }
+
+        $this->validate($request, [
+            'post_id' => 'required',
+            'edit_image_name' => 'required'
+        ]);
+
+        try {
+            $postId = $request->input('post_id');
+            $creator = session('username');
+            $objLink = Link::where('id', $postId)->where('creator', $creator)->first();
+
+            if ($objLink instanceof  Link && !empty($objLink)) {
+                $objLink->image = $request->input('edit_image_name');
+                $objLink->save();
+
+                $shortUrl = LinkFactory::formatLink($creator, $objLink->short_url, $objLink->secret_key);
+                $shortUrl .= '?n=1';
+                return redirect($shortUrl)->with('success', 'Edited post.');
+            } else {
+                return self::renderError('Something went wrong');
+            }
+        } catch (\Exception $e) {
+            return self::renderError($e->getMessage());
+        }
+    }
+
     private function getInstagramData($long_url, &$data)
     {
         $long_url = preg_replace('/\?.+/', '', $long_url);

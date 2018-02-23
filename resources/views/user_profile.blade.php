@@ -356,11 +356,12 @@
                         @else
                             <img onerror="onErrorTeam(this);" class="pic error_image" src="{{$error_image}}" />
                         @endif
-
-                        @if ($isOwner)
-                            <button data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary edit-picture"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-                        @endif
                     </div>
+                    @if ($isOwner)
+                        <button data-id="{{$link->id}}" data-image="{{$link->image}}" data-link-id="{{$link->short_url}}" type="button" class="btn btn-primary edit-picture">
+                            <span class="glyphicon glyphicon-edit"></span> Edit
+                        </button>
+                    @endif
                     <div class="content content-list" id="linkcontent-{{$link->short_url}}">
                         @if ($isOwner)
                             <div class="dropdown" style="float:right;">
@@ -479,6 +480,47 @@
 	</div>
 </div>
 <!-- End Delete Modal -->
+
+<!-- Edit picture modal -->
+<div class="modal fade" id="editPictureModal" tabindex="-1" role="dialog" aria-labelledby="editPictureModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Edit picture</h4>
+            </div>
+            <form method='POST' action='/editpicture' role='form' id='editpicture'>
+                <div class="modal-body">
+
+                    <div class="well">
+                        <div class="mediadiv">
+                            <div class="media">
+                                <div class="media-body text-center">
+                                    <a href="#">
+                                        <img id="img-edit" onerror="onErrorTeam(this);" style="margin-left: 135px;" alt="postimage" class="media-object error_image media-src" src="http://ericatoelle.com/wp-content/uploads/2012/02/150x150.gif">
+                                        <p id="no-preview" style="display: none; margin-top: 30px; height: 150px; padding-top: 60px;">No image preview available please upload</p>
+                                    </a>
+
+                                    <input class="input-img-edit" type="hidden" role="uploadcare-uploader" name="image"
+                                           data-crop="300x300 upscale"
+                                           data-images-only="true" />
+
+                                    <input type="hidden" class="edit_image_name" name="edit_image_name" value="">
+                                    <input type="hidden" class="post_id" name="post_id" value="0">
+                                    <input type="hidden" name='_token' value='{{csrf_token()}}' />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Done</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 </div>
 </div>
@@ -622,6 +664,39 @@
                     console.log(fileInfo.cdnUrl);
                     $("#link_image").val(fileInfo.cdnUrl);
                     document.getElementById("link_image_img").src = fileInfo.cdnUrl;
+                });
+            });
+
+            dialog.fail(function(result) {
+                // Dialog closed and no file or file group was selected.
+                // The result argument is either null or the last selected file.
+                console.log(result);
+            });
+
+            dialog.always(function() {
+                // Handles a closing dialog regardless of whether or not files were selected.
+                console.log('always');
+            });
+
+            dialog.progress(function(tabName) {
+                // tabName is selected.
+                console.log('process');
+            });
+
+        });
+
+        $('.content-div').on('click', '.input-img-edit, #img-edit', function () {
+
+            var dialog = uploadcare.openDialog(null, {
+                crop: "disabled",
+                imagesOnly: true
+            });
+
+            dialog.done(function(file) {
+                file.promise().done(function(fileInfo){
+                    console.log(fileInfo.cdnUrl);
+                    $(".edit_image_name").val(fileInfo.cdnUrl);
+                    document.getElementById("img-edit").src = fileInfo.cdnUrl;
                 });
             });
 
@@ -856,6 +931,19 @@
                 }
             });
         });
+
+        $('.edit-picture').on('click', function (e) {
+            var postId = $(this).data("id");
+            var postImg = $(this).data("image");
+
+            $("#editPictureModal .uploadcare--widget__button").text('Change Image');
+            $("#editPictureModal .edit_image_name").val(postImg);
+            $("#editPictureModal .media-src").attr('src', postImg);
+            $("#editPictureModal .post_id").val(postId);
+
+            $('#editPictureModal').modal('show');
+        });
+
 	</script>
 
 	@if ($showlink && $isNewPost == 0)

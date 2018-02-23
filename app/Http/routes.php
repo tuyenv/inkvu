@@ -43,6 +43,7 @@ $app->get('/admin/stats/{short_url}', ['uses' => 'StatsController@displayStats']
 
 $app->post('/login', ['as' => 'plogin', 'uses' => 'UserController@performLogin']);
 $app->post('/shorten', ['as' => 'pshorten', 'uses' => 'LinkController@performShorten']);
+$app->post('/editpicture', ['as' => 'editpicture', 'uses' => 'LinkController@performEditPicture']);
 $app->post('/describe', ['as' => 'pdescribe', 'uses' => 'LinkController@getLinkInfo']);
 $app->post('/delete', ['as' => 'pdelete', 'uses' => 'LinkController@performDeletion']);
 $app->post('/lost_password', ['as' => 'plost_password', 'uses' => 'UserController@performSendPasswordResetCode']);
