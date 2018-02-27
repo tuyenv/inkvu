@@ -186,6 +186,7 @@ class LinkController extends Controller {
         $link_object->original_date = $request->input("l-original-date");
         $link_object->source = parse_url($long_url, PHP_URL_HOST);
         $link_object->created_by = $request->input("l-author");
+        $link_object->ucstatus = $request->input("l-ucstatus");
         $link_object->save();
 
         // insert notify queue and deliver

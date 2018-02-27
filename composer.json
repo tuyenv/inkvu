@@ -19,7 +19,8 @@
         "aws/aws-sdk-php": "~3.0",
         "mongodb/mongodb": "1.1",
         "guzzlehttp/guzzle": "~5.3|~6.0",
-        "raiym/instagram-php-scraper": "^0.8.13"
+        "raiym/instagram-php-scraper": "^0.8.13",
+        "mashape/unirest-php": "^3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.0",

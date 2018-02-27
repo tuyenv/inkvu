@@ -85,6 +85,7 @@
                                             <input type="hidden" name="l-tags" class="l-tags" value="0">
                                             <input type="hidden" name="l-original-date" class="l-original-date" value="">
                                             <input type="hidden" name="l-author" class="l-author" value="">
+                                            <input type="hidden" name="l-ucstatus" class="l-ucstatus" value="0">
                                         </div>
                                     </div>
                                 </div>
@@ -663,6 +664,7 @@
                 file.promise().done(function(fileInfo){
                     console.log(fileInfo.cdnUrl);
                     $("#link_image").val(fileInfo.cdnUrl);
+                    $("#form-shorten .l-ucstatus").val(1);
                     document.getElementById("link_image_img").src = fileInfo.cdnUrl;
                 });
             });
@@ -676,11 +678,13 @@
             dialog.always(function() {
                 // Handles a closing dialog regardless of whether or not files were selected.
                 console.log('always');
+                $("#form-shorten .l-ucstatus").val(1);
             });
 
             dialog.progress(function(tabName) {
                 // tabName is selected.
                 console.log('process');
+                $("#form-shorten .l-ucstatus").val(1);
             });
 
         });

@@ -108,8 +108,21 @@ $('#form-shorten-popup').on('click', '.upload-thumb-popup, #link_image_img_popup
         file.promise().done(function(fileInfo){
             console.log(fileInfo.cdnUrl);
             $("#link_image_popup").val(fileInfo.cdnUrl);
+            $("#form-shorten-popup .l-ucstatus").val(1);
             document.getElementById("link_image_img_popup").src = fileInfo.cdnUrl;
         });
+    });
+
+    dialog.always(function() {
+        // Handles a closing dialog regardless of whether or not files were selected.
+        console.log('always');
+        $("#form-shorten-popup .l-ucstatus").val(1);
+    });
+
+    dialog.progress(function(tabName) {
+        // tabName is selected.
+        console.log('process');
+        $("#form-shorten-popup .l-ucstatus").val(1);
     });
 });
 
