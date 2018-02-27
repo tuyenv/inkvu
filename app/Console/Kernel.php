@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         \Torann\GeoIP\Console\Update::class,
         \App\Console\Commands\SendEmails::class,
-        \App\Console\Commands\SendSms::class
+        \App\Console\Commands\SendSms::class,
+        \App\Console\Commands\UploadCare::class
     ];
 
     /**

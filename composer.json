@@ -18,9 +18,10 @@
         "tuyenv/php-simple-html-dom-parser": "dev-1.5.1-curl",
         "aws/aws-sdk-php": "~3.0",
         "mongodb/mongodb": "1.1",
-        "guzzlehttp/guzzle": "~5.3|~6.0",
+        "guzzlehttp/guzzle": "^6.3",
         "raiym/instagram-php-scraper": "^0.8.13",
-        "mashape/unirest-php": "^3.0"
+        "mashape/unirest-php": "^3.0",
+        "league/flysystem-aws-s3-v3": "~1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.0",
