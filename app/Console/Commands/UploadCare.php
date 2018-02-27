@@ -53,7 +53,7 @@ class UploadCare extends Command
                     $q->where('ucstatus', 0)
                         ->orWhere('ucstatus', 1);
                 })->orderBy('id', 'asc')
-                ->limit(1)->get();
+                ->limit(10)->get();
 
             if (empty($links)) {
                 $this->info('Empty');
