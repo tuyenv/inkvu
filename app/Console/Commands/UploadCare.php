@@ -62,6 +62,10 @@ class UploadCare extends Command
 
             $s3 = \Storage::disk('s3');
             foreach ($links as $link) {
+                if ($link['ucstatus'] != 0 && $link['ucstatus'] != 1) {
+                    continue;
+                }
+
                 // processing
                 $this->updateUcStatus($link['id'], self::UC_STATUS_PROCESS);
                 $filePath = time() . '_' . $link['id']. '.png';
