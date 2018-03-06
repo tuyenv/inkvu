@@ -1636,6 +1636,9 @@ label {
 }
 
 /* content-list  */
+.content-list {
+    position: relative;
+}
 .content-list .copied {
     display: inline-block;
     position: absolute;
@@ -1695,8 +1698,6 @@ label {
 .cl-steemit .st-votes { padding-right: 20px; }
 .content-list .card-footer { right: 15px; }
 .st-tag {
-    position: absolute;
-    bottom: 10px;
     display: inline-block;
 }
 .st-tag a {
@@ -1712,7 +1713,7 @@ label {
 .edit-picture {
     position: absolute;
     top: 5px;
-    left: 245px;
+    right: 15px;
     padding: 0px 5px;
 }
 
