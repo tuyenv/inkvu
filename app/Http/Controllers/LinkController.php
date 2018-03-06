@@ -391,6 +391,7 @@ class LinkController extends Controller {
             }
         }
 
+        $data['steemit'] = 1;
         return $data;
     }
 

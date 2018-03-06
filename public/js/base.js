@@ -209,6 +209,10 @@ function refreshLinkInfo(url, popup) {
                 $("#form-shorten-popup .div-stats").show();
             }
 
+            if (data.steemit == 1 && data.title == '') {
+                $('#form-shorten-popup .steemit-check').show();
+            }
+
         } else {
             document.getElementById("link_title").value = data.title;
             document.getElementById("link_description").value = data.description;
@@ -237,7 +241,14 @@ function refreshLinkInfo(url, popup) {
             if (data.is_stats == 1) {
                 $("#form-shorten .div-stats").show();
             }
+
+            if (data.steemit == 1 && data.title == '') {
+                $('#form-shorten .steemit-check').show();
+            }
         }
+
+
+
     });
 }
 

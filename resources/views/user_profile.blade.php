@@ -22,14 +22,15 @@
                                 <input id="link-url-input" name="link-url" onchange="refreshLinkInfo(this.value);" type='url' autocomplete='off' class="form-control" placeholder='http://example.com'>
                                 <span class="input-group-btn">
                                     <button class="btn btn-analyze btn-refresh" style="background-color: #e95950" onclick="clickRefresh();" type="button">Refresh</button>
-                               </span>
-                               <span class="input-group-btn">
+                                </span>
+                                <span class="input-group-btn">
                                     <button class="btn btn-analyze" onclick="clickAnalyze();" type="button">Analyze</button>
-                               </span>
+                                </span>
                             </div>
                             <div class="well">
                                 <div class="mediadiv">
                                     <div class="media">
+                                        <p class="steemit-check" style="display: none; color: #e95950;">The link doesn't exist on Steemdata</p>
                                         <div class="media-left text-center">
                                             <a href="#">
                                                 <img alt="postimage" class="media-object" id="link_image_img" src="http://ericatoelle.com/wp-content/uploads/2012/02/150x150.gif">

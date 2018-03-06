@@ -178,6 +178,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                                         </div>
                                         <div class="mediadiv">
                                             <div class="media">
+                                                <p class="steemit-check" style="display: none; color: #e95950;margin-top: 10px;">The link doesn't exist on Steemdata</p>
                                                 <div class="media-left text-center">
                                                     <a href="#">
                                                         <img alt="postimage" class="media-object" id="link_image_img_popup" src="http://ericatoelle.com/wp-content/uploads/2012/02/150x150.gif">
