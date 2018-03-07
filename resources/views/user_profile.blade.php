@@ -32,8 +32,12 @@
                                     <div class="media">
                                         <p class="steemit-check" style="display: none; color: #e95950;">The link doesn't exist on Steemdata</p>
                                         <div class="media-left text-center">
+                                            @if (isset($instaMedia) && !empty($instaMedia))
+                                            <button id="btnInstagram" class="btn btn-analyze" style="background-color: #e95950" type="button">Post Instagram</button>
+                                            @endif
+
                                             <a href="#">
-                                                <img alt="postimage" class="media-object" id="link_image_img" src="http://ericatoelle.com/wp-content/uploads/2012/02/150x150.gif">
+                                                <img style="padding-top: 10px;" alt="postimage" class="media-object" id="link_image_img" src="http://ericatoelle.com/wp-content/uploads/2012/02/150x150.gif">
                                                 <p id="no-preview" style="display: none; margin-top: 30px; height: 150px; padding-top: 60px;">No image preview available please upload</p>
                                             </a>
                                             <!--<input type="hidden" id="link_image" name="image">-->
@@ -524,6 +528,55 @@
     </div>
 </div>
 
+
+
+
+
+@if (isset($instaMedia) && !empty($instaMedia))
+    <div class="modal fade" id="instagramModal" tabindex="-1" role="dialog" aria-labelledby="instagramModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4>Post instagram link</h4>
+                </div>
+
+                <div>
+                    <center><p style="font-size:18px;">Select a piece of content from your profile.</p></center>
+                    <div style="margin-bottom: 30px; overflow: scroll; height: 275px;" data-title="Select a piece of content from your profile">
+                        <div class="well">
+
+                                <ul class="hide-bullets">
+                                    @foreach ($instaMedia as $media)
+                                        <li class="col-sm-3 insta-post" data-tags="{{implode(',', $media['tags'])}}"
+                                            data-comments="{{$media['comments']['count']}}"
+                                            data-likes="{{$media['likes']['count']}}"
+                                            data-caption="{{$media['caption']['text']}}"
+                                            data-link="{{$media['link']}}"
+                                            data-img="{{$media['images']['standard_resolution']['url']}}">
+
+                                            <a class="thumbnail">
+                                                <img src="{{$media['images']['thumbnail']['url']}}">
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="choose-instagram">Choose</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
+
+
 </div>
 </div>
 
@@ -947,6 +1000,25 @@
             $("#editPictureModal .post_id").val(postId);
 
             $('#editPictureModal').modal('show');
+        });
+
+        $(".insta-post").click(function() {
+            $(".insta-post img").removeClass('insta-img');
+            $(this).find('img').addClass('insta-img');
+
+            var url = $(this).data('link');
+            $("#link-url-input").val(url);
+        });
+
+        $('#btnInstagram').on('click', function (e) {
+            $('#instagramModal').modal('show');
+            $('#newlinkmodal').modal('hide');
+        });
+
+        $('#choose-instagram').on('click', function (e) {
+            $('#instagramModal').modal('hide');
+            $('#newlinkmodal').modal('show');
+            clickAnalyze();
         });
 
 	</script>

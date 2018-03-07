@@ -24,7 +24,7 @@ class Controller extends BaseController {
 
     private function getUserInstagramMedia($instaToken)
     {
-        $urlEndpoint = 'https://api.instagram.com/v1/users/self/media/recent/?count=8&access_token='.$instaToken;
+        $urlEndpoint = 'https://api.instagram.com/v1/users/self/media/recent/?access_token='.$instaToken;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,120);
         curl_setopt($ch, CURLOPT_TIMEOUT, 400); //timeout in seconds
