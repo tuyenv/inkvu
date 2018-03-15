@@ -301,7 +301,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     <script src='/js/toastr.min.js'></script>
     <script src='/js/clipboard.min.js'></script>
     <script src='/js/jquery-bootstrap-modal-steps.js'></script>
-    <script src='/js/base.js'></script>
+    <script src='/js/base.js?noCache=<?=time()?>'></script>
 
     <script>
     @if (Session::has('info'))
