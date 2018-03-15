@@ -14,7 +14,10 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Post link</h4>
+                        <h4 style="float:left; padding-top: 5px;" class="modal-title" id="myModalLabel">Post link</h4>
+                        @if (isset($instaMedia) && !empty($instaMedia))
+                            <button id="btnInstagram" class="btn btn-analyze" style="margin-left: 20px; background-color: #e95950" type="button">Post Instagram</button>
+                        @endif
                     </div>
                     <form method='POST' action='/shorten' role='form' id='form-shorten'>
                         <div class="modal-body">
@@ -32,10 +35,6 @@
                                     <div class="media">
                                         <p class="steemit-check" style="display: none; color: #e95950;">The link doesn't exist on Steemdata</p>
                                         <div class="media-left text-center">
-                                            @if (isset($instaMedia) && !empty($instaMedia))
-                                            <button id="btnInstagram" class="btn btn-analyze" style="background-color: #e95950" type="button">Post Instagram</button>
-                                            @endif
-
                                             <a href="#">
                                                 <img style="padding-top: 10px;" alt="postimage" class="media-object" id="link_image_img" src="http://ericatoelle.com/wp-content/uploads/2012/02/150x150.gif">
                                                 <p id="no-preview" style="display: none; margin-top: 30px; height: 150px; padding-top: 60px;">No image preview available please upload</p>
@@ -47,6 +46,10 @@
                                                    data-images-only="true" />
                                             <br>
                                             <!--<button class="btn btn-upload upload-thumb" type="button"><i class="fa fa-upload" aria-hidden="true"></i>Upload Image</button>-->
+                                            <div class="form-group paste_link">
+                                                <label for="paste_link">Paste Link:</label>
+                                                <span class="sp_paste_link" style="color:#e95950; padding-left: 5px;"></span>
+                                            </div>
                                         </div>
                                         <div class="media-body">
                                             <div class="form-group">

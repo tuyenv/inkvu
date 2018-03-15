@@ -1865,6 +1865,21 @@ label {
     color:white;
     background-color: #e95950;
 }
+.paste_link {
+    text-align: left;
+}
+
+
+
+
+
+@media (min-width: 767px) {
+    .paste_link {
+        margin-top: 150px;
+    }
+}
+
+
 @media (max-width: 767px) {
     .media-body { padding: 0px; width: 100%; }
     .media-left, .media-right, .media-body { display: block; }

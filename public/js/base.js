@@ -233,6 +233,8 @@ function refreshLinkInfo(url, popup) {
             $("#form-shorten .l-tags").val(data.tags);
             $("#form-shorten .l-original-date").val(data.original_date);
             $("#form-shorten .l-author").val(data.author);
+            $("#form-shorten .sp_paste_link").text(url);
+
             if (data.image != '') {
                 isPostedImg = true;
                 $("#form-shorten .uploadcare--widget__button").text('Change Image');
