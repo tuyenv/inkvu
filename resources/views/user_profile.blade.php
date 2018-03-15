@@ -48,7 +48,7 @@
                                             <!--<button class="btn btn-upload upload-thumb" type="button"><i class="fa fa-upload" aria-hidden="true"></i>Upload Image</button>-->
                                             <div class="form-group paste_link">
                                                 <label for="paste_link">Paste Link:</label>
-                                                <span class="sp_paste_link" style="color:#e95950; padding-left: 5px;"></span>
+                                                <span class="sp_paste_link" style="color:#e95950; word-break: break-all;"></span>
                                             </div>
                                         </div>
                                         <div class="media-body">
