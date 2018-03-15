@@ -1868,6 +1868,12 @@ label {
 .paste_link {
     text-align: left;
 }
+body.modal-open {
+    overflow: hidden;
+}
+.li-insta-post {
+    padding: 2px 5px;
+}
 
 
 

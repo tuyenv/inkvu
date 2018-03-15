@@ -254,3 +254,12 @@ function refreshLinkInfo(url, popup) {
     });
 }
 
+$("#newlinkmodal").on("show", function () {
+    $("body").addClass("modal-open");
+}).on("hidden", function () {
+    $("body").removeClass("modal-open")
+});
+
+$("#instagramModal").on("hidden", function () {
+    $("body").removeClass("modal-open")
+});

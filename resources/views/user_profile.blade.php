@@ -536,7 +536,7 @@
 
 
 @if (isset($instaMedia) && !empty($instaMedia))
-    <div class="modal fade" id="instagramModal" tabindex="-1" role="dialog" aria-labelledby="instagramModal" aria-hidden="true">
+    <div class="modal fade" id="instagramModal" role="dialog" aria-labelledby="instagramModal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -551,7 +551,7 @@
 
                                 <ul class="hide-bullets">
                                     @foreach ($instaMedia as $media)
-                                        <li class="col-sm-3 insta-post" data-tags="{{implode(',', $media['tags'])}}"
+                                        <li class="col-sm-3 insta-post li-insta-post" data-tags="{{implode(',', $media['tags'])}}"
                                             data-comments="{{$media['comments']['count']}}"
                                             data-likes="{{$media['likes']['count']}}"
                                             data-caption="{{$media['caption']['text']}}"
@@ -1016,11 +1016,14 @@
         $('#btnInstagram').on('click', function (e) {
             $('#instagramModal').modal('show');
             $('#newlinkmodal').modal('hide');
+            $("body").addClass("modal-open");
+            setTimeout(function() { $("body").addClass("modal-open"); }, 2000);
         });
 
         $('#choose-instagram').on('click', function (e) {
             $('#instagramModal').modal('hide');
             $('#newlinkmodal').modal('show');
+            setTimeout(function() { $("body").addClass("modal-open"); }, 2000);
             clickAnalyze();
         });
 
