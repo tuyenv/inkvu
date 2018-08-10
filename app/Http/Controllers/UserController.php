@@ -163,7 +163,7 @@ class UserController extends Controller {
 
     public function google(Request $request)
     {
-        $client = new Google_Client();
+        $client = new \Google_Client();
         $client->setClientId(env("GOOGLE_CLIENT_ID"));
         $client->setClientSecret(env("GOOGLE_CLIENT_SECRET"));
         $client->setRedirectUri(env('APP_PROTOCOL') . env('APP_ADDRESS') . '/' . 'googlecallback');
@@ -171,12 +171,12 @@ class UserController extends Controller {
         $client->addScope('https://www.googleapis.com/auth/userinfo.profile');
         $client->addScope("https://www.googleapis.com/auth/userinfo.email");
         $authUrl = $client->createAuthUrl();
-        redirect(filter_var($authUrl, FILTER_SANITIZE_URL));
+        return redirect(filter_var($authUrl, FILTER_SANITIZE_URL));
     }
 
     public function googleCallback(Request $request)
     {
-        $client = new Google_Client();
+        $client = new \Google_Client();
         $client->setClientId(env("GOOGLE_CLIENT_ID"));
         $client->setClientSecret(env("GOOGLE_CLIENT_SECRET"));
         $client->setRedirectUri(env('APP_PROTOCOL') . env('APP_ADDRESS') . '/' . 'googlecallback');
@@ -188,7 +188,7 @@ class UserController extends Controller {
             if (isset($_GET['code'])) {
                 $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
                 $client->setAccessToken($token);
-                $oauth = new Google_Service_Oauth2($client);
+                $oauth = new \Google_Service_Oauth2($client);
                 $authInfo = $oauth->userinfo_v2_me->get();
                 if ($authInfo) {
                     $email = $authInfo->getEmail();
@@ -223,12 +223,12 @@ class UserController extends Controller {
                     $request->session()->put('username', $username);
                 }
 
-                redirect('/');
+                return redirect('/');
             } else {
-                redirect('signup');
+                return redirect('signup');
             }
         } catch (\Exception $e) {
-            redirect('signup');
+            return redirect('signup');
         }
     }
 
