@@ -95,10 +95,29 @@ class AdminController extends Controller {
         $username = session('username');
         $email = $request->input('txt_email');
         $mobile = $request->input('txt_mobile');
+        $inputUsername = $request->input('txt_username');
+        $checkUser = UserHelper::getUsersByUsername($inputUsername);
+
+        if ($inputUsername != $username) {
+            if (count($checkUser) > 0) {
+                $userInfo = $checkUser[0];
+                if ($userInfo->email != $email) {
+                    $request->session()->flash('error', "Username already exists");
+                    return redirect(route('admin'));
+                }
+            } else if (count($checkUser) > 1) {
+                $request->session()->flash('error', "Username already exists");
+                return redirect(route('admin'));
+            }
+        }
+
         $user = UserHelper::getUserByUsername($username);
         $user->email = $email;
         $user->mobile = $mobile;
+        $user->username = $inputUsername;
         $user->save();
+
+        $request->session()->put('username', $inputUsername);
 
         $notifySetting = NotifySettings::where('creator', $user->id)->get();
         foreach ($notifySetting as $noti) {

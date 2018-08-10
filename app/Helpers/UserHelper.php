@@ -128,4 +128,9 @@ class UserHelper {
         }
         return false;
     }
+
+    public static function getUsersByUsername($username)
+    {
+        return User::where('username', $username)->get();
+    }
 }

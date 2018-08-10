@@ -84,9 +84,11 @@
 
                 <form action='/admin/action/change_setting' method='POST'>
                     Email: <input disabled class="form-control password-box" type='text' name='txt_email' value="{{$user->email}}" />
+                    Username: <input class="form-control password-box" type='text' name='txt_username' value="{{$user->username}}" />
                     Mobile: <input disabled class="form-control password-box" type='text' name='txt_mobile' value="{{$user->mobile}}" />
                     <input type="hidden" name='_token' value='{{csrf_token()}}' />
-                    <a class='btn btn-success change-password-btn' data-toggle="modal" data-target="#pushModal">Change</a>
+                    <a class='btn btn-success change-password-btn' data-toggle="modal" data-target="#pushModal">Change Notification</a>
+                    <input type="submit" class="btn btn-success change-password-btn" value="Change Setting">
                 </form>
 
                 @if ($user->is_first_pass == 0)
