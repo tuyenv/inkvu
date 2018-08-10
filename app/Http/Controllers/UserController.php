@@ -211,7 +211,7 @@ class UserController extends Controller {
 
                     } else {
                         $user = $users->first();
-                        $username = $users->username;
+                        $username = $user->username;
                         $user->profile_picture_url = $authInfo->getPicture();
                     }
 
