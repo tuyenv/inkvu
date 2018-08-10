@@ -192,11 +192,10 @@ class UserController extends Controller {
                 $authInfo = $oauth->userinfo_v2_me->get();
                 if ($authInfo) {
                     $email = $authInfo->getEmail();
-                    $username = 'ink' . strstr($email, '@', true);
                     $users = User::where('active', 1)->where('email', $email);
 
                     if ($users->count() == 0) {
-                        $email = "";
+                        $username = 'ink' . strstr($email, '@', true);
                         $password = CryptoHelper::generateRandomHex(50);
                         $active = 1;
                         $api_active = false;
@@ -212,6 +211,7 @@ class UserController extends Controller {
 
                     } else {
                         $user = $users->first();
+                        $username = $users->username;
                         $user->profile_picture_url = $authInfo->getPicture();
                     }
 
