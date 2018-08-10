@@ -16,6 +16,9 @@ if (env('POLR_ALLOW_ACCT_CREATION')) {
 
 /* GET endpoints */
 
+$app->get('/google', ['as' => 'google', 'uses' => 'UserController@google']);
+$app->get('/googlecallback', ['as' => 'googlecallback', 'uses' => 'UserController@googleCallback']);
+
 $app->get('/', ['as' => 'index', 'uses' => 'IndexController@showIndexPage']);
 $app->get('/logout', ['as' => 'logout', 'uses' => 'UserController@performLogoutUser']);
 $app->get('/login', ['as' => 'login', 'uses' => 'UserController@displayLoginPage']);

@@ -161,6 +161,78 @@ class UserController extends Controller {
 	}
     }
 
+    public function google(Request $request)
+    {
+        $client = new Google_Client();
+        $client->setClientId(env("GOOGLE_CLIENT_ID"));
+        $client->setClientSecret(env("GOOGLE_CLIENT_SECRET"));
+        $client->setRedirectUri(env('APP_PROTOCOL') . env('APP_ADDRESS') . '/' . 'googlecallback');
+        $client->addScope('https://www.googleapis.com/auth/plus.login');
+        $client->addScope('https://www.googleapis.com/auth/userinfo.profile');
+        $client->addScope("https://www.googleapis.com/auth/userinfo.email");
+        $authUrl = $client->createAuthUrl();
+        redirect(filter_var($authUrl, FILTER_SANITIZE_URL));
+    }
+
+    public function googleCallback(Request $request)
+    {
+        $client = new Google_Client();
+        $client->setClientId(env("GOOGLE_CLIENT_ID"));
+        $client->setClientSecret(env("GOOGLE_CLIENT_SECRET"));
+        $client->setRedirectUri(env('APP_PROTOCOL') . env('APP_ADDRESS') . '/' . 'googlecallback');
+        $client->addScope('https://www.googleapis.com/auth/plus.login');
+        $client->addScope('https://www.googleapis.com/auth/userinfo.profile');
+        $client->addScope("https://www.googleapis.com/auth/userinfo.email");
+
+        try {
+            if (isset($_GET['code'])) {
+                $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+                $client->setAccessToken($token);
+                $oauth = new Google_Service_Oauth2($client);
+                $authInfo = $oauth->userinfo_v2_me->get();
+                if ($authInfo) {
+                    $email = $authInfo->getEmail();
+                    $username = 'ink' . strstr($email, '@', true);
+                    $users = User::where('active', 1)->where('email', $email);
+
+                    if ($users->count() == 0) {
+                        $email = "";
+                        $password = CryptoHelper::generateRandomHex(50);
+                        $active = 1;
+                        $api_active = false;
+                        $api_key = null;
+                        if (env('SETTING_AUTO_API')) {
+                            // if automatic API key assignment is on
+                            $api_active = 1;
+                            $api_key = CryptoHelper::generateRandomHex(env('_API_KEY_LENGTH'));
+                        }
+                        $ip = $request->ip();
+
+                        $user = UserFactory::createUser($username, $email, $password, $active, $ip, $api_key, $api_active, false, $authInfo->getPicture());
+
+                    } else {
+                        $user = $users->first();
+                        $user->profile_picture_url = $authInfo->getPicture();
+                    }
+
+                    $user->last_login = date("Y-m-d H:i:s");
+                    $user->save();
+
+                    $request->session()->put('isNewUser', 0);
+                    $request->session()->put('userId', $user->id);
+                    $request->session()->put('username', $username);
+                }
+
+                redirect('/');
+            } else {
+                redirect('signup');
+            }
+        } catch (\Exception $e) {
+            redirect('signup');
+        }
+    }
+
+
     public function performSignup(Request $request) {
         if (env('POLR_ALLOW_ACCT_CREATION') == false) {
             return redirect(route('index'))->with('error', 'Sorry, but registration is disabled.');

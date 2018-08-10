@@ -10,7 +10,8 @@
 <div class='col-md-1'></div>
 <div class='col-md-4'>
 	<br /><br />
-	<a style="font-size: 200%;" href="{{route('instagram')}}">Register with Instagram</a>
+	<a style="font-size: 200%;" href="{{route('instagram')}}">Register with Instagram</a><br><hr>
+    <a style="font-size: 200%;" href="{{route('google')}}">Register with Google</a>
 </div>
 <div class='col-md-2'>
 	<br /><br />OR

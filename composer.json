@@ -21,6 +21,7 @@
         "guzzlehttp/guzzle": "^6.3",
         "raiym/instagram-php-scraper": "^0.8.13",
         "mashape/unirest-php": "^3.0",
+        "google/apiclient": "2.2.1",
         "league/flysystem-aws-s3-v3": "~1.0"
     },
     "require-dev": {
