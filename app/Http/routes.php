@@ -16,6 +16,7 @@ if (env('POLR_ALLOW_ACCT_CREATION')) {
 
 /* GET endpoints */
 
+$app->post('/share-button', ['uses' => 'AjaxController@shareButton']);
 $app->get('/google', ['as' => 'google', 'uses' => 'UserController@google']);
 $app->get('/googlecallback', ['as' => 'googlecallback', 'uses' => 'UserController@googleCallback']);
 

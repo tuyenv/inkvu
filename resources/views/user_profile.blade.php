@@ -342,9 +342,9 @@
                             @endif
                             <div class="card-footer">
                                 <div class="share-buttons">
-                                    <a target="_blank" onclick="gaShareButtonEvent('Facebook', '{{$link->creator}}/{{$link->short_url}}');" href="https://www.facebook.com/sharer/sharer.php?u=http://ink.vu/{{$link->creator}}/{{$link->short_url}}"><i id="social-fb" class="fa fa-facebook-square fa-2x social"></i></a>
-                                    <a target="_blank" onclick="gaShareButtonEvent('Twitter', '{{$link->creator}}/{{$link->short_url}}');" href="https://twitter.com/share?url={{urlencode($link->fullUrl())}}"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
-                                    <a target="_blank" onclick="gaShareButtonEvent('Google', '{{$link->creator}}/{{$link->short_url}}');" href="https://plus.google.com/share?url={{urlencode($link->fullUrl())}}"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
+                                    <a class="btn-share-fb" onclick="gaShareButtonEvent('Facebook', '{{$link->creator}}/{{$link->short_url}}');" href="javascript:void(0);" data-url="http://ink.vu/{{$link->creator}}/{{$link->short_url}}" data-id="{{$link->id}}"><i id="social-fb" class="fa fa-facebook-square fa-2x social"></i></a>
+                                    <a class="btn-share-tw" onclick="gaShareButtonEvent('Twitter', '{{$link->creator}}/{{$link->short_url}}');" href="javascript:void(0);" data-url="http://ink.vu/{{$link->creator}}/{{$link->short_url}}" data-id="{{$link->id}}"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
+                                    <a class="btn-share-gg" onclick="gaShareButtonEvent('Google', '{{$link->creator}}/{{$link->short_url}}');" href="javascript:void(0);" data-url="http://ink.vu/{{$link->creator}}/{{$link->short_url}}" data-id="{{$link->id}}"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
                                 </div>
                             </div>
 
@@ -413,9 +413,9 @@
                         <div class="card-footer">
                             <div class="text-center center-block">
                                 <div class="share-buttons">
-                                    <a target="_blank" onclick="gaShareButtonEvent('Facebook', '{{$link->creator}}/{{$link->short_url}}');" href="https://www.facebook.com/sharer/sharer.php?u=http://ink.vu/{{$link->creator}}/{{$link->short_url}}"><i id="social-fb" class="fa fa-facebook-square fa-2x social"></i></a>
-                                    <a target="_blank" onclick="gaShareButtonEvent('Twitter', '{{$link->creator}}/{{$link->short_url}}');" href="https://twitter.com/share?url={{urlencode($link->fullUrl())}}"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
-                                    <a target="_blank" onclick="gaShareButtonEvent('Google', '{{$link->creator}}/{{$link->short_url}}');" href="https://plus.google.com/share?url={{urlencode($link->fullUrl())}}"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
+                                    <a class="btn-share-fb" onclick="gaShareButtonEvent('Facebook', '{{$link->creator}}/{{$link->short_url}}');" href="javascript:void(0);" data-url="http://ink.vu/{{$link->creator}}/{{$link->short_url}}" data-id="{{$link->id}}"><i id="social-fb" class="fa fa-facebook-square fa-2x social"></i></a>
+                                    <a class="btn-share-tw" onclick="gaShareButtonEvent('Twitter', '{{$link->creator}}/{{$link->short_url}}');" href="javascript:void(0);" data-url="http://ink.vu/{{$link->creator}}/{{$link->short_url}}" data-id="{{$link->id}}"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
+                                    <a class="btn-share-gg" onclick="gaShareButtonEvent('Google', '{{$link->creator}}/{{$link->short_url}}');" href="javascript:void(0);" data-url="http://ink.vu/{{$link->creator}}/{{$link->short_url}}" data-id="{{$link->id}}"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
                                 </div>
                             </div>
                         </div>

@@ -7,6 +7,7 @@ use App\Helpers\CryptoHelper;
 use App\Helpers\UserHelper;
 use App\Helpers\NotifyHelper;
 use App\Models\User;
+use App\Models\Share;
 use App\Factories\UserFactory;
 use Validator;
 use Illuminate\Support\Facades\Input;
@@ -435,6 +436,23 @@ class AjaxController extends Controller {
 
         $jsonData['code'] = 1;
         $jsonData['message'] = 'Updated!';
+        echo json_encode($jsonData);
+    }
+
+    public function shareButton(Request $request)
+    {
+        $jsonData = array('code' => 0);
+        $objShare = new Share();
+        $objShare->link_id = $request->input('publish_id');
+        $objShare->social = $request->input('social');
+        $objShare->ip = $request->ip();
+        $share = $objShare->save();
+
+        if ($share) {
+            $jsonData['data'] = $objShare->link_id;
+            $jsonData['code'] = 1;
+            $jsonData['message'] = 'OK';
+        }
         echo json_encode($jsonData);
     }
 }

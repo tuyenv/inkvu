@@ -93,6 +93,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     </script>
 </head>
 <body>
+    @include('snippets.facebook')
     @include('snippets.navbar')
     <div class="container">
     <div style="min-height: calc(100vh - 328px)">
@@ -328,14 +329,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     @yield('js')
 
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9&appId=100126226747838";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
 
 <script>window.twttr = (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0],
@@ -370,6 +363,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
         gtag('event', 'Sharebutton', {
             'event_category' : action,
             'event_label' : label
+        });
+    }
+
+    function ajaxShareButton(id, social) {
+        var data = {
+            publish_id: id,
+            social: social
+        };
+        $.ajax({
+            url: '/share-button',
+            data: data,
+            dataType: 'json',
+            type: 'POST',
+            success: function(jsonData) {
+
+            }
         });
     }
 </script>

@@ -1681,6 +1681,7 @@ label {
 
 .content-list .clipboard_owner {
     right:75px !important;
+    height: 30px;
 }
 .cl-steemit {
     margin-bottom: 20px;
