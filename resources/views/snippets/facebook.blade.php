@@ -19,7 +19,7 @@
                     object:url
                 })
             }, function(response){
-                ajaxShareButton(id, 'facebook');
+                ajaxShareButton(id, 'Facebook');
             });
         });
     };

@@ -359,11 +359,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
     gtag('config', 'UA-57622840-3');
 
-    function gaShareButtonEvent(action, label) {
+    function gaShareButtonEvent(id,action, label) {
+
         gtag('event', 'Sharebutton', {
             'event_category' : action,
             'event_label' : label
         });
+
+        if (action == 'Twitter' || action == 'Google') {
+            ajaxShareButton(id, action);
+        }
     }
 
     function ajaxShareButton(id, social) {

@@ -444,7 +444,7 @@ class AjaxController extends Controller {
         $jsonData = array('code' => 0);
         $objShare = new Share();
         $objShare->link_id = $request->input('publish_id');
-        $objShare->social = $request->input('social');
+        $objShare->social = strtolower($request->input('social'));
         $objShare->ip = $request->ip();
         $share = $objShare->save();
 
