@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Dashboard :: My Plant It</title>
+	
+	<!-- Favicon 
+	<link rel="icon" type="image/png" href="favicon.png" /> -->
+   
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    
+	<!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	
+	<!-- Font Awesome Icons -->
+	<link rel="stylesheet" type="text/css" href="css/all.min.css" /> 
+
+</head>
+
+<body>
+    
+    <!-- START Header -->
+    <nav class="navbar navbar-dark bg-dark p-1">
+        <!-- START Logo -->
+        <a class="navbar-brand" href="#">
+            <img src="images/logo.png" alt="My Plan It Logo Header">
+        </a>
+        <!-- END Logo -->
+
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="#">Sign out</a>
+            </li>
+        </ul>
+    </nav>
+    <!-- END Header -->
+    
+    <!-- START Content -->
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- START Left Side -->
+            <div class="col-sm-3 col-md-3 col-lg-2 bg-light mp-sidebar">
+                
+                <!-- START Search -->
+                <div class="py-4 px-3">
+                    <input class="form-control w-100" type="text" placeholder="Search" aria-label="Search">
+                </div>
+                <!-- END Search -->
+
+                <!-- START View Switch -->
+                <div class="mp-link-map-group-btn pb-4 px-3">
+                    <div class="btn-group w-100" role="group">
+                        <button type="button" class="mp-link-btn btn btn-secondary active">List</button>
+                        <button type="button" class="mp-map-btn btn btn-secondary">Map</button>
+                    </div>
+                </div>
+                <!-- END View Switch -->
+                
+                <!-- START Left Agent List -->
+                <div>
+                    <a href="#" class="mp-left-agent active">
+                        <img src="images/agnet-pic-01.png" class="rounded-circle mp-left-agent-img" alt="Agnet 1">
+                        Jhon Smith <br><span>25 Showing</span>
+                    </a>
+                    <a href="#" class="mp-left-agent">
+                        <img src="images/agnet-pic-02.png" class="rounded-circle mp-left-agent-img" alt="Agnet 2">
+                        Maria Joseph <br><span>3 Showing</span>
+                    </a>
+                    <a href="#" class="mp-left-agent">
+                        <img src="images/agnet-pic-03.png" class="rounded-circle mp-left-agent-img" alt="Agnet 3">
+                        Sarah Ashley <br><span>2 Showing</span>
+                    </a>
+                    <a href="#" class="mp-left-agent">
+                        <img src="images/agnet-pic-04.png" class="rounded-circle mp-left-agent-img" alt="Agnet 4">
+                        Emily Michael <br><span>5 Showing</span>
+                    </a>
+                    <a href="#" class="mp-left-agent">
+                        <img src="images/agnet-pic-05.png" class="rounded-circle mp-left-agent-img" alt="Agnet 5">
+                        Prince Nathan <br><span>1 Showing</span>
+                    </a>
+                    <a href="#" class="mp-left-agent">
+                        <img src="images/agnet-pic-06.png" class="rounded-circle mp-left-agent-img" alt="Agnet 6">
+                        Danial Jordan <br><span>4 Showing</span>
+                    </a>
+                    <a href="#" class="mp-left-agent">
+                        <img src="images/agnet-pic-07.png" class="rounded-circle mp-left-agent-img" alt="Agnet 7">
+                        Chris August <br><span>3 Showing</span>
+                    </a>
+                </div>
+                <!-- END Left Agent List -->
+                
+            </div>
+            <!-- END Left Side -->
+
+            <!-- START Right Side Main -->
+            <main role="main" class="col-sm-9 col-md-9 col-lg-10">
+
+                <div class="row">
+                    <!-- START GCI Value -->
+                    <div class="mp-gci-value-cont col-md-8 m-1 m-sm-1 m-md-0">
+                        <div class="mp-gci-value-heading">GCI: $17,456</div>
+                        <div class="mp-gci-value-text">
+                            Showings selected: 25 | Value: $31,453,231
+                            <br>
+                            Avg. % of List: 95% | Avg. Conv: 10% | Avg. Commish: 2.7% 
+                        </div>
+                    </div>
+                    <!-- END GCI Value -->
+                    
+                    <!-- START Time Period -->
+                    <div class="mp-gci-value-cont col-md-4 m-1 m-sm-1 m-md-0">
+                        <div class="mp-gci-value-heading">Time Period:</div>
+                        <select class="custom-select">
+                            <option selected>Upcoming 7 days</option>
+                            <option value="1">Tomorrow</option>
+                            <option value="2">Today</option>
+                            <option value="3">Yesterday</option>
+                            <option value="4">This week to date</option>
+                            <option value="5">This month</option>
+                            <option value="6">Custom</option>
+                        </select>
+                    </div>
+                    <!-- END Time Period -->
+                </div>
+                
+                <!-- START Spreadsheet Data Table -->
+                <div class="mp-table-heading">Market Watch: Back On Market</div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover mp-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Agent Name</th>
+                                <th scope="col">Showing Date</th>
+                                <th scope="col">Showing /Open</th>
+                                <th scope="col">Primary Client</th>
+                                <th scope="col">Listing Agent</th>
+                                <th scope="col">MLS #</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">City</th>
+                                <th scope="col">Area</th>
+                                <th scope="col">Country</th>
+                                <th scope="col">Beds</th>
+                                <th scope="col">Baths</th>
+                                <th scope="col">Sqft</th>
+                                <th scope="col">$/Sqft</th>
+                                <th scope="col">Year</th>
+                                <th scope="col">Taxes</th>
+                                <th scope="col">List Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td scope="row" width="9%">Jhon Smith</td>
+                                <td width="7%">2018-04-16</td>
+                                <td width="5%">25</td>
+                                <td width="9%">Maria Joseph</td>
+                                <td width="5%">4</td>
+                                <td width="5%">3927217</td>
+                                <td width="12%">4484 New Rd</td>
+                                <td width="7%">Austin</td>
+                                <td width="5%">MAH05</td>
+                                <td width="7%">Mahoning</td>
+                                <td width="3%">2</td>
+                                <td width="5%">1 (1 0)</td>
+                                <td width="4%">720</td>
+                                <td width="3%">55.42</td>
+                                <td width="3%">1939</td>
+                                <td width="4%">509</td>
+                                <td width="7%">2017-07-28</td>
+                            </tr>
+                            <tr>
+                                <td scope="row">Maria Joseph</td>
+                                <td>2018-04-17</td>
+                                <td>20</td>
+                                <td>Jhon Smith</td>
+                                <td>8</td>
+                                <td>3924790</td>
+                                <td>4004 Burkey Rd</td>
+                                <td>Austin</td>
+                                <td>MAH05</td>
+                                <td>Mahoning</td>
+                                <td>3</td>
+                                <td>2 (1 1)</td>
+                                <td>1,896</td>
+                                <td>79.06</td>
+                                <td>1896</td>
+                                <td>1619</td>
+                                <td>2017-07-20</td>
+                            </tr>
+                            <tr>
+                                <td scope="row">Sarah Ashley</td>
+                                <td>2018-04-22</td>
+                                <td>18</td>
+                                <td>Maria Joseph</td>
+                                <td>5</td>
+                                <td>3956808</td>
+                                <td>2242 Breezewood Rd</td>
+                                <td>Austin</td>
+                                <td>MAH05</td>
+                                <td>Mahoning</td>
+                                <td>3</td>
+                                <td>2 (2 0)</td>
+                                <td>1,890</td>
+                                <td>87.25</td>
+                                <td>1969</td>
+                                <td>2046</td>
+                                <td>2017-11-15</td>
+                            </tr>
+                            <tr>
+                                <td scope="row">Emily Michael</td>
+                                <td>2018-04-18</td>
+                                <td>25</td>
+                                <td>Prince Nathan</td>
+                                <td>2</td>
+                                <td>3868083</td>
+                                <td>2290 Birch Trace Rd</td>
+                                <td>Austin</td>
+                                <td>MAH05</td>
+                                <td>Mahoning</td>
+                                <td>5</td>
+                                <td>4 (3 1)</td>
+                                <td></td>
+                                <td></td>
+                                <td>1973</td>
+                                <td>2619</td>
+                                <td>2017-01-04</td>
+                            </tr>
+                            <tr>
+                                <td scope="row">Prince Nathan</td>
+                                <td>2018-04-19</td>
+                                <td>12</td>
+                                <td>Danial Jordan</td>
+                                <td>3</td>
+                                <td>3961356</td>
+                                <td>481 Orio Ln</td>
+                                <td>Boardman</td>
+                                <td>MAH07</td>
+                                <td>Mahoning</td>
+                                <td>3</td>
+                                <td>2 (2 0)</td>
+                                <td>1,425</td>
+                                <td>53.26</td>
+                                <td>1946</td>
+                                <td>1864</td>
+                                <td>2017-11-12</td>
+                            </tr>
+                        </tbody>
+                        <thead>
+                            <tr>
+                                <th colspan="17" class="mp-table-footer">
+                                    <span><a href="#" class="mp-disabled">Previous</a> <b>•</b> <a href="#">Next</a> <b>•</b> 1-5 of 8</span>
+                                    <span>Checked 0</span>
+                                    <span><a href="#">All</a> <b>•</b> <a href="#">None</a> <b>•</b> <a href="#">Page</a></span>
+                                    <span>Display 
+                                        <select><option>Hotsheep</option><option>Spreadsheet</option><option>Excel</option></select> at 
+                                        <select><option>5</option><option>10</option><option>25</option></select> per page
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <!-- END Spreadsheet Data Table -->
+                
+                <!-- START List View -->
+                <div id="mp-list" style="display: block;">
+                    
+                    <!-- START Agent Card -->
+                    <div class="mp-card-cont">
+                        <div class="mp-card-time"><i class="far fa-clock"></i> Now </div>
+                        <div class="mp-card-image"><img src="images/home-image.jpg" width="100%" height="180" alt="home image"></div>
+                        <div class="mp-card-price">$52,790</div>
+                        <div class="mp-card-status">For Sale</div>
+                        <div class="mp-card-address">939 Winslow Ave., New Castle/4th, PA</div>
+                        <div class="mp-card-room"><span><i class="fas fa-bed"></i> 2</span><span><i class="fas fa-bath"></i> 1.5</span></div>
+                        <a class="mp-card-show-details rounded" data-toggle="collapse" data-target="#mp-card-extra1" aria-expanded="false">
+                            <i class="fas fa-angle-down mp-rotate"></i>
+                        </a>
+                        <div class="collapse" id="mp-card-extra1">
+                            <p>Nice two story home on the upper East Side with an updated furnace, central air a sun-room and alley...</p>
+                            <p>
+                                Days on Market: 73 <span class="pl-5">MLS: 1342673</span><br>
+                                Last Updated: Aug. 20, 2018<br>
+                                Brokerage: CASTLE REALY<br>
+                                Annual Taxes: $1,754
+                            </p>
+                        </div>
+                        <div class="mp-card-showing-agent">
+                            <p><b>SHOWING</b></p>
+                            <div class="mp-card-agent-lower">
+                                <img src="images/agnet-pic-01.png" class="rounded-circle" alt="Agnet 1"><br>
+                                Prince N
+                            </div>
+                            <div class="mp-card-agent-lower">
+                                <img src="images/agnet-pic-02.png" class="rounded-circle" alt="Agnet 2"><br>
+                                Danial J
+                            </div>
+                            <div class="mp-card-agent-lower">
+                                <img src="images/agnet-pic-03.png" class="rounded-circle" alt="Agnet 3"><br>
+                                Ashley M
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END Agent Card -->
+                    
+                </div>
+                <!-- END List View -->
+                
+                <!-- START Map View -->
+                <div id="mp-map" style="display: none;">
+                    <div class="mp-google-map"> <!-- Please replace this div with Google Map actual div -->
+                        <b>Google Map (Replace this div with actual Google Map div)</b>
+
+                        <!-- START Agent Card MAP -->
+                        <div class="mp-card-cont">
+                            <div class="mp-card-time"><i class="far fa-clock"></i> Now </div>
+                            <div class="mp-card-image"><img src="images/home-image.jpg" width="100%" height="180" alt="home image"></div>
+                            <div class="mp-card-price">$52,790</div>
+                            <div class="mp-card-status">For Sale</div>
+                            <div class="mp-card-address">939 Winslow Ave., New Castle/4th, PA</div>
+                            <div class="mp-card-room"><span><i class="fas fa-bed"></i> 2</span><span><i class="fas fa-bath"></i> 1.5</span></div>
+                            <a class="mp-card-show-details rounded" data-toggle="collapse" data-target="#mp-card-extra2" aria-expanded="false">
+                                <i class="fas fa-angle-down mp-rotate"></i>
+                            </a>
+                            <div class="collapse" id="mp-card-extra2">
+                                <p>Nice two story home on the upper East Side with an updated furnace, central air a sun-room and alley...</p>
+                                <p>
+                                    Days on Market: 73 <span class="pl-5">MLS: 1342673</span><br>
+                                    Last Updated: Aug. 20, 2018<br>
+                                    Brokerage: CASTLE REALY<br>
+                                    Annual Taxes: $1,754
+                                </p>
+                            </div>
+                            <div class="mp-card-showing-agent">
+                                <p><b>SHOWING</b></p>
+                                <div class="mp-card-agent-lower">
+                                    <img src="images/agnet-pic-01.png" class="rounded-circle" alt="Agnet 1"><br>
+                                    Prince N
+                                </div>
+                                <div class="mp-card-agent-lower">
+                                    <img src="images/agnet-pic-02.png" class="rounded-circle" alt="Agnet 2"><br>
+                                    Danial J
+                                </div>
+                                <div class="mp-card-agent-lower">
+                                    <img src="images/agnet-pic-03.png" class="rounded-circle" alt="Agnet 3"><br>
+                                    Ashley M
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END Agent Card MAP -->
+                        
+                    </div> 
+                </div>
+                <!-- END Map View -->
+
+            </main>
+            <!-- END Right Side Main -->
+            
+        </div>
+    </div>
+    <!-- END Content -->
+    
+	<!-- Javascripts -->
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        
+        /* START Show/hide link and map section */
+        $(".mp-link-btn").click(function(e) {
+            e.preventDefault();
+            $('#mp-map').hide('fast');
+            $('#mp-list').show('fast');
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
+            
+        });        
+        $(".mp-map-btn").click(function(e) {
+            e.preventDefault();
+            $('#mp-list').hide('fast');
+            $('#mp-map').show('fast');
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
+        });        
+        /* END Show/hide link and map section */
+        
+        /* START Show/hide agent card description */
+        $(".mp-card-show-details").on("click", function (event){
+            $(this).children("i").toggleClass('mp-down');
+        });
+        /* END Show/hide agent card description */
+
+    </script>
+    
+</body>
+</html>

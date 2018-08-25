@@ -1,0 +1,253 @@
+/* CSS Document - My Plan It */
+
+/* START Left Side */
+.mp-sidebar {
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    padding: 0px;
+}
+.mp-link-map-group-btn {
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .1);
+}
+.mp-link-btn, .mp-map-btn {
+    width: 50%;
+}
+a.mp-left-agent {
+    display: block;
+    font-size: 1.0625rem;
+    font-weight: 500;
+    background-color: #f8f9fa;
+    color: #212529;
+    padding: .75rem .5rem;
+    box-shadow: inset -1px -1px 0 rgba(0, 0, 0, .1);
+}
+a.mp-left-agent:hover {
+    color: #0056b3;
+    text-decoration: none;
+    background-color: #f3f4f5;
+}
+a.mp-left-agent.active {
+    color: #212529;
+    background-color: #eeeff0;
+}
+a.mp-left-agent span {
+    font-size: .875rem;
+    font-weight: normal;
+}
+.mp-left-agent-img {
+    float: left;
+    margin-right: .5rem;
+    border: 1px solid #dedfe0;
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    a.mp-left-agent {
+        font-size: 1rem;
+    }
+    a.mp-left-agent span {
+        font-size: .8125rem;
+    }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+    a.mp-left-agent {
+        font-size: 1.0625rem;
+    }
+    a.mp-left-agent span {
+        font-size: .875rem;
+    }
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+    a.mp-left-agent {
+        font-size: 1rem;
+    }
+    a.mp-left-agent span {
+        font-size: .8125rem;
+    }
+}
+@media (max-width: 575.98px) {
+    .mp-sidebar {
+        box-shadow: inset 0 0 0 rgba(255, 0, 0, .1);
+    }
+    a.mp-left-agent {
+        font-size: 1rem;
+        box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .1);
+    }
+    a.mp-left-agent span {
+        font-size: .875rem;
+    }
+}
+/* END Left Side */
+
+/* START GCI Value and Time Period */
+.mp-gci-value-cont {
+    background-color: #f8f9fa;
+    border: 1px solid #dedfe0;
+    border-left-color: #f8f9fa;
+    padding: .5rem 1rem 1rem 1rem;
+}
+.mp-gci-value-heading {
+    font-size: 1.375rem;
+    font-weight: 500;    
+}
+.mp-gci-value-text {
+    font-size: 1rem;
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .mp-gci-value-heading {
+        font-size: 1.3125rem;
+    }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .mp-gci-value-heading {
+        font-size: 1.25rem;
+    }
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .mp-gci-value-cont {
+        border-left-color: #dedfe0;
+    }
+    .mp-gci-value-heading {
+        font-size: 1.1875rem;
+    }
+}
+@media (max-width: 575.98px) {
+    .mp-gci-value-cont {
+        border-left-color: #dedfe0;
+    }
+    .mp-gci-value-heading {
+        font-size: 1.125rem;
+    }
+}
+/* END GCI Value and Time Period */
+
+/* START Spreadsheet Table Data */
+.mp-table-heading {
+    font-size: 1.25rem;
+    font-weight: 500;
+    padding: 1rem .5rem;
+}
+.mp-table {
+    margin-bottom: 0;
+}
+.mp-table thead th, .mp-table tbody th, .mp-table tbody td {
+    font-size: .8125rem;
+}
+.mp-table th, .mp-table td {
+    padding: .25rem;
+}
+.mp-table-footer  {
+    font-weight: normal;
+}
+.mp-table-footer a {
+    color: #007bff;
+}
+.mp-table-footer a:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
+.mp-table-footer a.mp-disabled {
+    color: gray;
+    text-decoration: none;
+    pointer-events: none;
+}
+.mp-table-footer b {
+    margin: 0 .25rem;
+}
+.mp-table-footer span {
+    margin-right: 1.5rem;
+}
+/* END Spreadsheet Table Data */
+
+/* START Agend Card Display */
+.mp-card-cont {
+    max-width: 400px;
+    border: 1px solid #5ab400;
+    padding: .5rem;
+    margin: 1rem 0;
+    background-color: #ffffff;
+}
+.mp-card-time {
+    font-size: 1.25rem;
+    padding-bottom: .5rem;
+}
+.mp-card-image {
+    width: 100%;
+    height: 180px;
+    background-color: gray;
+    text-align: center;
+}
+.mp-card-price {
+    float: left;
+    padding: .5rem 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.mp-card-status {
+    float: left;
+    margin: 1rem 1rem .5rem 1rem;
+    padding: .125rem .75rem;
+    font-size: .875rem;
+    font-weight: normal;
+    color: #ffffff;
+    background-color: #5ab400;
+    line-height: 20px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+.mp-card-address {
+    clear: both;
+}
+.mp-card-room {
+    margin: .75rem 0;
+}
+.mp-card-room span i {
+    margin-right: .5rem;
+}
+.mp-card-room span {
+    margin-right: 1.5rem;
+}
+a.mp-card-show-details {
+    display: block;
+    width: 100%;
+    height: 1.5rem;
+    margin: .5rem 0;
+    background-color: #d5d5d5;
+    text-align: center;
+    color: #212529;
+    cursor: pointer;
+}
+a.mp-card-show-details:hover {
+    background-color: #c5c5c5;
+}
+.mp-card-showing-agent{
+    overflow: hidden;
+}
+.mp-card-agent-lower {
+    width: 80px;
+    margin: 0rem .25rem .5rem .25rem;
+    float: left;
+    text-align: center;
+    font-size: .875rem;
+}
+.mp-card-agent-lower img {
+    border: 1px solid #dedfe0;
+}
+.mp-rotate {
+    -moz-transition: all .2s linear;
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
+}
+.mp-rotate.mp-down {
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+/* END Agend Card Display */
+
+/* START Map Display */
+.mp-google-map {
+    width: 100%;
+    height: 600px;
+    background: url(../images/google-map.png) no-repeat center center;
+    margin: 1rem 0;
+}
+/* END Map Display */
