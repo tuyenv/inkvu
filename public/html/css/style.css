@@ -81,39 +81,76 @@ a.mp-left-agent span {
     background-color: #f8f9fa;
     border: 1px solid #dedfe0;
     border-left-color: #f8f9fa;
-    padding: .5rem 1rem 1rem 1rem;
+    padding: .5rem 1rem .5rem 1rem;
+}
+.mp-gci-value-box {
+    flex: 1;
+    background: #ffffff;
+    float: left;
+    border: 1px solid #dedfe0;
+    width: 50%;
+    padding: .5rem;
 }
 .mp-gci-value-heading {
-    font-size: 1.375rem;
-    font-weight: 500;    
+    font-size: 1.8rem;
+    font-weight: 700;
+    word-break: break-all;
 }
 .mp-gci-value-text {
     font-size: 1rem;
 }
+.mp-time-period-heading {
+    font-size: 1.375rem;
+    font-weight: 500;
+}
 @media (min-width: 992px) and (max-width: 1199.98px) {
-    .mp-gci-value-heading {
+    .mp-time-period-heading {
         font-size: 1.3125rem;
+    }
+    .mp-gci-value-heading {
+        font-size: 1.5rem;
+    }
+    .mp-gci-value-text {
+        font-size: .9375rem;
     }
 }
 @media (min-width: 768px) and (max-width: 991.98px) {
-    .mp-gci-value-heading {
+    .mp-time-period-heading {
         font-size: 1.25rem;
+    }
+    .mp-gci-value-heading {
+        font-size: 1.5rem;
+    }
+    .mp-gci-value-text {
+        font-size: .9375rem;
     }
 }
 @media (min-width: 576px) and (max-width: 767.98px) {
     .mp-gci-value-cont {
         border-left-color: #dedfe0;
     }
-    .mp-gci-value-heading {
+    .mp-time-period-heading {
         font-size: 1.1875rem;
+    }
+    .mp-gci-value-heading {
+        font-size: 1.5rem;
+    }
+    .mp-gci-value-text {
+        font-size: 1rem;
     }
 }
 @media (max-width: 575.98px) {
     .mp-gci-value-cont {
         border-left-color: #dedfe0;
     }
-    .mp-gci-value-heading {
+    .mp-time-period-heading {
         font-size: 1.125rem;
+    }
+    .mp-gci-value-heading {
+        font-size: 1.5rem;
+    }
+    .mp-gci-value-text {
+        font-size: 1rem;
     }
 }
 /* END GCI Value and Time Period */
