@@ -51,6 +51,9 @@ class LinkController extends Controller {
         } else if (strpos($long_url, 'instagram.com') !== FALSE) {
             $this->getInstagramData($long_url, $data);
 
+        } else if (strpos($long_url, 'shopwrex.com') !== FALSE) {
+            $this->getShowWrexData($long_url, $data);
+
         } else {
             $isStats = 0;
             $domParser = HtmlDomParser::file_get_html($long_url);
@@ -317,6 +320,61 @@ class LinkController extends Controller {
             }
         } catch (\Exception $e) {
             return self::renderError($e->getMessage());
+        }
+    }
+
+    private function getShowWrexData($long_url, &$data)
+    {
+        $domParser = HtmlDomParser::file_get_html($long_url);
+        if (!empty($domParser)) {
+
+            // title
+            $arrFindTitleElement = array('h1.product_title');
+            foreach ($arrFindTitleElement as $find) {
+                $titleElement = $domParser->find($find, 0);
+                if (!empty($titleElement)) {
+                    $title = $titleElement->plaintext;
+                    if (empty($image)) {
+                        $title = html_entity_decode(removeHtmlScript($titleElement->plaintext));
+                    }
+                    $data['title'] = $title;
+                    break;
+                }
+            }
+
+            // description
+            $arrFindDescElement = array('#tab-description');
+            foreach ($arrFindDescElement as $find) {
+                $descElement = $domParser->find($find, 0);
+                if (!empty($descElement)) {
+                    $description = html_entity_decode(removeHtmlScript($descElement->plaintext));
+                    $data['description'] = $description;
+                    break;
+                }
+            }
+
+            // image
+            $image = '';
+            $arrFindImageElement = array('.woocommerce-product-gallery__image img');
+            foreach ($arrFindImageElement as $find) {
+                $imageElement = $domParser->find($find, 0);
+                if (!empty($imageElement)) {
+                    $image = $imageElement->src;
+                }
+            }
+
+            if (!empty($image) && strpos($image, 'http') === FALSE) {
+                $image = rtrim($long_url, "/") . '/' . ltrim($image, "/");
+                if (strpos($image, '..') !== FALSE) {
+                    $image = $this->correctMediaUrl($image);
+                }
+            }
+
+            $data['image'] = $image;
+
+
+            $domParser->clear();
+            unset($domParser);
         }
     }
 

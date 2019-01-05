@@ -37,3 +37,17 @@ function renderSteemitTag($tags) {
 
     }
 }
+
+
+function removeHtmlScript($str)
+{
+    $REGEX_REMOVE_HTML_ATTRIBUTE = '/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i';
+    $REGEX_REPLACE_HTML_ATTRIBUTE = '<$1$2>';
+    $str = htmlspecialchars_decode($str, ENT_QUOTES);
+    $str = preg_replace('!\s+!', ' ', trim($str));
+    $str = preg_replace($REGEX_REMOVE_HTML_ATTRIBUTE, $REGEX_REPLACE_HTML_ATTRIBUTE, $str);
+    $str = trim(preg_replace('#<script(.*?)>(.*?)</script>#is', '', $str));
+    $str = preg_replace('/(\s+|^)@\S+/', '', $str);
+
+    return $str;
+}
