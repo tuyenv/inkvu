@@ -35,7 +35,7 @@
 
 	<div class="container">
 		<div class="message">
-			<img width="200" src="http://beta.ink.vu/wp-content/uploads/2017/04/inkvu-03.png" alt="Ink.vu" />
+			<img width="200" src="http://beta.ink.vu/wp-content/uploads/2017/04/inkvu-03.png" alt="{{env('APP_ADDRESS')}}" />
 			<br>
 			<a href="/instagram" class="button btn btn-primary btn-lg"><i class="fa fa-instagram" aria-hidden="true"></i>&nbsp;&nbsp;Login with Instagram</a>
 			<a href="/google" class="button btn btn-primary btn-lg"><i class="fa fa-google" aria-hidden="true"></i>&nbsp;&nbsp;Login with Google</a>

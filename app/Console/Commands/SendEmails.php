@@ -59,7 +59,7 @@ class SendEmails extends Command
                 }
 
                 Mail::send('emails.notification', ['linkObj' => $linkObj], function ($m) use ($obj) {
-                    $m->from('notification@ink.vu', 'Inkvu Notification');
+                    $m->from('notification@ink.vu', 'Notification');
                     $m->to($obj->email, $obj->email)->subject('Your subscribed user published new url');
                 });
 

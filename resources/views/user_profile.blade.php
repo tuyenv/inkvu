@@ -59,7 +59,7 @@
                                             <p>Customize link</p>
                                             <div>
                                                 <div class='custom-link-text'>
-                                                    <h4 class='site-url-field'>ink.vu/{{session('username')}}/</h4>
+                                                    <h4 class='site-url-field'>{{env('APP_ADDRESS')}}/{{session('username')}}/</h4>
                                                     <input name="custom-ending" type='text' autocomplete="off" class='form-control custom-url-field' name='custom-ending' />
                                                 </div>
                                                 <a href='#' data-popup="0" class='btn btn-success btn-xs check-btn check-link-availability'>Check Availability</a>
@@ -323,7 +323,7 @@
                             @endif
                         </div>
                         <div class="content content-popup">
-                            <a style="position: absolute;right: 10px;" target="_blank" href="{{$link->fullUrl()}}"><img width="60" src="http://beta.ink.vu/wp-content/uploads/2017/04/inkvu-03.png" alt="Ink.vu"></a>
+                            <a style="position: absolute;right: 10px;" target="_blank" href="{{$link->fullUrl()}}"><img width="60" src="http://beta.ink.vu/wp-content/uploads/2017/04/inkvu-03.png" alt="{{env('APP_ADDRESS')}}"></a>
                             <h6>{{$link->created_at}}</h6>
                             <h4 class="linktitle"><a target="_blank" href="{{$link->long_url}}">{{$link->title}}</a></h4>
                             <p class="short-desc">{{$link->description}}</p>
@@ -414,7 +414,7 @@
                             <div class="text-center center-block">
                                 <div class="share-buttons">
                                     <a class="btn-share-fb" onclick="gaShareButtonEvent({{$link->id}}, 'Facebook', '{{$link->creator}}/{{$link->short_url}}');" href="javascript:void(0);" data-url="{{env('APP_PROTOCOL') . env('APP_ADDRESS')}}/{{$link->creator}}/{{$link->short_url}}" data-id="{{$link->id}}"><i id="social-fb" class="fa fa-facebook-square fa-2x social"></i></a>
-                                    <a target="_blank" class="btn-share-tw" onclick="gaShareButtonEvent({{$link->id}}, 'Twitter', '{{$link->creator}}/{{$link->short_url}}');" href="https://twitter.com/intent/tweet?url={{env('APP_PROTOCOL') . env('APP_ADDRESS')}}/{{$link->creator}}/{{$link->short_url}}" data-url="http://ink.vu/{{$link->creator}}/{{$link->short_url}}" data-id="{{$link->id}}"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
+                                    <a target="_blank" class="btn-share-tw" onclick="gaShareButtonEvent({{$link->id}}, 'Twitter', '{{$link->creator}}/{{$link->short_url}}');" href="https://twitter.com/intent/tweet?url={{env('APP_PROTOCOL') . env('APP_ADDRESS')}}/{{$link->creator}}/{{$link->short_url}}" data-url="http://{{env('APP_ADDRESS')}}/{{$link->creator}}/{{$link->short_url}}" data-id="{{$link->id}}"><i id="social-tw" class="fa fa-twitter-square fa-2x social"></i></a>
                                     <a target="_blank" class="btn-share-gg" onclick="gaShareButtonEvent({{$link->id}}, 'Google', '{{$link->creator}}/{{$link->short_url}}');" href="https://plus.google.com/share?url={{env('APP_PROTOCOL') . env('APP_ADDRESS')}}/{{$link->creator}}/{{$link->short_url}}" data-url="{{env('APP_PROTOCOL') . env('APP_ADDRESS')}}/{{$link->creator}}/{{$link->short_url}}" data-id="{{$link->id}}"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
                                 </div>
                             </div>

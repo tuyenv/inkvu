@@ -91,6 +91,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
             return true;
         }
     </script>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/img/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/img/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/img/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
 </head>
 <body>
     @include('snippets.facebook')
@@ -110,7 +128,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                             <h4 class="js-title-step"></h4>
                         </div>
                         <div class="modal-hide">
-                            <div class="row hide" data-step="1" data-title="Welcome to Ink.vu, Joe!">
+                            <div class="row hide" data-step="1" data-title="Welcome to Wrex.me">
                                 <div class="well">
                                     <center><img src="{{$user->profile_picture_url}}" alt="yourprofile" style="width:30%;"></center>
                                     <div class="tutorial-text">
@@ -122,7 +140,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                                 <div class="well">
                                     <center><img src="{{$user->profile_picture_url}}" style="width: 100%;" alt="yourprofile"></center>
                                     <div class="tutorial-text">
-                                        <center><p style="font-size:18px;">Instagram makes link sharing a pain. Stop sharing content that people can't find on Instagram and start tracking clicks with Ink.vu!</p></center>
+                                        <center><p style="font-size:18px;">Instagram makes link sharing a pain. Stop sharing content that people can't find on Instagram and start tracking clicks with Wrex.me!</p></center>
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +219,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                                                     <p>Customize link</p>
                                                     <div>
                                                         <div class='custom-link-text'>
-                                                            <h4 class='site-url-field'>ink.vu/{{session('username')}}/</h4>
+                                                            <h4 class='site-url-field'>{{env('APP_ADDRESS')}}/{{session('username')}}/</h4>
                                                             <input name="custom-ending" type='text' autocomplete="off" class='form-control custom-url-field-popup' name='custom-ending' />
                                                         </div>
                                                         <a href='#' data-popup="1" class='btn btn-success btn-xs check-btn check-link-availability'>Check Availability</a>
@@ -265,7 +283,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
                 <li><a href="#">Contact us</a></li>
                 <li><a href="#">Terms of service</a></li>
             </ul>
-            <p class="footer-copyright">© 2017 Ink.vu</p>
+            <p class="footer-copyright">© 2017 Wrex.me</p>
         </div>
         <div class="footer-social">
             <a href="#" class="social-icons"><i class="fa fa-facebook"></i></a>

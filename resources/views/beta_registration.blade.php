@@ -1,6 +1,6 @@
 <div class="container">
     <div class="message">
-        <img width="200" src="http://beta.ink.vu/wp-content/uploads/2017/04/inkvu-03.png" alt="Ink.vu">
+        <img width="200" src="http://beta.ink.vu/wp-content/uploads/2017/04/inkvu-03.png" alt="{{env('APP_ADDRESS')}}">
         <h3>Almost done...</h3>
         <form id="login-form" action="/save-user" method="post" role="form" style="display: block;">
             <input type="hidden" name='_token' value='{{csrf_token()}}' />
@@ -17,7 +17,7 @@
                 <input type="checkbox" tabindex="3" class="" name="keep_notified" id="remember" checked>
                 <label for="remember">Keep me notified via email with launch updates</label>
             </div>
-            <p>By clicking through, I agree to the Ink.Vu Terms &amp; Privacy Policy</p>
+            <p>By clicking through, I agree to the {{env('APP_ADDRESS')}} Terms &amp; Privacy Policy</p>
             <button type="submit" class="button btn btn-primary btn-lg" style="width:100%;">COMPLETE SIGNUP</button>
         <form>
     </div>

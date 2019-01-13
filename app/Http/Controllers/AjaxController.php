@@ -376,7 +376,7 @@ class AjaxController extends Controller {
 
             $email = $request->input('email');
             Mail::send('emails.verify_email', ['randomNumber' => $randomNumber], function ($m) use ($email) {
-                $m->from('notification@ink.vu', 'Inkvu Notification');
+                $m->from('notification@ink.vu', 'Notification');
                 $m->to($email, $email)->subject('Subscribed verify email');
             });
 

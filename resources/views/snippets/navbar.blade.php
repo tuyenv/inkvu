@@ -9,7 +9,7 @@
 
         <!-- Output sign in/sign out buttons appropriately -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="{{ route('index') }}"><img width="120" src="http://beta.ink.vu/wp-content/uploads/2017/04/inkvu-03.png" alt="Ink.vu" /></a>
+            <a class="navbar-brand" href="{{ route('index') }}"><img width="120" src="http://beta.ink.vu/wp-content/uploads/2017/04/inkvu-03.png" alt="{{env('APP_ADDRESS')}}" /></a>
         </div>
 
         <ul id="navbar" class="nav navbar-collapse collapse navbar-nav" id="nbc">
